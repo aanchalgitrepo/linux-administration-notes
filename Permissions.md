@@ -884,3 +884,389 @@ Removes execute permission from all users.
 - Symbolic mode is useful when changing a specific permission.
 - Avoid using `777` unless absolutely necessary because it creates security risks.
 - `755` and `644` are the most commonly used permission sets in Linux systems.
+
+# chmod Practical Examples (Part 2A.2A)
+
+The following examples demonstrate how to use the `chmod` command in real-world Linux administration.
+
+---
+
+# Example 1: Give Full Permissions to Everyone
+
+## Command
+
+```bash
+chmod 777 file.txt
+```
+
+### Explanation
+
+- Owner → Read, Write, Execute
+- Group → Read, Write, Execute
+- Others → Read, Write, Execute
+
+Permission becomes:
+
+```
+rwxrwxrwx
+```
+
+### Expected Output
+
+```bash
+ls -l file.txt
+```
+
+```text
+-rwxrwxrwx 1 user user 0 Jul 17 10:00 file.txt
+```
+
+### Real-World Use Case
+
+Used only for testing purposes.
+
+⚠️ **Not recommended** in production because anyone can modify or delete the file.
+
+---
+
+# Example 2: Give Owner Full Access and Others Read & Execute
+
+## Command
+
+```bash
+chmod 755 script.sh
+```
+
+### Explanation
+
+Owner:
+
+- Read
+- Write
+- Execute
+
+Group:
+
+- Read
+- Execute
+
+Others:
+
+- Read
+- Execute
+
+Permission becomes:
+
+```
+rwxr-xr-x
+```
+
+### Expected Output
+
+```bash
+ls -l script.sh
+```
+
+```text
+-rwxr-xr-x 1 user user 520 Jul 17 10:15 script.sh
+```
+
+### Real-World Use Case
+
+Most commonly used for:
+
+- Shell scripts
+- Website directories
+- Executable programs
+
+---
+
+# Example 3: Give Owner Read & Write Only
+
+## Command
+
+```bash
+chmod 600 secret.txt
+```
+
+### Explanation
+
+Owner:
+
+- Read
+- Write
+
+Group:
+
+- No Permission
+
+Others:
+
+- No Permission
+
+Permission becomes:
+
+```
+rw-------
+```
+
+### Expected Output
+
+```bash
+ls -l secret.txt
+```
+
+```text
+-rw------- 1 user user 120 Jul 17 10:20 secret.txt
+```
+
+### Real-World Use Case
+
+Used for:
+
+- Password files
+- SSH private keys
+- Confidential documents
+
+---
+
+# Example 4: Read-Only File
+
+## Command
+
+```bash
+chmod 444 notes.txt
+```
+
+### Explanation
+
+Everyone can read the file.
+
+No one can modify or execute it.
+
+Permission becomes:
+
+```
+r--r--r--
+```
+
+### Expected Output
+
+```bash
+-r--r--r-- 1 user user 200 Jul 17 10:25 notes.txt
+```
+
+### Real-World Use Case
+
+Used for:
+
+- Public documentation
+- Manuals
+- Read-only reports
+
+---
+
+# Example 5: Add Execute Permission to Owner
+
+## Command
+
+```bash
+chmod u+x script.sh
+```
+
+### Explanation
+
+- `u` = Owner
+- `+` = Add
+- `x` = Execute
+
+Only the owner gets execute permission.
+
+### Expected Output
+
+Before:
+
+```text
+-rw-r--r--
+```
+
+After:
+
+```text
+-rwxr--r--
+```
+
+### Real-World Use Case
+
+Used when a shell script needs to be executed by its owner.
+
+---
+
+# Example 6: Remove Write Permission from Group
+
+## Command
+
+```bash
+chmod g-w project.txt
+```
+
+### Explanation
+
+- `g` = Group
+- `-` = Remove
+- `w` = Write
+
+The group can no longer modify the file.
+
+### Expected Output
+
+Before:
+
+```text
+-rw-rw-r--
+```
+
+After:
+
+```text
+-rw-r--r--
+```
+
+### Real-World Use Case
+
+Useful when team members should only read project files.
+
+---
+
+# Example 7: Give Read Permission to Others
+
+## Command
+
+```bash
+chmod o+r file.txt
+```
+
+### Explanation
+
+Adds read permission for all other users.
+
+### Expected Output
+
+Before:
+
+```text
+-rw-r-----
+```
+
+After:
+
+```text
+-rw-r--r--
+```
+
+### Real-World Use Case
+
+Useful when sharing documents with all users.
+
+---
+
+# Example 8: Remove Execute Permission from Everyone
+
+## Command
+
+```bash
+chmod a-x script.sh
+```
+
+### Explanation
+
+- `a` = All users
+- `-` = Remove
+- `x` = Execute
+
+Nobody can execute the file.
+
+### Expected Output
+
+Before:
+
+```text
+-rwxr-xr-x
+```
+
+After:
+
+```text
+-rw-r--r--
+```
+
+### Real-World Use Case
+
+Used to prevent accidental execution of scripts.
+
+---
+
+# Example 9: Assign Read and Write Permission to Owner Only
+
+## Command
+
+```bash
+chmod u=rw file.txt
+```
+
+### Explanation
+
+Owner gets:
+
+- Read
+- Write
+
+Execute permission is removed.
+
+### Expected Output
+
+```text
+-rw-r--r--
+```
+
+### Real-World Use Case
+
+Used for text files that only the owner should edit.
+
+---
+
+# Example 10: Change Permissions Recursively
+
+## Command
+
+```bash
+chmod -R 755 project/
+```
+
+### Explanation
+
+- `-R` = Recursive
+- Applies the permission to the directory and all files/subdirectories inside it.
+
+### Expected Output
+
+```bash
+ls -l project
+```
+
+All files and directories inside `project/` will have updated permissions.
+
+### Real-World Use Case
+
+Used when deploying a website or application so that all project files have consistent permissions.
+
+---
+
+# Key Learning Points
+
+- Use `755` for executable scripts and directories.
+- Use `644` for normal files.
+- Use `600` for confidential files.
+- Avoid `777` in production systems.
+- Use symbolic mode (`u+x`, `g-w`, `o+r`) when changing specific permissions.
+- Use `-R` carefully because it changes permissions for every file and directory inside the specified path.
