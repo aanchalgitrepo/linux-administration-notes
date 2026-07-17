@@ -1270,3 +1270,393 @@ Used when deploying a website or application so that all project files have cons
 - Avoid `777` in production systems.
 - Use symbolic mode (`u+x`, `g-w`, `o+r`) when changing specific permissions.
 - Use `-R` carefully because it changes permissions for every file and directory inside the specified path.
+
+# chmod Practice Exercises & Screenshot Guide (Part 2A.3)
+
+This section contains hands-on exercises to help you practice the `chmod` command. Perform these exercises in your Linux terminal and capture screenshots for your GitHub repository.
+
+---
+
+# Practice Exercise 1: Create a Test File
+
+## Command
+
+```bash
+touch file1.txt
+```
+
+### Verify
+
+```bash
+ls -l file1.txt
+```
+
+### Expected Output
+
+```text
+-rw-r--r-- 1 user user 0 Jul 17 10:00 file1.txt
+```
+
+---
+
+# Practice Exercise 2: Change Permission to 777
+
+## Command
+
+```bash
+chmod 777 file1.txt
+```
+
+### Verify
+
+```bash
+ls -l file1.txt
+```
+
+### Expected Output
+
+```text
+-rwxrwxrwx 1 user user 0 Jul 17 10:05 file1.txt
+```
+
+---
+
+# Practice Exercise 3: Change Permission to 755
+
+## Command
+
+```bash
+chmod 755 file1.txt
+```
+
+### Verify
+
+```bash
+ls -l file1.txt
+```
+
+### Expected Output
+
+```text
+-rwxr-xr-x 1 user user 0 Jul 17 10:10 file1.txt
+```
+
+---
+
+# Practice Exercise 4: Change Permission to 644
+
+## Command
+
+```bash
+chmod 644 file1.txt
+```
+
+### Verify
+
+```bash
+ls -l file1.txt
+```
+
+### Expected Output
+
+```text
+-rw-r--r-- 1 user user 0 Jul 17 10:15 file1.txt
+```
+
+---
+
+# Practice Exercise 5: Change Permission to 600
+
+## Command
+
+```bash
+chmod 600 file1.txt
+```
+
+### Verify
+
+```bash
+ls -l file1.txt
+```
+
+### Expected Output
+
+```text
+-rw------- 1 user user 0 Jul 17 10:20 file1.txt
+```
+
+---
+
+# Practice Exercise 6: Add Execute Permission to Owner
+
+## Command
+
+```bash
+chmod u+x file1.txt
+```
+
+### Verify
+
+```bash
+ls -l file1.txt
+```
+
+### Expected Output
+
+```text
+-rwx------ 1 user user 0 Jul 17 10:25 file1.txt
+```
+
+---
+
+# Practice Exercise 7: Remove Write Permission from Group
+
+## Command
+
+```bash
+chmod g-w file1.txt
+```
+
+### Verify
+
+```bash
+ls -l file1.txt
+```
+
+Observe how the group write permission changes.
+
+---
+
+# Practice Exercise 8: Give Read Permission to Others
+
+## Command
+
+```bash
+chmod o+r file1.txt
+```
+
+### Verify
+
+```bash
+ls -l file1.txt
+```
+
+---
+
+# Practice Exercise 9: Remove Execute Permission from Everyone
+
+## Command
+
+```bash
+chmod a-x file1.txt
+```
+
+### Verify
+
+```bash
+ls -l file1.txt
+```
+
+---
+
+# Practice Exercise 10: Recursive Permission Change
+
+## Step 1: Create a Directory
+
+```bash
+mkdir project
+```
+
+## Step 2: Create Files
+
+```bash
+touch project/file1.txt
+touch project/file2.txt
+```
+
+## Step 3: Apply Permissions Recursively
+
+```bash
+chmod -R 755 project
+```
+
+## Step 4: Verify
+
+```bash
+ls -l project
+```
+
+---
+
+# Screenshot Guide
+
+Capture screenshots of the following commands and their outputs.
+
+### Screenshot 1
+
+```bash
+ls -l file1.txt
+```
+
+Suggested filename:
+
+```text
+chmod-before.png
+```
+
+---
+
+### Screenshot 2
+
+```bash
+chmod 777 file1.txt
+ls -l file1.txt
+```
+
+Suggested filename:
+
+```text
+chmod-777.png
+```
+
+---
+
+### Screenshot 3
+
+```bash
+chmod 755 file1.txt
+ls -l file1.txt
+```
+
+Suggested filename:
+
+```text
+chmod-755.png
+```
+
+---
+
+### Screenshot 4
+
+```bash
+chmod 644 file1.txt
+ls -l file1.txt
+```
+
+Suggested filename:
+
+```text
+chmod-644.png
+```
+
+---
+
+### Screenshot 5
+
+```bash
+chmod 600 file1.txt
+ls -l file1.txt
+```
+
+Suggested filename:
+
+```text
+chmod-600.png
+```
+
+---
+
+### Screenshot 6
+
+```bash
+chmod u+x file1.txt
+ls -l file1.txt
+```
+
+Suggested filename:
+
+```text
+chmod-u-plus-x.png
+```
+
+---
+
+### Screenshot 7
+
+```bash
+chmod g-w file1.txt
+ls -l file1.txt
+```
+
+Suggested filename:
+
+```text
+chmod-g-minus-w.png
+```
+
+---
+
+### Screenshot 8
+
+```bash
+chmod o+r file1.txt
+ls -l file1.txt
+```
+
+Suggested filename:
+
+```text
+chmod-o-plus-r.png
+```
+
+---
+
+### Screenshot 9
+
+```bash
+chmod a-x file1.txt
+ls -l file1.txt
+```
+
+Suggested filename:
+
+```text
+chmod-a-minus-x.png
+```
+
+---
+
+### Screenshot 10
+
+```bash
+chmod -R 755 project
+ls -l project
+```
+
+Suggested filename:
+
+```text
+chmod-recursive.png
+```
+
+---
+
+# Common Mistakes to Avoid
+
+- Do not use `777` on production servers unless absolutely necessary.
+- Verify permissions using `ls -l` after every `chmod` command.
+- Use `-R` carefully because it changes permissions for all files and subdirectories.
+- Ensure you have the required ownership or use `sudo` if needed.
+- Avoid changing permissions on critical system files without understanding the impact.
+
+---
+
+# Summary
+
+After completing these exercises, you should be able to:
+
+- Change file permissions using numeric mode.
+- Change file permissions using symbolic mode.
+- Apply permissions recursively.
+- Verify permission changes using `ls -l`.
+- Capture professional screenshots for your GitHub documentation.
