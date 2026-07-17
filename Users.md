@@ -87,6 +87,9 @@ cat /etc/passwd
 | adduser | Create a new user (interactive) |
 | usermod | Modify a user |
 | userdel | Delete a user |
+| sudo userdel -r demo | Delete user with home directory|
+| ls -ld /home/demo | Check home directory |
+| sudo rm -rf /home/demo | To remove a user's home directory after the user account has been deleted |
 | passwd | Set or change password |
 | id | Display UID and GID |
 | whoami | Display current user |
