@@ -1660,3 +1660,340 @@ After completing these exercises, you should be able to:
 - Apply permissions recursively.
 - Verify permission changes using `ls -l`.
 - Capture professional screenshots for your GitHub documentation.
+
+# chmod Practical Examples (Part 2A.2B)
+
+This section covers more practical examples of the `chmod` command used in Linux system administration.
+
+---
+
+# Example 11: Give Read Permission to Group
+
+## Command
+
+```bash
+chmod g+r report.txt
+```
+
+### Explanation
+
+- `g` = Group
+- `+` = Add
+- `r` = Read
+
+Adds read permission to the group.
+
+### Expected Output
+
+Before
+
+```text
+-rw------- report.txt
+```
+
+After
+
+```text
+-rw-r----- report.txt
+```
+
+### Real-World Use Case
+
+Useful when team members need to view reports but should not modify them.
+
+---
+
+# Example 12: Remove Read Permission from Others
+
+## Command
+
+```bash
+chmod o-r confidential.txt
+```
+
+### Explanation
+
+Removes read permission from all other users.
+
+### Expected Output
+
+Before
+
+```text
+-rw-r--r--
+```
+
+After
+
+```text
+-rw-r-----
+```
+
+### Real-World Use Case
+
+Used to protect confidential company documents.
+
+---
+
+# Example 13: Add Write Permission to Owner
+
+## Command
+
+```bash
+chmod u+w notes.txt
+```
+
+### Explanation
+
+Allows the owner to edit the file.
+
+### Expected Output
+
+Before
+
+```text
+-r--r--r--
+```
+
+After
+
+```text
+-rw-r--r--
+```
+
+### Real-World Use Case
+
+Useful when a read-only file needs to be updated by its owner.
+
+---
+
+# Example 14: Remove Execute Permission from Owner
+
+## Command
+
+```bash
+chmod u-x script.sh
+```
+
+### Explanation
+
+Removes execute permission from the file owner.
+
+### Expected Output
+
+Before
+
+```text
+-rwxr-xr-x
+```
+
+After
+
+```text
+-rw-r-xr-x
+```
+
+### Real-World Use Case
+
+Prevents accidental execution of scripts during maintenance.
+
+---
+
+# Example 15: Give Read and Execute Permission to Group
+
+## Command
+
+```bash
+chmod g=rx app.sh
+```
+
+### Explanation
+
+The group receives only:
+
+- Read
+- Execute
+
+Write permission is removed.
+
+### Expected Output
+
+```text
+-rwxr-x---
+```
+
+### Real-World Use Case
+
+Allows developers to run scripts without modifying them.
+
+---
+
+# Example 16: Give Everyone Read Permission
+
+## Command
+
+```bash
+chmod a+r document.txt
+```
+
+### Explanation
+
+Adds read permission for:
+
+- Owner
+- Group
+- Others
+
+### Expected Output
+
+```text
+-r--r--r--
+```
+
+### Real-World Use Case
+
+Useful for manuals, documentation, and public reports.
+
+---
+
+# Example 17: Remove All Permissions from Others
+
+## Command
+
+```bash
+chmod o= file.txt
+chmod o-rwx file.txt
+```
+
+### Explanation
+
+Removes all permissions from others.
+
+### Expected Output
+
+Before
+
+```text
+-rwxr-xr-x
+```
+
+After
+
+```text
+-rwxr-x---
+```
+
+### Real-World Use Case
+
+Prevents unauthorized users from accessing sensitive files.
+
+---
+
+# Example 18: Copy Permissions from Another File
+
+## Command
+
+```bash
+chmod --reference=file1.txt file2.txt
+```
+
+### Explanation
+
+Copies all permissions from **file1.txt** to **file2.txt**.
+
+### Expected Output
+
+If `file1.txt` has:
+
+```text
+-rwxr-xr-x
+```
+
+Then `file2.txt` will also become:
+
+```text
+-rwxr-xr-x
+```
+
+### Real-World Use Case
+
+Useful when multiple files should have identical permissions.
+
+---
+
+# Example 19: Change Permissions of an Entire Project
+
+## Command
+
+```bash
+chmod -R 755 myproject/
+```
+
+### Explanation
+
+Applies permission **755** to all files and directories inside **myproject** recursively.
+
+### Expected Output
+
+```bash
+ls -l myproject
+```
+
+All items inside the directory display updated permissions.
+
+### Real-World Use Case
+
+Commonly used while deploying web applications.
+
+---
+
+# Example 20: Secure a Private Directory
+
+## Command
+
+```bash
+chmod 700 private_folder
+```
+
+### Explanation
+
+Only the owner has:
+
+- Read
+- Write
+- Execute
+
+Group and Others have no permissions.
+
+### Expected Output
+
+```text
+drwx------ private_folder
+```
+
+### Real-World Use Case
+
+Used for:
+
+- Personal documents
+- SSH configuration
+- Backup directories
+- Sensitive application data
+
+---
+
+# Key Learning Points
+
+- Use symbolic mode for small permission changes.
+- Use numeric mode for setting complete permissions.
+- Always verify changes using:
+
+```bash
+ls -l
+```
+
+- Avoid `777` unless absolutely necessary.
+- Use `700` for private directories.
+- Use `644` for normal files.
+- Use `755` for executable scripts and directories.
+- Use recursive (`-R`) permission changes carefully because they affect all files and subdirectories.
