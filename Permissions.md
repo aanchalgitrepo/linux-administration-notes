@@ -4107,3 +4107,118 @@ umask u=rwx,g=rx,o=rx
   - `077` → Private and secure systems
   - `000` → Testing only
 - Use `umask` to enforce secure defaults and `chmod` to modify permissions after a file or directory has been created.
+
+# chmod vs umask Comparison
+
+The following table compares the `chmod` and `umask` commands. Both commands are related to Linux file permissions, but they serve different purposes.
+
+| Feature | chmod | umask |
+|---------|--------|--------|
+| **Full Form** | Change Mode | User File Creation Mask |
+| **Purpose** | Changes permissions of existing files and directories | Sets default permissions for newly created files and directories |
+| **Affects** | Existing files and directories | Only newly created files and directories |
+| **Changes Existing Files?** | ✅ Yes | ❌ No |
+| **Sets Default Permissions?** | ❌ No | ✅ Yes |
+| **Common Syntax** | `chmod 755 file.txt` | `umask 022` |
+| **Permission Type** | Numeric and Symbolic | Numeric and Symbolic |
+| **Most Common Values** | 755, 644, 600, 700, 777 | 022, 027, 077 |
+| **Verification Command** | `ls -l`, `stat` | `umask`, `umask -S`, then create a new file and check with `ls -l` |
+| **Common Use Case** | Modify permissions after a file or directory has been created | Define secure default permissions before creating files or directories |
+| **Security Impact** | Controls access to existing files and directories | Ensures secure default permissions for newly created files and directories |
+
+---
+
+# Quick Comparison
+
+## chmod
+
+- Changes permissions of **existing** files and directories.
+- Used after a file or directory has been created.
+- Supports **Numeric Mode** and **Symbolic Mode**.
+- Commonly used by Linux administrators to grant or remove access.
+
+Example:
+
+```bash
+chmod 755 script.sh
+```
+
+---
+
+## umask
+
+- Sets the **default permissions** for newly created files and directories.
+- Does **not** change permissions of existing files.
+- Helps enforce security automatically when new files are created.
+
+Example:
+
+```bash
+umask 022
+```
+
+---
+
+# Example Workflow
+
+### Step 1: Set the Default Permission Mask
+
+```bash
+umask 022
+```
+
+### Step 2: Create a New File
+
+```bash
+touch demo.txt
+```
+
+### Step 3: Check the Default Permission
+
+```bash
+ls -l demo.txt
+```
+
+Example Output:
+
+```text
+-rw-r--r-- 1 user user 0 Jul 18 11:30 demo.txt
+```
+
+---
+
+### Step 4: Modify the Existing File Permission
+
+```bash
+chmod 755 demo.txt
+```
+
+### Step 5: Verify the Updated Permission
+
+```bash
+ls -l demo.txt
+```
+
+Example Output:
+
+```text
+-rwxr-xr-x 1 user user 0 Jul 18 11:30 demo.txt
+```
+
+---
+
+# Key Difference
+
+- **`umask`** decides the **default permissions** when a new file or directory is created.
+- **`chmod`** changes the permissions **after** the file or directory has already been created.
+
+---
+
+# Interview Tip
+
+Remember this simple rule:
+
+> **`umask` = Before Creation (Default Permissions)**  
+> **`chmod` = After Creation (Modify Permissions)**
+
+This is one of the most frequently asked Linux interview questions for Technical Support, Linux Administration, AWS, Cloud, and DevOps roles.
