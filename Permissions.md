@@ -3704,3 +3704,406 @@ ls -l
 ```
 
 - Test changes using temporary files before applying them in important environments.
+
+# umask Interview Questions & Answers (Part 2B.4)
+
+This section contains frequently asked interview questions on the `umask` command. These questions are commonly asked in Linux Administration, Technical Support, System Administrator, Cloud, and DevOps interviews.
+
+---
+
+# Q1. What is umask?
+
+### Answer
+
+`umask` (User File Creation Mask) is a Linux command used to set the **default permissions** for newly created files and directories.
+
+---
+
+# Q2. What does umask stand for?
+
+### Answer
+
+**User File Creation Mask**
+
+---
+
+# Q3. Does umask change existing file permissions?
+
+### Answer
+
+No.
+
+`umask` only affects **newly created files and directories**.
+
+To change permissions of existing files, use:
+
+```bash
+chmod
+```
+
+---
+
+# Q4. What are the default permissions for new files?
+
+### Answer
+
+```text
+666
+```
+
+Permission:
+
+```text
+rw-rw-rw-
+```
+
+Files are **not executable by default**.
+
+---
+
+# Q5. What are the default permissions for new directories?
+
+### Answer
+
+```text
+777
+```
+
+Permission:
+
+```text
+rwxrwxrwx
+```
+
+---
+
+# Q6. What is the most common umask value?
+
+### Answer
+
+```text
+022
+```
+
+It creates:
+
+Files
+
+```text
+644
+```
+
+Directories
+
+```text
+755
+```
+
+---
+
+# Q7. What happens when the umask is set to 022?
+
+### Answer
+
+New File
+
+```text
+644
+```
+
+Permission:
+
+```text
+rw-r--r--
+```
+
+New Directory
+
+```text
+755
+```
+
+Permission:
+
+```text
+rwxr-xr-x
+```
+
+---
+
+# Q8. What happens when the umask is set to 077?
+
+### Answer
+
+New File
+
+```text
+600
+```
+
+Permission:
+
+```text
+rw-------
+```
+
+New Directory
+
+```text
+700
+```
+
+Permission:
+
+```text
+rwx------
+```
+
+Only the owner has access.
+
+---
+
+# Q9. What happens when the umask is set to 027?
+
+### Answer
+
+New File
+
+```text
+640
+```
+
+New Directory
+
+```text
+750
+```
+
+Group gets limited access, while others have no permissions.
+
+---
+
+# Q10. What happens when the umask is set to 000?
+
+### Answer
+
+New File
+
+```text
+666
+```
+
+New Directory
+
+```text
+777
+```
+
+This is very permissive and generally not recommended for production systems.
+
+---
+
+# Q11. How do you check the current umask?
+
+### Answer
+
+```bash
+umask
+```
+
+---
+
+# Q12. How do you display the umask in symbolic format?
+
+### Answer
+
+```bash
+umask -S
+```
+
+---
+
+# Q13. How do you set the umask to 022?
+
+### Answer
+
+```bash
+umask 022
+```
+
+---
+
+# Q14. How do you verify that the umask is working?
+
+### Answer
+
+Create a new file or directory and check its permissions.
+
+Example:
+
+```bash
+touch test.txt
+ls -l test.txt
+```
+
+---
+
+# Q15. Why are new files not executable by default?
+
+### Answer
+
+Linux creates files with a default permission of **666**, which does not include the execute (`x`) permission. This helps prevent accidental execution of newly created files.
+
+---
+
+# Q16. Which command changes the permissions of existing files?
+
+### Answer
+
+```bash
+chmod
+```
+
+---
+
+# Q17. Which command changes the default permissions of new files?
+
+### Answer
+
+```bash
+umask
+```
+
+---
+
+# Q18. Is umask permanent?
+
+### Answer
+
+No.
+
+Running `umask 022` changes the value only for the current shell session.
+
+To make it permanent, add the desired `umask` command to your shell configuration file (such as `~/.bashrc` or `~/.profile`) and reload the shell.
+
+---
+
+# Q19. Can root use umask?
+
+### Answer
+
+Yes.
+
+Both the root user and normal users can configure a `umask` value for their sessions.
+
+---
+
+# Q20. What is the difference between chmod and umask?
+
+### Answer
+
+| chmod | umask |
+|--------|--------|
+| Changes permissions of existing files and directories | Sets the default permissions for newly created files and directories |
+| Affects existing objects | Affects only new objects |
+| Used after creation | Applied during creation |
+
+---
+
+# Q21. Why is umask important?
+
+### Answer
+
+It improves security by ensuring that newly created files and directories receive appropriate default permissions without requiring manual changes.
+
+---
+
+# Q22. Which umask value is recommended for personal systems?
+
+### Answer
+
+```text
+022
+```
+
+This provides a good balance between usability and security.
+
+---
+
+# Q23. Which umask value is recommended for highly secure environments?
+
+### Answer
+
+```text
+077
+```
+
+Only the owner can access newly created files and directories.
+
+---
+
+# Q24. Can you use symbolic notation with umask?
+
+### Answer
+
+Yes.
+
+Example:
+
+```bash
+umask u=rwx,g=rx,o=rx
+```
+
+---
+
+# Q25. How do you remember the difference between chmod and umask?
+
+### Answer
+
+- **chmod** → Changes permissions of **existing** files and directories.
+- **umask** → Sets default permissions for **new** files and directories.
+
+---
+
+# umask Cheat Sheet
+
+| Command | Purpose |
+|---------|---------|
+| `umask` | Display current umask |
+| `umask -S` | Display umask in symbolic format |
+| `umask 022` | Set standard default permissions |
+| `umask 027` | Secure group collaboration |
+| `umask 077` | Owner-only access |
+| `umask 000` | No permission restrictions (testing only) |
+| `touch file.txt` | Create a new file |
+| `mkdir project` | Create a new directory |
+| `ls -l` | View file permissions |
+| `ls -ld directory` | View directory permissions |
+
+---
+
+# Common umask Values
+
+| umask | New File | New Directory | Typical Use |
+|--------|----------|---------------|-------------|
+| 000 | 666 | 777 | Testing only |
+| 022 | 644 | 755 | General Linux systems |
+| 027 | 640 | 750 | Team collaboration |
+| 077 | 600 | 700 | High-security environments |
+
+---
+
+# Summary
+
+- `umask` stands for **User File Creation Mask**.
+- It sets the **default permissions** for newly created files and directories.
+- It does **not** change existing file permissions.
+- Default permissions are:
+  - Files → `666`
+  - Directories → `777`
+- Common values:
+  - `022` → General use
+  - `027` → Team environments
+  - `077` → Private and secure systems
+  - `000` → Testing only
+- Use `umask` to enforce secure defaults and `chmod` to modify permissions after a file or directory has been created.
