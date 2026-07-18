@@ -3221,3 +3221,369 @@ screenshots/
 ├── umask-set-077.png
 ├── umask-077-file-permission.png
 └── umask-077-directory-permission.png
+
+
+# umask Practical Examples (Part 2B.2B)
+
+This section contains additional practical examples of the `umask` command used in Linux Administration.
+
+---
+
+# Example 9: Set umask to 027
+
+## Commands
+
+```bash
+umask 027
+umask
+```
+
+### Command Explanation
+
+Sets the current umask to **027**.
+
+- Owner gets full access.
+- Group gets read and execute permissions.
+- Others get no permissions.
+
+### Expected Output
+
+```text
+027
+```
+
+### Real-World Use Case
+
+Used in organizations where files should be accessible to team members but hidden from other users.
+
+---
+
+# Example 10: Create a File After Setting umask 027
+
+## Commands
+
+```bash
+umask 027
+touch report.txt
+ls -l report.txt
+```
+
+### Command Explanation
+
+Creates a file using the current umask value of **027**.
+
+### Expected Output
+
+```text
+-rw-r----- 1 user user 0 Jul 18 10:20 report.txt
+```
+
+Permission:
+
+```text
+640
+```
+
+### Real-World Use Case
+
+Suitable for company reports that the owner can edit and the group can only read.
+
+---
+
+# Example 11: Create a Directory After Setting umask 027
+
+## Commands
+
+```bash
+umask 027
+mkdir shared_project
+ls -ld shared_project
+```
+
+### Command Explanation
+
+Creates a new directory while the umask is set to **027**.
+
+### Expected Output
+
+```text
+drwxr-x--- 2 user user 4096 Jul 18 10:25 shared_project
+```
+
+Permission:
+
+```text
+750
+```
+
+### Real-World Use Case
+
+Useful for team project directories where only authorized group members should have access.
+
+---
+
+# Example 12: Set umask to 000
+
+## Commands
+
+```bash
+umask 000
+umask
+```
+
+### Command Explanation
+
+Removes all permission restrictions for newly created files and directories.
+
+### Expected Output
+
+```text
+000
+```
+
+### Real-World Use Case
+
+May be used temporarily in isolated testing environments.
+
+⚠️ Not recommended on production systems because it allows very open default permissions.
+
+---
+
+# Example 13: Create a File After Setting umask 000
+
+## Commands
+
+```bash
+umask 000
+touch public.txt
+ls -l public.txt
+```
+
+### Command Explanation
+
+Creates a file with the least restrictive default permissions.
+
+### Expected Output
+
+```text
+-rw-rw-rw- 1 user user 0 Jul 18 10:30 public.txt
+```
+
+Permission:
+
+```text
+666
+```
+
+### Real-World Use Case
+
+Useful only in controlled environments where multiple users need write access.
+
+---
+
+# Example 14: Create a Directory After Setting umask 000
+
+## Commands
+
+```bash
+umask 000
+mkdir public_data
+ls -ld public_data
+```
+
+### Command Explanation
+
+Creates a directory with full permissions for all users.
+
+### Expected Output
+
+```text
+drwxrwxrwx 2 user user 4096 Jul 18 10:35 public_data
+```
+
+Permission:
+
+```text
+777
+```
+
+### Real-World Use Case
+
+Generally avoided in production. Sometimes used for temporary shared directories in lab environments.
+
+---
+
+# Example 15: Change umask for the Current Session
+
+## Commands
+
+```bash
+umask 022
+touch demo.txt
+ls -l demo.txt
+```
+
+### Command Explanation
+
+The new umask applies only to the current shell session.
+
+### Expected Output
+
+```text
+-rw-r--r-- 1 user user 0 Jul 18 10:40 demo.txt
+```
+
+Permission:
+
+```text
+644
+```
+
+### Real-World Use Case
+
+Administrators often change the umask temporarily while working on a specific project.
+
+---
+
+# Example 16: Verify umask Before Creating Files
+
+## Commands
+
+```bash
+umask
+touch sample.txt
+ls -l sample.txt
+```
+
+### Command Explanation
+
+Checks the current umask before creating a new file.
+
+### Expected Output
+
+If the current umask is:
+
+```text
+022
+```
+
+Then:
+
+```text
+-rw-r--r-- 1 user user 0 Jul 18 10:45 sample.txt
+```
+
+### Real-World Use Case
+
+A good practice for Linux administrators to ensure new files receive the expected default permissions.
+
+---
+
+# Key Learning Points
+
+- `umask 022` is the standard default on many Linux distributions.
+- `umask 027` is useful for secure team collaboration.
+- `umask 077` provides maximum privacy for newly created files.
+- `umask 000` should be used only in controlled environments because it creates very permissive defaults.
+- Always verify the current umask with `umask` or `umask -S` before creating important files or directories.
+- Remember that `umask` affects **only newly created files and directories**. It does not change permissions of existing files.
+
+## Example 9 Screenshot
+
+```bash
+umask 027
+umask
+```
+
+Suggested Screenshot:
+`umask-set-027.png`
+
+---
+
+## Example 10 Screenshot
+
+```bash
+umask 027
+touch report.txt
+ls -l report.txt
+```
+
+Suggested Screenshot:
+`umask-027-file.png`
+
+---
+
+## Example 11 Screenshot
+
+```bash
+umask 027
+mkdir shared_project
+ls -ld shared_project
+```
+
+Suggested Screenshot:
+`umask-027-directory.png`
+
+---
+
+## Example 12 Screenshot
+
+```bash
+umask 000
+umask
+```
+
+Suggested Screenshot:
+`umask-set-000.png`
+
+---
+
+## Example 13 Screenshot
+
+```bash
+umask 000
+touch public.txt
+ls -l public.txt
+```
+
+Suggested Screenshot:
+`umask-000-file.png`
+
+---
+
+## Example 14 Screenshot
+
+```bash
+umask 000
+mkdir public_data
+ls -ld public_data
+```
+
+Suggested Screenshot:
+`umask-000-directory.png`
+
+---
+
+## Example 15 Screenshot
+
+```bash
+umask 022
+touch demo.txt
+ls -l demo.txt
+```
+
+Suggested Screenshot:
+`umask-session-demo.png`
+
+---
+
+## Example 16 Screenshot
+
+```bash
+umask
+touch sample.txt
+ls -l sample.txt
+```
+
+Suggested Screenshot:
+`umask-verify-before-create.png`
