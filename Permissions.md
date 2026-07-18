@@ -2793,3 +2793,282 @@ rwx------
 - Use `umask` to enforce secure default permissions instead of changing permissions later with `chmod`.
 
 Note: The expression "Default Permission − umask" is a learning shortcut. Internally, Linux applies the umask using bitwise masking, not ordinary arithmetic subtraction.
+
+
+# umask Practical Examples (Part 2B.2A)
+
+This section demonstrates practical examples of the `umask` command used in Linux Administration.
+
+---
+
+# Example 1: Check the Current umask Value
+
+## Command
+
+```bash
+umask
+```
+
+### Command Explanation
+
+Displays the current numeric umask value for the current shell session.
+
+### Expected Output
+
+```text
+0022
+```
+
+or
+
+```text
+022
+```
+
+### Real-World Use Case
+
+A Linux administrator checks the current umask before creating files to understand what default permissions will be applied.
+
+---
+
+# Example 2: Display umask in Symbolic Format
+
+## Command
+
+```bash
+umask -S
+```
+
+### Command Explanation
+
+Displays the current umask using symbolic notation instead of numeric values.
+
+### Expected Output
+
+```text
+u=rwx,g=rx,o=rx
+```
+
+### Real-World Use Case
+
+Useful for beginners and administrators who find symbolic permissions easier to understand.
+
+---
+
+# Example 3: Set umask to 022
+
+## Command
+
+```bash
+umask 022
+```
+
+### Command Explanation
+
+Sets the current shell's umask to **022**.
+
+Newly created files:
+
+```text
+rw-r--r--
+```
+
+Newly created directories:
+
+```text
+rwxr-xr-x
+```
+
+### Expected Output
+
+The command normally produces **no output**.
+
+Verify:
+
+```bash
+umask
+```
+
+Output:
+
+```text
+022
+```
+
+### Real-World Use Case
+
+This is the most common default umask on Linux systems because it allows users to read shared files while restricting write access.
+
+---
+
+# Example 4: Verify File Permission After Setting umask 022
+
+## Commands
+
+```bash
+umask 022
+touch file1.txt
+ls -l file1.txt
+```
+
+### Command Explanation
+
+- Set umask to `022`.
+- Create a new file.
+- Check the file permissions.
+
+### Expected Output
+
+```text
+-rw-r--r-- 1 user user 0 Jul 18 10:00 file1.txt
+```
+
+Permission:
+
+```text
+644
+```
+
+### Real-World Use Case
+
+Useful when creating configuration files that should be readable by others but writable only by the owner.
+
+---
+
+# Example 5: Verify Directory Permission After Setting umask 022
+
+## Commands
+
+```bash
+umask 022
+mkdir project
+ls -ld project
+```
+
+### Command Explanation
+
+Creates a directory after setting the umask to `022`.
+
+### Expected Output
+
+```text
+drwxr-xr-x 2 user user 4096 Jul 18 10:05 project
+```
+
+Permission:
+
+```text
+755
+```
+
+### Real-World Use Case
+
+Commonly used when creating project directories that team members need to access.
+
+---
+
+# Example 6: Set umask to 077
+
+## Command
+
+```bash
+umask 077
+```
+
+### Command Explanation
+
+Sets a restrictive umask where only the owner gets access to newly created files and directories.
+
+### Expected Output
+
+No output is displayed.
+
+Verify:
+
+```bash
+umask
+```
+
+Output:
+
+```text
+077
+```
+
+### Real-World Use Case
+
+Ideal for systems storing confidential information such as SSH keys, passwords, or private documents.
+
+---
+
+# Example 7: Create a File After Setting umask 077
+
+## Commands
+
+```bash
+umask 077
+touch secret.txt
+ls -l secret.txt
+```
+
+### Command Explanation
+
+Creates a new file while the umask is set to `077`.
+
+### Expected Output
+
+```text
+-rw------- 1 user user 0 Jul 18 10:10 secret.txt
+```
+
+Permission:
+
+```text
+600
+```
+
+### Real-World Use Case
+
+Used when creating sensitive files that should only be accessible to the owner.
+
+---
+
+# Example 8: Create a Directory After Setting umask 077
+
+## Commands
+
+```bash
+umask 077
+mkdir private_data
+ls -ld private_data
+```
+
+### Command Explanation
+
+Creates a directory with private access.
+
+### Expected Output
+
+```text
+drwx------ 2 user user 4096 Jul 18 10:15 private_data
+```
+
+Permission:
+
+```text
+700
+```
+
+### Real-World Use Case
+
+Useful for storing confidential backups, SSH configuration, certificates, or personal data.
+
+---
+
+# Key Learning Points
+
+- Use `umask` to control the default permissions of newly created files and directories.
+- `umask 022` is the most common setting for general-purpose Linux systems.
+- `umask 077` is recommended for sensitive environments where only the owner should have access.
+- Use `umask` to define secure defaults instead of manually changing permissions with `chmod` after every file creation.
+- Verify the current umask using `umask` or `umask -S`.
