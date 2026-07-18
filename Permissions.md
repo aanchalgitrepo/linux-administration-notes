@@ -2346,3 +2346,450 @@ chmod u=rw,go= filename
 - `755` is common for scripts and directories.
 - `644` is common for normal files.
 - `600` is common for confidential files.
+
+# umask Command (User File Creation Mask)
+
+## 1. Definition
+
+The `umask` (User File Creation Mask) command is used to set the default permissions for newly created files and directories in Linux.
+
+It does **not** change the permissions of existing files or directories. Instead, it defines which permission bits should be **removed** when a new file or directory is created.
+
+---
+
+# 2. Why is umask Used?
+
+The `umask` command is used to:
+
+- Set default permissions for newly created files.
+- Set default permissions for newly created directories.
+- Improve system security.
+- Prevent unauthorized access to new files.
+- Enforce organizational security policies.
+- Control default access without manually running `chmod` every time.
+
+---
+
+# 3. Syntax
+
+## Display Current umask
+
+```bash
+umask
+```
+
+---
+
+## Display umask in Symbolic Format
+
+```bash
+umask -S
+```
+
+---
+
+## Set a New umask Value
+
+```bash
+umask 022
+```
+
+---
+
+## Set umask Using Symbolic Mode
+
+```bash
+umask u=rwx,g=rx,o=rx
+```
+
+---
+
+# 4. umask Options
+
+| Option | Description |
+|---------|-------------|
+| `umask` | Displays the current umask value. |
+| `umask -S` | Displays the umask in symbolic format. |
+| `umask VALUE` | Sets a new numeric umask value. |
+| `umask u=...,g=...,o=...` | Sets the umask using symbolic notation. |
+
+---
+
+# 5. How umask Works
+
+`umask` works by **removing permissions** from the system's default permissions.
+
+Default permissions are:
+
+### New File
+
+```text
+666
+```
+
+Meaning:
+
+```
+rw-rw-rw-
+```
+
+Files are **not executable by default**.
+
+---
+
+### New Directory
+
+```text
+777
+```
+
+Meaning:
+
+```
+rwxrwxrwx
+```
+
+Directories require execute permission to allow users to enter them.
+
+---
+
+When a new file or directory is created:
+
+```
+Final Permission = Default Permission - umask
+```
+
+> **Note:** This is not simple arithmetic subtraction. The permission bits are masked (turned off) according to the umask value.
+
+---
+
+# 6. Common Numeric umask Values
+
+## umask 000
+
+### Files
+
+```
+666
+```
+
+Permission becomes:
+
+```
+rw-rw-rw-
+```
+
+### Directories
+
+```
+777
+```
+
+Permission becomes:
+
+```
+rwxrwxrwx
+```
+
+Everyone has full access (except execute is still not automatically given to files).
+
+⚠️ Not recommended for production systems.
+
+---
+
+## umask 022
+
+### Files
+
+```
+644
+```
+
+Permission:
+
+```
+rw-r--r--
+```
+
+### Directories
+
+```
+755
+```
+
+Permission:
+
+```
+rwxr-xr-x
+```
+
+✅ Most common default on Linux systems.
+
+---
+
+## umask 027
+
+### Files
+
+```
+640
+```
+
+Permission:
+
+```
+rw-r-----
+```
+
+### Directories
+
+```
+750
+```
+
+Permission:
+
+```
+rwxr-x---
+```
+
+Used in organizations where others should not access files.
+
+---
+
+## umask 077
+
+### Files
+
+```
+600
+```
+
+Permission:
+
+```
+rw-------
+```
+
+### Directories
+
+```
+700
+```
+
+Permission:
+
+```
+rwx------ 
+```
+
+Only the owner has access.
+
+Commonly used for:
+
+- SSH keys
+- Security-sensitive environments
+- Private user directories
+
+---
+
+# 7. Symbolic umask Examples
+
+Instead of numbers, `umask` also supports symbolic notation.
+
+---
+
+## Example 1
+
+```bash
+umask u=rwx,g=rx,o=rx
+```
+
+Meaning:
+
+- User → Read, Write, Execute
+- Group → Read, Execute
+- Others → Read, Execute
+
+Equivalent numeric value:
+
+```text
+022
+```
+
+---
+
+## Example 2
+
+```bash
+umask u=rwx,g=,o=
+```
+
+Meaning:
+
+- Owner has full permissions.
+- Group has no permissions.
+- Others have no permissions.
+
+Equivalent to a very restrictive mask (commonly used to achieve private access).
+
+---
+
+## Example 3
+
+```bash
+umask -S
+```
+
+Example Output
+
+```text
+u=rwx,g=rx,o=rx
+```
+
+---
+
+# 8. Default File & Directory Permissions
+
+| Object | Default Permission |
+|---------|-------------------|
+| File | 666 (rw-rw-rw-) |
+| Directory | 777 (rwxrwxrwx) |
+
+After applying umask:
+
+| umask | File | Directory |
+|--------|------|-----------|
+| 000 | 666 | 777 |
+| 022 | 644 | 755 |
+| 027 | 640 | 750 |
+| 077 | 600 | 700 |
+
+---
+
+# 9. umask Calculation Explained
+
+## Example 1
+
+Current umask:
+
+```text
+022
+```
+
+Default File Permission:
+
+```text
+666
+```
+
+Result:
+
+```text
+644
+```
+
+Permission:
+
+```text
+rw-r--r--
+```
+
+---
+
+## Example 2
+
+Current umask:
+
+```text
+022
+```
+
+Default Directory Permission:
+
+```text
+777
+```
+
+Result:
+
+```text
+755
+```
+
+Permission:
+
+```text
+rwxr-xr-x
+```
+
+---
+
+## Example 3
+
+Current umask:
+
+```text
+077
+```
+
+Default File:
+
+```text
+666
+```
+
+Result:
+
+```text
+600
+```
+
+Permission:
+
+```text
+rw-------
+```
+
+---
+
+## Example 4
+
+Current umask:
+
+```text
+077
+```
+
+Default Directory:
+
+```text
+777
+```
+
+Result:
+
+```text
+700
+```
+
+Permission:
+
+```text
+rwx------
+```
+
+---
+
+# Key Points
+
+- `umask` stands for **User File Creation Mask**.
+- It affects **only newly created files and directories**.
+- It does **not** modify existing permissions.
+- Default file permission is **666**.
+- Default directory permission is **777**.
+- The most common umask is **022**.
+- `077` provides maximum privacy by allowing access only to the owner.
+- Use `umask` to enforce secure default permissions instead of changing permissions later with `chmod`.
+
+Note: The expression "Default Permission − umask" is a learning shortcut. Internally, Linux applies the umask using bitwise masking, not ordinary arithmetic subtraction.
