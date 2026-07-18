@@ -3072,3 +3072,152 @@ Useful for storing confidential backups, SSH configuration, certificates, or per
 - `umask 077` is recommended for sensitive environments where only the owner should have access.
 - Use `umask` to define secure defaults instead of manually changing permissions with `chmod` after every file creation.
 - Verify the current umask using `umask` or `umask -S`.
+
+# Screenshot Commands
+
+## Example 1 Screenshot
+
+### Screenshot Command
+
+```bash
+umask
+```
+
+### Suggested Screenshot Name
+
+```text
+umask-current-value.png
+```
+
+---
+
+## Example 2 Screenshot
+
+### Screenshot Command
+
+```bash
+umask -S
+```
+
+### Suggested Screenshot Name
+
+```text
+umask-symbolic.png
+```
+
+---
+
+## Example 3 Screenshot
+
+### Screenshot Command
+
+```bash
+umask 022
+umask
+```
+
+### Suggested Screenshot Name
+
+```text
+umask-set-022.png
+```
+
+---
+
+## Example 4 Screenshot
+
+### Screenshot Command
+
+```bash
+umask 022
+touch file1.txt
+ls -l file1.txt
+```
+
+### Suggested Screenshot Name
+
+```text
+umask-022-file-permission.png
+```
+
+---
+
+## Example 5 Screenshot
+
+### Screenshot Command
+
+```bash
+umask 022
+mkdir project
+ls -ld project
+```
+
+### Suggested Screenshot Name
+
+```text
+umask-022-directory-permission.png
+```
+
+---
+
+## Example 6 Screenshot
+
+### Screenshot Command
+
+```bash
+umask 077
+umask
+```
+
+### Suggested Screenshot Name
+
+```text
+umask-set-077.png
+```
+
+---
+
+## Example 7 Screenshot
+
+### Screenshot Command
+
+```bash
+umask 077
+touch secret.txt
+ls -l secret.txt
+```
+
+### Suggested Screenshot Name
+
+```text
+umask-077-file-permission.png
+```
+
+---
+
+## Example 8 Screenshot
+
+### Screenshot Command
+
+```bash
+umask 077
+mkdir private_data
+ls -ld private_data
+```
+
+### Suggested Screenshot Name
+
+```text
+umask-077-directory-permission.png
+```
+
+screenshots/
+│
+├── umask-current-value.png
+├── umask-symbolic.png
+├── umask-set-022.png
+├── umask-022-file-permission.png
+├── umask-022-directory-permission.png
+├── umask-set-077.png
+├── umask-077-file-permission.png
+└── umask-077-directory-permission.png
