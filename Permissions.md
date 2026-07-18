@@ -1997,3 +1997,363 @@ ls -l
 - Use `644` for normal files.
 - Use `755` for executable scripts and directories.
 - Use recursive (`-R`) permission changes carefully because they affect all files and subdirectories.
+
+# chmod Interview Questions and Answers (Part 2A.4)
+
+This section contains frequently asked interview questions on the `chmod` command. These questions are commonly asked in Linux Administration, Technical Support, System Administrator, Cloud, and DevOps interviews.
+
+---
+
+# Q1. What is the purpose of the `chmod` command?
+
+### Answer
+
+The `chmod` (Change Mode) command is used to change the permissions of files and directories in Linux. It controls who can read, write, or execute a file or directory.
+
+---
+
+# Q2. What are the three basic Linux permissions?
+
+### Answer
+
+Linux provides three basic permissions:
+
+| Permission | Symbol | Value |
+|------------|--------|------:|
+| Read | r | 4 |
+| Write | w | 2 |
+| Execute | x | 1 |
+
+---
+
+# Q3. Who can have permissions on a file?
+
+### Answer
+
+Permissions are assigned to three categories:
+
+- Owner (User)
+- Group
+- Others
+
+---
+
+# Q4. What is the difference between Numeric Mode and Symbolic Mode?
+
+### Answer
+
+| Numeric Mode | Symbolic Mode |
+|--------------|---------------|
+| Uses numbers like 755, 644, 777 | Uses symbols like u+x, g-w, o+r |
+| Sets complete permissions at once | Adds, removes, or changes specific permissions |
+| Preferred in automation scripts | Preferred for small permission changes |
+
+---
+
+# Q5. What does `chmod 777 file.txt` do?
+
+### Answer
+
+It gives **Read, Write, and Execute** permissions to:
+
+- Owner
+- Group
+- Others
+
+Permission:
+
+```text
+rwxrwxrwx
+```
+
+⚠️ It is not recommended for production systems because everyone has full access.
+
+---
+
+# Q6. What does `chmod 755 script.sh` do?
+
+### Answer
+
+Permission becomes:
+
+```text
+rwxr-xr-x
+```
+
+- Owner → Read, Write, Execute
+- Group → Read, Execute
+- Others → Read, Execute
+
+It is commonly used for executable scripts and directories.
+
+---
+
+# Q7. What does `chmod 644 file.txt` do?
+
+### Answer
+
+Permission becomes:
+
+```text
+rw-r--r--
+```
+
+- Owner → Read, Write
+- Group → Read
+- Others → Read
+
+This is one of the most common permission settings for text and configuration files.
+
+---
+
+# Q8. What does `chmod 600 secret.txt` do?
+
+### Answer
+
+Permission becomes:
+
+```text
+rw-------
+```
+
+Only the owner can read and write the file.
+
+It is commonly used for SSH private keys, password files, and confidential documents.
+
+---
+
+# Q9. What is the purpose of the `-R` option?
+
+### Answer
+
+The `-R` (Recursive) option changes the permissions of a directory and all its files and subdirectories.
+
+Example:
+
+```bash
+chmod -R 755 project/
+```
+
+---
+
+# Q10. What does `chmod u+x script.sh` do?
+
+### Answer
+
+It adds execute permission only for the owner of the file.
+
+---
+
+# Q11. What does `chmod g-w file.txt` do?
+
+### Answer
+
+It removes write permission from the group while keeping the other permissions unchanged.
+
+---
+
+# Q12. What does `chmod o+r file.txt` do?
+
+### Answer
+
+It adds read permission for all other users.
+
+---
+
+# Q13. What does `chmod a+x script.sh` do?
+
+### Answer
+
+It gives execute permission to:
+
+- Owner
+- Group
+- Others
+
+---
+
+# Q14. Which permission is generally recommended for normal files?
+
+### Answer
+
+```text
+644
+```
+
+Because:
+
+- Owner can read and write.
+- Group can read.
+- Others can read.
+
+---
+
+# Q15. Which permission is commonly used for executable scripts?
+
+### Answer
+
+```text
+755
+```
+
+Because the owner has full access and others can execute the script.
+
+---
+
+# Q16. Why is `777` considered insecure?
+
+### Answer
+
+Because everyone can:
+
+- Read
+- Write
+- Execute
+
+This increases the risk of unauthorized access, modification, or deletion of files.
+
+---
+
+# Q17. How can you check file permissions?
+
+### Answer
+
+Use:
+
+```bash
+ls -l
+```
+
+Example output:
+
+```text
+-rwxr-xr-x script.sh
+```
+
+---
+
+# Q18. How can you verify that `chmod` changed permissions successfully?
+
+### Answer
+
+Run:
+
+```bash
+ls -l filename
+```
+
+or
+
+```bash
+stat filename
+```
+
+---
+
+# Q19. Who can change file permissions?
+
+### Answer
+
+- The file owner.
+- The root user (using `sudo`).
+
+---
+
+# Q20. Can `chmod` change file ownership?
+
+### Answer
+
+No.
+
+`chmod` changes only permissions.
+
+Ownership is changed using:
+
+```bash
+chown
+```
+
+---
+
+# Q21. What is the difference between `chmod` and `chown`?
+
+### Answer
+
+| chmod | chown |
+|--------|--------|
+| Changes file permissions | Changes file ownership |
+| Controls Read, Write, Execute permissions | Changes Owner and Group |
+
+---
+
+# Q22. Which command removes execute permission from everyone?
+
+### Answer
+
+```bash
+chmod a-x filename
+```
+
+---
+
+# Q23. Which command removes all permissions from Others?
+
+### Answer
+
+```bash
+chmod o-rwx filename
+```
+
+---
+
+# Q24. Which command gives Read and Write permission only to the Owner?
+
+### Answer
+
+```bash
+chmod 600 filename
+```
+
+or
+
+```bash
+chmod u=rw,go= filename
+```
+
+---
+
+# Q25. What are the most commonly used permission values in Linux?
+
+### Answer
+
+| Permission | Meaning | Common Use |
+|------------|---------|------------|
+| 777 | Full access for everyone | Testing only |
+| 755 | Owner full, others read & execute | Scripts, Directories |
+| 700 | Owner only | Private directories |
+| 644 | Owner read/write, others read | Normal files |
+| 600 | Owner read/write only | Sensitive files |
+
+---
+
+# Quick Revision
+
+- `chmod` = Change file or directory permissions.
+- Numeric mode uses values such as `755`, `644`, and `600`.
+- Symbolic mode uses expressions such as `u+x`, `g-w`, and `o+r`.
+- Verify permission changes using `ls -l` or `stat`.
+- Avoid using `777` on production systems.
+- `755` is common for scripts and directories.
+- `644` is common for normal files.
+- `600` is common for confidential files.
+
+##Cheatsheet
+| Command	| | Purpose |
+| chmod 755 file | |	Owner full, Group/Others read & execute |
+| chmod 644 file | |	Owner read/write, Group/Others read |
+| chmod 600 file |	| Owner read/write only |
+| chmod 700 dir | |	Private directory |
+| chmod u+x file | |	Add execute permission to owner |
+| chmod g-w file | |	Remove write permission from group |
+| chmod o+r file | |	Add read permission to others |
+| chmod -R 755 dir | |	Change permissions recursively |
