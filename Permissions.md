@@ -3587,3 +3587,120 @@ ls -l sample.txt
 
 Suggested Screenshot:
 `umask-verify-before-create.png`
+
+
+# Common Errors & Troubleshooting
+
+## Error 1: Existing File Permissions Did Not Change
+
+### Problem
+
+You changed the umask but the permissions of an existing file remain the same.
+
+### Reason
+
+`umask` only affects **newly created** files and directories.
+
+### Solution
+
+Create a new file:
+
+```bash
+touch newfile.txt
+```
+
+Or use `chmod` to change an existing file:
+
+```bash
+chmod 644 existingfile.txt
+```
+
+---
+
+## Error 2: Expected Permission Is Different
+
+### Problem
+
+The permissions are not what you expected.
+
+### Reason
+
+The current umask may be different.
+
+### Solution
+
+Check the current umask:
+
+```bash
+umask
+```
+
+---
+
+## Error 3: Forgot to Verify the Result
+
+### Problem
+
+You set the umask but did not confirm the effect.
+
+### Solution
+
+Verify by creating a file:
+
+```bash
+touch test.txt
+ls -l test.txt
+```
+
+---
+
+## Error 4: umask Changes Are Lost After Closing the Terminal
+
+### Problem
+
+After opening a new terminal, the umask returns to its previous value.
+
+### Reason
+
+The change was made only for the current shell session.
+
+### Solution
+
+To make it persistent, add the desired umask to your shell configuration file (for example, `~/.bashrc` or `~/.profile`) and reload the shell.
+
+---
+
+## Error 5: Using umask Instead of chmod
+
+### Problem
+
+You expect `umask` to change permissions of existing files.
+
+### Solution
+
+Remember:
+
+- `umask` → Sets default permissions for **new** files and directories.
+- `chmod` → Changes permissions of **existing** files and directories.
+
+---
+
+# Best Practices
+
+- Use **022** for normal Linux systems.
+- Use **027** for team environments.
+- Use **077** for confidential data.
+- Avoid **000** on production servers.
+- Verify results with:
+
+```bash
+umask
+```
+
+and
+
+```bash
+ls -l
+```
+
+- Test changes using temporary files before applying them in important environments.
