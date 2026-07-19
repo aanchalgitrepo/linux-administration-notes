@@ -6198,3 +6198,402 @@ ls -lR
 - Understand how to verify permission changes using `chmod` and ownership changes using `chown`.
 - Practice combining commonly used options such as `-la`, `-lh`, `-lt`, and `-lR`.
 - Remember the difference between `ls` (basic listing) and `ls -l` (detailed listing), as this is a very common interview question.
+
+
+# stat Command (Complete Professional Notes)
+
+## Part 3B.1 – Introduction
+
+The `stat` command is used to display detailed information (metadata) about a file or directory in Linux.
+
+Unlike the `ls -l` command, which provides a summary of file details, the `stat` command displays complete metadata such as:
+
+- File Size
+- File Type
+- File Permissions
+- Owner
+- Group
+- Inode Number
+- Device Number
+- Number of Links
+- Access Time
+- Modify Time
+- Change Time
+- Block Size
+- Total Blocks Allocated
+
+The `stat` command is widely used by Linux Administrators, DevOps Engineers, Cloud Engineers, and Technical Support Engineers to inspect files, troubleshoot permission issues, and analyze file metadata.
+
+---
+
+# 1. Definition
+
+The `stat` command displays detailed status information about a file or directory.
+
+It retrieves metadata stored by the Linux filesystem and presents it in an easy-to-read format.
+
+Unlike `ls -l`, it provides low-level filesystem information that is useful for system administration and troubleshooting.
+
+---
+
+# 2. Why is stat Used?
+
+The `stat` command is used to:
+
+- View complete file metadata.
+- Check file permissions.
+- Verify owner and group.
+- Display inode number.
+- View file size.
+- Display filesystem block information.
+- Check last access, modification, and status change times.
+- Troubleshoot permission issues.
+- Verify changes after using `chmod` or `chown`.
+- Debug filesystem-related problems.
+
+---
+
+# 3. Syntax
+
+Basic Syntax
+
+```bash
+stat filename
+```
+
+Example
+
+```bash
+stat notes.txt
+```
+
+Display Information for a Directory
+
+```bash
+stat project
+```
+
+Display Multiple Files
+
+```bash
+stat file1.txt file2.txt
+```
+
+---
+
+# 4. Common Options
+
+| Command | Description |
+|---------|-------------|
+| `stat filename` | Display metadata of a file |
+| `stat directory` | Display metadata of a directory |
+| `stat file1 file2` | Display metadata for multiple files |
+| `stat -c "%n"` | Display only the file name |
+| `stat -c "%s"` | Display only the file size |
+| `stat -c "%A"` | Display file permissions in symbolic format |
+| `stat -c "%a"` | Display permissions in numeric format |
+| `stat -c "%U"` | Display file owner |
+| `stat -c "%G"` | Display file group |
+| `stat -c "%i"` | Display inode number |
+| `stat -c "%x"` | Display last access time |
+| `stat -c "%y"` | Display last modification time |
+| `stat -c "%z"` | Display last status change time |
+
+---
+
+# 5. Understanding stat Output
+
+Run the following command:
+
+```bash
+stat notes.txt
+```
+
+Example Output
+
+```text
+File: notes.txt
+Size: 2048            Blocks: 8          IO Block: 4096 regular file
+Device: 8,1           Inode: 157286      Links: 1
+Access: (0644/-rw-r--r--) Uid: (1000/rahul) Gid: (1000/developers)
+Access: 2026-07-18 10:20:15
+Modify: 2026-07-18 10:30:10
+Change: 2026-07-18 10:35:00
+ Birth: 2026-07-18 10:20:15
+```
+
+The output contains complete filesystem metadata about the file.
+
+---
+
+# 6. File Information Explained
+
+### File
+
+```text
+File: notes.txt
+```
+
+Displays the name of the file.
+
+---
+
+### Size
+
+```text
+Size: 2048
+```
+
+Shows the size of the file in **bytes**.
+
+---
+
+### Blocks
+
+```text
+Blocks: 8
+```
+
+Shows the number of filesystem blocks allocated to the file.
+
+---
+
+### IO Block
+
+```text
+IO Block: 4096
+```
+
+Displays the preferred block size used by the filesystem for input/output operations.
+
+---
+
+### File Type
+
+```text
+regular file
+```
+
+Possible file types include:
+
+| Type | Meaning |
+|------|---------|
+| regular file | Normal file |
+| directory | Folder |
+| symbolic link | Link to another file |
+| block special file | Block device |
+| character special file | Character device |
+| socket | Network socket |
+| FIFO | Named pipe |
+
+---
+
+### Links
+
+```text
+Links: 1
+```
+
+Displays the number of hard links associated with the file.
+
+---
+
+### Owner (UID)
+
+```text
+Uid: (1000/rahul)
+```
+
+Shows the numeric User ID (UID) and the owner's username.
+
+---
+
+### Group (GID)
+
+```text
+Gid: (1000/developers)
+```
+
+Shows the numeric Group ID (GID) and the group name.
+
+---
+
+### Permissions
+
+```text
+0644
+```
+
+Numeric permission.
+
+```text
+-rw-r--r--
+```
+
+Symbolic permission.
+
+---
+
+# 7. File Timestamp Explained
+
+The `stat` command displays several timestamps that are useful for auditing and troubleshooting.
+
+---
+
+## Access Time (atime)
+
+```text
+Access:
+```
+
+Shows the last time the file was **read or accessed**.
+
+Example:
+
+```bash
+cat notes.txt
+```
+
+Reading the file updates the access time (depending on filesystem mount options).
+
+---
+
+## Modify Time (mtime)
+
+```text
+Modify:
+```
+
+Shows the last time the **contents of the file** were changed.
+
+Example:
+
+```bash
+echo "Hello" >> notes.txt
+```
+
+---
+
+## Change Time (ctime)
+
+```text
+Change:
+```
+
+Shows the last time the file's **metadata** changed.
+
+Metadata changes include:
+
+- Permissions (`chmod`)
+- Ownership (`chown`)
+- Link count
+- File rename
+
+Example:
+
+```bash
+chmod 755 notes.txt
+```
+
+---
+
+## Birth Time
+
+```text
+Birth:
+```
+
+Shows when the file was originally created.
+
+> **Note:** Not all Linux filesystems store or display the file creation (Birth) time. If the filesystem does not support it, this field may be unavailable.
+
+---
+
+# 8. Inode, Device & Block Information
+
+## Inode Number
+
+```text
+Inode: 157286
+```
+
+An inode is a unique identifier assigned to every file and directory in a Linux filesystem.
+
+It stores metadata such as:
+
+- File permissions
+- Owner
+- Group
+- Size
+- Timestamps
+- Block locations
+
+---
+
+## Device Number
+
+```text
+Device: 8,1
+```
+
+Identifies the storage device or partition where the file is stored.
+
+This information is mainly used for filesystem management and troubleshooting.
+
+---
+
+## Blocks
+
+```text
+Blocks: 8
+```
+
+Represents the number of disk blocks allocated to the file.
+
+This value may differ from the file size because filesystems allocate storage in fixed-size blocks.
+
+---
+
+## IO Block
+
+```text
+IO Block: 4096
+```
+
+Indicates the preferred block size for efficient input/output operations.
+
+---
+
+# 9. Difference Between stat and ls -l
+
+| Feature | stat | ls -l |
+|---------|------|--------|
+| Purpose | Displays complete file metadata | Displays file details in long listing format |
+| File Size | ✅ Yes | ✅ Yes |
+| Permissions | ✅ Yes | ✅ Yes |
+| Owner | ✅ Yes | ✅ Yes |
+| Group | ✅ Yes | ✅ Yes |
+| Inode Number | ✅ Yes | Only with `ls -li` |
+| Device Information | ✅ Yes | ❌ No |
+| Block Information | ✅ Yes | ❌ No |
+| Access Time | ✅ Yes | ❌ No |
+| Modify Time | ✅ Yes | ✅ Yes |
+| Change Time | ✅ Yes | ❌ No |
+| Birth Time | ✅ Yes (if supported) | ❌ No |
+| Best Use | Detailed metadata analysis | Quick file inspection |
+
+---
+
+# Key Learning Points
+
+- `stat` displays detailed filesystem metadata for files and directories.
+- It shows file size, permissions, owner, group, inode, timestamps, device information, and allocated blocks.
+- It is commonly used by Linux Administrators, DevOps Engineers, and Technical Support professionals for troubleshooting and auditing.
+- `stat` provides much more detailed information than `ls -l`.
+- Understanding `atime`, `mtime`, and `ctime` is essential for Linux administration and interview preparation.
+- Combine `stat` with commands such as `ls -l`, `chmod`, `chown`, `find`, and `grep` for effective file management and debugging.
+
+  "What is the difference between atime, mtime, and ctime?"
+   - atime (Access Time): Last time the file was read.
+   - mtime (Modify Time): Last time the file content changed.
+   - ctime (Change Time): Last time the file metadata (permissions, ownership, etc.) changed.
