@@ -6593,7 +6593,397 @@ Indicates the preferred block size for efficient input/output operations.
 - Understanding `atime`, `mtime`, and `ctime` is essential for Linux administration and interview preparation.
 - Combine `stat` with commands such as `ls -l`, `chmod`, `chown`, `find`, and `grep` for effective file management and debugging.
 
-  "What is the difference between atime, mtime, and ctime?"
-   - atime (Access Time): Last time the file was read.
-   - mtime (Modify Time): Last time the file content changed.
-   - ctime (Change Time): Last time the file metadata (permissions, ownership, etc.) changed.
+"What is the difference between atime, mtime, and ctime?"
+ - atime (Access Time): Last time the file was read.
+ - mtime (Modify Time): Last time the file content changed.
+ - ctime (Change Time): Last time the file metadata (permissions, ownership, etc.) changed.
+
+
+# stat Practical Examples (Part 3B.2A)
+
+This section contains practical examples of the `stat` command used in Linux Administration, Technical Support, Cloud Computing, and DevOps.
+
+---
+
+# Example 1: Display Metadata of a File
+
+## Command
+
+```bash
+stat notes.txt
+```
+
+### Command Explanation
+
+Displays complete metadata of the file **notes.txt**, including permissions, owner, group, size, inode, timestamps, and block information.
+
+### Expected Output
+
+```text
+File: notes.txt
+Size: 2048
+Access: (0644/-rw-r--r--)
+Uid: (1000/user)
+Gid: (1000/user)
+```
+
+### Real-World Use Case
+
+A Linux administrator checks complete file details before troubleshooting permission issues.
+
+### Screenshot Command
+
+```bash
+stat notes.txt
+```
+
+Suggested Screenshot:
+
+```text
+stat-file-details.png
+```
+
+---
+
+# Example 2: Display Metadata of a Directory
+
+## Command
+
+```bash
+stat project
+```
+
+### Command Explanation
+
+Displays metadata of the **project** directory instead of its contents.
+
+### Expected Output
+
+```text
+File: project
+Size: 4096
+Access: (0755/drwxr-xr-x)
+```
+
+### Real-World Use Case
+
+Useful for verifying directory permissions before granting user access.
+
+### Screenshot Command
+
+```bash
+stat project
+```
+
+Suggested Screenshot:
+
+```text
+stat-directory-details.png
+```
+
+---
+
+# Example 3: Display Metadata of Multiple Files
+
+## Command
+
+```bash
+stat file1.txt file2.txt
+```
+
+### Command Explanation
+
+Displays metadata for multiple files in a single command.
+
+### Expected Output
+
+```text
+File: file1.txt
+...
+
+File: file2.txt
+...
+```
+
+### Real-World Use Case
+
+Useful when comparing multiple configuration files.
+
+### Screenshot Command
+
+```bash
+stat file1.txt file2.txt
+```
+
+Suggested Screenshot:
+
+```text
+stat-multiple-files.png
+```
+
+---
+
+# Example 4: Display Only File Name
+
+## Command
+
+```bash
+stat -c "%n" notes.txt
+```
+
+### Command Explanation
+
+Displays only the file name.
+
+### Expected Output
+
+```text
+notes.txt
+```
+
+### Real-World Use Case
+
+Useful in shell scripts where only the filename is required.
+
+### Screenshot Command
+
+```bash
+stat -c "%n" notes.txt
+```
+
+Suggested Screenshot:
+
+```text
+stat-filename.png
+```
+
+---
+
+# Example 5: Display Only File Size
+
+## Command
+
+```bash
+stat -c "%s" notes.txt
+```
+
+### Command Explanation
+
+Displays only the file size in bytes.
+
+### Expected Output
+
+```text
+2048
+```
+
+### Real-World Use Case
+
+Useful when validating backup sizes or checking upload limits.
+
+### Screenshot Command
+
+```bash
+stat -c "%s" notes.txt
+```
+
+Suggested Screenshot:
+
+```text
+stat-filesize.png
+```
+
+---
+
+# Example 6: Display Symbolic Permissions
+
+## Command
+
+```bash
+stat -c "%A" notes.txt
+```
+
+### Command Explanation
+
+Displays file permissions in symbolic format.
+
+### Expected Output
+
+```text
+-rw-r--r--
+```
+
+### Real-World Use Case
+
+Useful for quickly checking file access permissions.
+
+### Screenshot Command
+
+```bash
+stat -c "%A" notes.txt
+```
+
+Suggested Screenshot:
+
+```text
+stat-symbolic-permissions.png
+```
+
+---
+
+# Example 7: Display Numeric Permissions
+
+## Command
+
+```bash
+stat -c "%a" notes.txt
+```
+
+### Command Explanation
+
+Displays file permissions in numeric format.
+
+### Expected Output
+
+```text
+644
+```
+
+### Real-World Use Case
+
+Useful while configuring file permissions using `chmod`.
+
+### Screenshot Command
+
+```bash
+stat -c "%a" notes.txt
+```
+
+Suggested Screenshot:
+
+```text
+stat-numeric-permissions.png
+```
+
+---
+
+# Example 8: Display File Owner
+
+## Command
+
+```bash
+stat -c "%U" notes.txt
+```
+
+### Command Explanation
+
+Displays only the owner of the file.
+
+### Expected Output
+
+```text
+rahul
+```
+
+### Real-World Use Case
+
+Useful for verifying ownership after using the `chown` command.
+
+### Screenshot Command
+
+```bash
+stat -c "%U" notes.txt
+```
+
+Suggested Screenshot:
+
+```text
+stat-owner.png
+```
+
+---
+
+# Example 9: Display File Group
+
+## Command
+
+```bash
+stat -c "%G" notes.txt
+```
+
+### Command Explanation
+
+Displays only the group associated with the file.
+
+### Expected Output
+
+```text
+developers
+```
+
+### Real-World Use Case
+
+Useful for checking group ownership in shared project directories.
+
+### Screenshot Command
+
+```bash
+stat -c "%G" notes.txt
+```
+
+Suggested Screenshot:
+
+```text
+stat-group.png
+```
+
+---
+
+# Example 10: Display Inode Number
+
+## Command
+
+```bash
+stat -c "%i" notes.txt
+```
+
+### Command Explanation
+
+Displays the inode number of the file.
+
+### Expected Output
+
+```text
+157286
+```
+
+### Real-World Use Case
+
+Useful for filesystem troubleshooting and identifying hard links.
+
+### Screenshot Command
+
+```bash
+stat -c "%i" notes.txt
+```
+
+Suggested Screenshot:
+
+```text
+stat-inode.png
+```
+
+---
+
+# Key Learning Points
+
+- `stat` displays detailed metadata about files and directories.
+- The `-c` option allows you to display specific information.
+- `%n` → File name
+- `%s` → File size
+- `%A` → Symbolic permissions
+- `%a` → Numeric permissions
+- `%U` → Owner
+- `%G` → Group
+- `%i` → Inode number
+- These options are especially useful in shell scripting and Linux system administration.
