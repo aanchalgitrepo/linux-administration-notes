@@ -5388,3 +5388,133 @@ Suggested Screenshot:
 ```text
 ls-after-chown.png
 ```
+
+# ls -l (Part 3A.3)
+# Common Errors & Troubleshooting
+
+## Error 1: "No such file or directory"
+
+### Problem
+
+```bash
+ls -l file.txt
+```
+
+Output:
+
+```text
+ls: cannot access 'file.txt': No such file or directory
+```
+
+### Reason
+
+The file does not exist or the file name is incorrect.
+
+### Solution
+
+Check available files:
+
+```bash
+ls
+```
+
+or create the file:
+
+```bash
+touch file.txt
+```
+
+---
+
+## Error 2: Permission Denied
+
+### Problem
+
+```bash
+ls -l /root
+```
+
+Output:
+
+```text
+Permission denied
+```
+
+### Reason
+
+The current user does not have permission to access the directory.
+
+### Solution
+
+Use `sudo` (if appropriate):
+
+```bash
+sudo ls -l /root
+```
+
+---
+
+## Error 3: Hidden Files Are Missing
+
+### Problem
+
+Hidden files are not displayed.
+
+### Reason
+
+The `-a` option was not used.
+
+### Solution
+
+```bash
+ls -la
+```
+
+---
+
+## Error 4: File Size Is Difficult to Read
+
+### Problem
+
+The size is displayed only in bytes.
+
+### Solution
+
+Use:
+
+```bash
+ls -lh
+```
+
+---
+
+## Error 5: Confusing Directory Details with Directory Contents
+
+### Problem
+
+```bash
+ls -l project
+```
+
+lists the **contents** of the directory instead of showing the directory's own information.
+
+### Solution
+
+Use:
+
+```bash
+ls -ld project
+```
+
+to display details about the directory itself.
+
+---
+
+# Best Practices
+
+- Use `ls -l` before and after running `chmod` or `chown` to verify changes.
+- Use `ls -lh` when working with large files.
+- Use `ls -la` to inspect hidden configuration files.
+- Use `ls -lt` while troubleshooting recently modified files.
+- Use `ls -lS` to identify large files consuming disk space.
+- Use `ls -ld` when you need information about a directory itself rather than its contents.
