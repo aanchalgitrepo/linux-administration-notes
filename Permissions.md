@@ -1,5 +1,4 @@
-
-# Linux File Permissions (Part 1)
+# Linux File Permissions 
 
 ## Introduction
 
@@ -11,7 +10,7 @@ Every file and directory in Linux has an owner, a group, and a set of permission
 
 ---
 
-# 1. Definition (What are Linux File Permissions?)
+### 1. Definition (What are Linux File Permissions?)
 
 Linux file permissions are a security mechanism that controls who can access a file or directory and what actions they are allowed to perform.
 
@@ -31,7 +30,7 @@ These permissions help protect files from unauthorized access or modification.
 
 ---
 
-# 2. Why are Linux File Permissions Used?
+### 2. Why are Linux File Permissions Used?
 
 Linux file permissions are used to:
 
@@ -45,11 +44,11 @@ Linux file permissions are used to:
 
 ---
 
-# 3. Types of Linux Permissions
+### 3. Types of Linux Permissions
 
 Linux provides three basic permissions:
 
-## 1. Read Permission (r)
+#### 1. Read Permission (r)
 
 ### Symbol
 
@@ -77,7 +76,7 @@ cat file.txt
 
 ---
 
-## 2. Write Permission (w)
+#### 2. Write Permission (w)
 
 ### Symbol
 
@@ -105,7 +104,7 @@ echo "Hello Linux" >> file.txt
 
 ---
 
-## 3. Execute Permission (x)
+#### 3. Execute Permission (x)
 
 ### Symbol
 
@@ -134,11 +133,11 @@ Example:
 
 ---
 
-# 4. Permission Categories
+### 4. Permission Categories
 
 Linux permissions are assigned to three different categories.
 
-## 1. Owner (User)
+#### 1. Owner (User)
 
 The person who owns the file.
 
@@ -158,7 +157,7 @@ rwx
 
 ---
 
-## 2. Group
+#### 2. Group
 
 Users belonging to the same group.
 
@@ -176,7 +175,7 @@ r-x
 
 ---
 
-## 3. Others
+#### 3. Others
 
 All remaining users on the system.
 
@@ -442,9 +441,9 @@ chmod u=rw file.txt
 - Understanding permissions is essential for Linux Administration, Cloud Computing, and DevOps.
 
 
-# chmod Command (Change File Permissions) (Part 2A.1)
+## chmod Command (Change File Permissions) (Part 2A.1)
 
-## 1. Definition
+### 1. Definition
 
 The `chmod` (Change Mode) command is used to change the permissions of files and directories in Linux.
 
@@ -454,7 +453,7 @@ Linux uses permissions to protect files from unauthorized access and modificatio
 
 ---
 
-# 2. Why is chmod Used?
+### 2. Why is chmod Used?
 
 The `chmod` command is used to:
 
@@ -468,7 +467,7 @@ The `chmod` command is used to:
 
 ---
 
-# 3. Syntax
+### 3. Syntax
 
 ## Numeric Mode
 
@@ -514,7 +513,7 @@ chmod -R 755 project/
 
 ---
 
-# 4. chmod Options
+### 4. chmod Options
 
 | Option | Description |
 |---------|-------------|
@@ -887,13 +886,13 @@ Removes execute permission from all users.
 - Avoid using `777` unless absolutely necessary because it creates security risks.
 - `755` and `644` are the most commonly used permission sets in Linux systems.
 
-# chmod Practical Examples (Part 2A.2A)
+### chmod Practical Examples (Part 2A.2A)
 
 The following examples demonstrate how to use the `chmod` command in real-world Linux administration.
 
 ---
 
-# Example 1: Give Full Permissions to Everyone
+#### Example 1: Give Full Permissions to Everyone
 
 ## Command
 
@@ -931,7 +930,7 @@ Used only for testing purposes.
 
 ---
 
-# Example 2: Give Owner Full Access and Others Read & Execute
+#### Example 2: Give Owner Full Access and Others Read & Execute
 
 ## Command
 
@@ -983,7 +982,7 @@ Most commonly used for:
 
 ---
 
-# Example 3: Give Owner Read & Write Only
+#### Example 3: Give Owner Read & Write Only
 
 ## Command
 
@@ -1032,7 +1031,7 @@ Used for:
 
 ---
 
-# Example 4: Read-Only File
+#### Example 4: Read-Only File
 
 ## Command
 
@@ -1068,7 +1067,7 @@ Used for:
 
 ---
 
-# Example 5: Add Execute Permission to Owner
+#### Example 5: Add Execute Permission to Owner
 
 ## Command
 
@@ -1104,7 +1103,7 @@ Used when a shell script needs to be executed by its owner.
 
 ---
 
-# Example 6: Remove Write Permission from Group
+#### Example 6: Remove Write Permission from Group
 
 ## Command
 
@@ -1140,7 +1139,7 @@ Useful when team members should only read project files.
 
 ---
 
-# Example 7: Give Read Permission to Others
+#### Example 7: Give Read Permission to Others
 
 ## Command
 
@@ -1172,7 +1171,7 @@ Useful when sharing documents with all users.
 
 ---
 
-# Example 8: Remove Execute Permission from Everyone
+#### Example 8: Remove Execute Permission from Everyone
 
 ## Command
 
@@ -1208,9 +1207,9 @@ Used to prevent accidental execution of scripts.
 
 ---
 
-# Example 9: Assign Read and Write Permission to Owner Only
+#### Example 9: Assign Read and Write Permission to Owner Only
 
-## Command
+### Command
 
 ```bash
 chmod u=rw file.txt
@@ -1237,7 +1236,7 @@ Used for text files that only the owner should edit.
 
 ---
 
-# Example 10: Change Permissions Recursively
+#### Example 10: Change Permissions Recursively
 
 ## Command
 
