@@ -218,7 +218,7 @@ Breakdown:
 
 ---
 
-# Understanding rwxr-xr--
+ Understanding rwxr-xr--
 
 ```
 rwx   r-x   r--
@@ -6099,7 +6099,7 @@ ls -l report.txt
 
 ---
 
-# ls vs ls -l Comparison
+ ls vs ls -l Comparison
 
 | Feature | ls | ls -l |
 |---------|----|--------|
@@ -6114,7 +6114,7 @@ ls -l report.txt
 
 ---
 
-# ls Cheat Sheet
+ ls Cheat Sheet
 
 | Command | Description |
 |---------|-------------|
@@ -6195,7 +6195,7 @@ ls -lR
 
 ---
 
-# Interview Tips
+ Interview Tips
 
 - Learn to explain every field of the `ls -l` output.
 - Be able to identify file types (`-`, `d`, `l`, `c`, `b`, `p`, `s`).
@@ -6203,6 +6203,7 @@ ls -lR
 - Practice combining commonly used options such as `-la`, `-lh`, `-lt`, and `-lR`.
 - Remember the difference between `ls` (basic listing) and `ls -l` (detailed listing), as this is a very common interview question.
 
+---
 
 ## stat Command (Complete Professional Notes)
 
