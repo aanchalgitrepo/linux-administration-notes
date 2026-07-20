@@ -118,6 +118,7 @@ x
 ```
 1
 ```
+---
 
 ### Description
 
@@ -3589,6 +3590,7 @@ ls -l sample.txt
 Suggested Screenshot:
 `umask-verify-before-create.png`
 
+---
 
 # Common Errors & Troubleshooting
 
@@ -4108,6 +4110,8 @@ umask u=rwx,g=rx,o=rx
   - `077` → Private and secure systems
   - `000` → Testing only
 - Use `umask` to enforce secure defaults and `chmod` to modify permissions after a file or directory has been created.
+
+---
 
 # chmod vs umask Comparison
 
