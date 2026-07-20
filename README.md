@@ -25,13 +25,20 @@ This repository contains Linux concepts, commands, practical exercises, intervie
 
 ## 📂 Repository Structure
 
-```
+```text
 linux-administration-notes/
 │
 ├── README.md
 ├── Users.md
 ├── Groups.md
-├── Permissions.md
+│
+├── permissions/
+│   ├── README.md
+│   ├── chmod.md
+│   ├── umask.md
+│   ├── ls-l.md
+│   └── stat.md
+│
 ├── Ownership.md
 ├── Services.md
 ├── CronJobs.md
