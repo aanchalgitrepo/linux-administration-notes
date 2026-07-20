@@ -280,7 +280,7 @@ Examples:
 
 ---
 
-# Common Numeric Permissions
+### Common Numeric Permissions
 
 ## 777
 
@@ -596,7 +596,7 @@ The values are added together to create permission codes.
 
 ---
 
-# Common Numeric Permissions
+### Common Numeric Permissions
 
 ## 777
 
@@ -792,7 +792,7 @@ Instead of numbers, Linux also allows symbolic notation.
 
 ---
 
-# Symbolic Permission Examples
+### Symbolic Permission Examples
 
 ### Add Execute Permission to Owner
 
@@ -866,7 +866,7 @@ Removes execute permission from all users.
 
 ---
 
-# Difference Between Numeric and Symbolic Permissions
+### Difference Between Numeric and Symbolic Permissions
 
 | Numeric Mode | Symbolic Mode |
 |--------------|---------------|
@@ -1263,7 +1263,7 @@ Used when deploying a website or application so that all project files have cons
 
 ---
 
-# Key Learning Points
+### Key Learning Points
 
 - Use `755` for executable scripts and directories.
 - Use `644` for normal files.
@@ -1278,7 +1278,7 @@ This section contains hands-on exercises to help you practice the `chmod` comman
 
 ---
 
-# Practice Exercise 1: Create a Test File
+#### Practice Exercise 1: Create a Test File
 
 ## Command
 
@@ -1300,7 +1300,7 @@ ls -l file1.txt
 
 ---
 
-# Practice Exercise 2: Change Permission to 777
+#### Practice Exercise 2: Change Permission to 777
 
 ## Command
 
@@ -1322,7 +1322,7 @@ ls -l file1.txt
 
 ---
 
-# Practice Exercise 3: Change Permission to 755
+#### Practice Exercise 3: Change Permission to 755
 
 ## Command
 
@@ -1344,7 +1344,7 @@ ls -l file1.txt
 
 ---
 
-# Practice Exercise 4: Change Permission to 644
+#### Practice Exercise 4: Change Permission to 644
 
 ## Command
 
@@ -1366,7 +1366,7 @@ ls -l file1.txt
 
 ---
 
-# Practice Exercise 5: Change Permission to 600
+#### Practice Exercise 5: Change Permission to 600
 
 ## Command
 
@@ -1388,7 +1388,7 @@ ls -l file1.txt
 
 ---
 
-# Practice Exercise 6: Add Execute Permission to Owner
+#### Practice Exercise 6: Add Execute Permission to Owner
 
 ## Command
 
@@ -1410,7 +1410,7 @@ ls -l file1.txt
 
 ---
 
-# Practice Exercise 7: Remove Write Permission from Group
+#### Practice Exercise 7: Remove Write Permission from Group
 
 ## Command
 
@@ -1428,7 +1428,7 @@ Observe how the group write permission changes.
 
 ---
 
-# Practice Exercise 8: Give Read Permission to Others
+#### Practice Exercise 8: Give Read Permission to Others
 
 ## Command
 
@@ -1444,7 +1444,7 @@ ls -l file1.txt
 
 ---
 
-# Practice Exercise 9: Remove Execute Permission from Everyone
+#### Practice Exercise 9: Remove Execute Permission from Everyone
 
 ## Command
 
@@ -1460,7 +1460,7 @@ ls -l file1.txt
 
 ---
 
-# Practice Exercise 10: Recursive Permission Change
+#### Practice Exercise 10: Recursive Permission Change
 
 ## Step 1: Create a Directory
 
@@ -1642,7 +1642,7 @@ chmod-recursive.png
 
 ---
 
-# Common Mistakes to Avoid
+### Common Mistakes to Avoid
 
 - Do not use `777` on production servers unless absolutely necessary.
 - Verify permissions using `ls -l` after every `chmod` command.
@@ -1983,7 +1983,7 @@ Used for:
 
 ---
 
-# Key Learning Points
+### Key Learning Points
 
 - Use symbolic mode for small permission changes.
 - Use numeric mode for setting complete permissions.
@@ -2005,7 +2005,7 @@ This section contains frequently asked interview questions on the `chmod` comman
 
 ---
 
-# Q1. What is the purpose of the `chmod` command?
+#### Q1. What is the purpose of the `chmod` command?
 
 ### Answer
 
@@ -2013,7 +2013,7 @@ The `chmod` (Change Mode) command is used to change the permissions of files and
 
 ---
 
-# Q2. What are the three basic Linux permissions?
+#### Q2. What are the three basic Linux permissions?
 
 ### Answer
 
@@ -2027,7 +2027,7 @@ Linux provides three basic permissions:
 
 ---
 
-# Q3. Who can have permissions on a file?
+#### Q3. Who can have permissions on a file?
 
 ### Answer
 
@@ -2039,7 +2039,7 @@ Permissions are assigned to three categories:
 
 ---
 
-# Q4. What is the difference between Numeric Mode and Symbolic Mode?
+#### Q4. What is the difference between Numeric Mode and Symbolic Mode?
 
 ### Answer
 
@@ -2051,7 +2051,7 @@ Permissions are assigned to three categories:
 
 ---
 
-# Q5. What does `chmod 777 file.txt` do?
+#### Q5. What does `chmod 777 file.txt` do?
 
 ### Answer
 
@@ -2071,7 +2071,7 @@ rwxrwxrwx
 
 ---
 
-# Q6. What does `chmod 755 script.sh` do?
+#### Q6. What does `chmod 755 script.sh` do?
 
 ### Answer
 
@@ -2089,7 +2089,7 @@ It is commonly used for executable scripts and directories.
 
 ---
 
-# Q7. What does `chmod 644 file.txt` do?
+#### Q7. What does `chmod 644 file.txt` do?
 
 ### Answer
 
@@ -2107,7 +2107,7 @@ This is one of the most common permission settings for text and configuration fi
 
 ---
 
-# Q8. What does `chmod 600 secret.txt` do?
+#### Q8. What does `chmod 600 secret.txt` do?
 
 ### Answer
 
@@ -2123,7 +2123,7 @@ It is commonly used for SSH private keys, password files, and confidential docum
 
 ---
 
-# Q9. What is the purpose of the `-R` option?
+#### Q9. What is the purpose of the `-R` option?
 
 ### Answer
 
@@ -2137,7 +2137,7 @@ chmod -R 755 project/
 
 ---
 
-# Q10. What does `chmod u+x script.sh` do?
+#### Q10. What does `chmod u+x script.sh` do?
 
 ### Answer
 
@@ -2145,7 +2145,7 @@ It adds execute permission only for the owner of the file.
 
 ---
 
-# Q11. What does `chmod g-w file.txt` do?
+#### Q11. What does `chmod g-w file.txt` do?
 
 ### Answer
 
@@ -2153,7 +2153,7 @@ It removes write permission from the group while keeping the other permissions u
 
 ---
 
-# Q12. What does `chmod o+r file.txt` do?
+#### Q12. What does `chmod o+r file.txt` do?
 
 ### Answer
 
@@ -2161,7 +2161,7 @@ It adds read permission for all other users.
 
 ---
 
-# Q13. What does `chmod a+x script.sh` do?
+#### Q13. What does `chmod a+x script.sh` do?
 
 ### Answer
 
@@ -2173,7 +2173,7 @@ It gives execute permission to:
 
 ---
 
-# Q14. Which permission is generally recommended for normal files?
+#### Q14. Which permission is generally recommended for normal files?
 
 ### Answer
 
@@ -2189,7 +2189,7 @@ Because:
 
 ---
 
-# Q15. Which permission is commonly used for executable scripts?
+#### Q15. Which permission is commonly used for executable scripts?
 
 ### Answer
 
@@ -2201,7 +2201,7 @@ Because the owner has full access and others can execute the script.
 
 ---
 
-# Q16. Why is `777` considered insecure?
+#### Q16. Why is `777` considered insecure?
 
 ### Answer
 
@@ -2215,7 +2215,7 @@ This increases the risk of unauthorized access, modification, or deletion of fil
 
 ---
 
-# Q17. How can you check file permissions?
+#### Q17. How can you check file permissions?
 
 ### Answer
 
@@ -2233,7 +2233,7 @@ Example output:
 
 ---
 
-# Q18. How can you verify that `chmod` changed permissions successfully?
+#### Q18. How can you verify that `chmod` changed permissions successfully?
 
 ### Answer
 
@@ -2251,7 +2251,7 @@ stat filename
 
 ---
 
-# Q19. Who can change file permissions?
+#### Q19. Who can change file permissions?
 
 ### Answer
 
@@ -2260,7 +2260,7 @@ stat filename
 
 ---
 
-# Q20. Can `chmod` change file ownership?
+#### Q20. Can `chmod` change file ownership?
 
 ### Answer
 
@@ -2276,7 +2276,7 @@ chown
 
 ---
 
-# Q21. What is the difference between `chmod` and `chown`?
+#### Q21. What is the difference between `chmod` and `chown`?
 
 ### Answer
 
@@ -2287,7 +2287,7 @@ chown
 
 ---
 
-# Q22. Which command removes execute permission from everyone?
+#### Q22. Which command removes execute permission from everyone?
 
 ### Answer
 
@@ -2297,7 +2297,7 @@ chmod a-x filename
 
 ---
 
-# Q23. Which command removes all permissions from Others?
+#### Q23. Which command removes all permissions from Others?
 
 ### Answer
 
@@ -2307,7 +2307,7 @@ chmod o-rwx filename
 
 ---
 
-# Q24. Which command gives Read and Write permission only to the Owner?
+#### Q24. Which command gives Read and Write permission only to the Owner?
 
 ### Answer
 
@@ -2323,7 +2323,7 @@ chmod u=rw,go= filename
 
 ---
 
-# Q25. What are the most commonly used permission values in Linux?
+#### Q25. What are the most commonly used permission values in Linux?
 
 ### Answer
 
@@ -3066,7 +3066,7 @@ Useful for storing confidential backups, SSH configuration, certificates, or per
 
 ---
 
-# Key Learning Points
+### Key Learning Points
 
 - Use `umask` to control the default permissions of newly created files and directories.
 - `umask 022` is the most common setting for general-purpose Linux systems.
@@ -3480,7 +3480,7 @@ A good practice for Linux administrators to ensure new files receive the expecte
 
 ---
 
-# Key Learning Points
+### Key Learning Points
 
 - `umask 022` is the standard default on many Linux distributions.
 - `umask 027` is useful for secure team collaboration.
@@ -3591,7 +3591,7 @@ Suggested Screenshot:
 
 ---
 
-# Common Errors & Troubleshooting
+### Common Errors & Troubleshooting
 
 ## Error 1: Existing File Permissions Did Not Change
 
@@ -3687,7 +3687,7 @@ Remember:
 
 ---
 
-# Best Practices
+### Best Practices
 
 - Use **022** for normal Linux systems.
 - Use **027** for team environments.
@@ -3713,7 +3713,7 @@ This section contains frequently asked interview questions on the `umask` comman
 
 ---
 
-# Q1. What is umask?
+#### Q1. What is umask?
 
 ### Answer
 
@@ -3721,7 +3721,7 @@ This section contains frequently asked interview questions on the `umask` comman
 
 ---
 
-# Q2. What does umask stand for?
+#### Q2. What does umask stand for?
 
 ### Answer
 
@@ -3729,7 +3729,7 @@ This section contains frequently asked interview questions on the `umask` comman
 
 ---
 
-# Q3. Does umask change existing file permissions?
+#### Q3. Does umask change existing file permissions?
 
 ### Answer
 
@@ -3745,7 +3745,7 @@ chmod
 
 ---
 
-# Q4. What are the default permissions for new files?
+#### Q4. What are the default permissions for new files?
 
 ### Answer
 
@@ -3763,7 +3763,7 @@ Files are **not executable by default**.
 
 ---
 
-# Q5. What are the default permissions for new directories?
+#### Q5. What are the default permissions for new directories?
 
 ### Answer
 
@@ -3779,7 +3779,7 @@ rwxrwxrwx
 
 ---
 
-# Q6. What is the most common umask value?
+#### Q6. What is the most common umask value?
 
 ### Answer
 
@@ -3803,7 +3803,7 @@ Directories
 
 ---
 
-# Q7. What happens when the umask is set to 022?
+#### Q7. What happens when the umask is set to 022?
 
 ### Answer
 
@@ -3833,7 +3833,7 @@ rwxr-xr-x
 
 ---
 
-# Q8. What happens when the umask is set to 077?
+#### Q8. What happens when the umask is set to 077?
 
 ### Answer
 
@@ -3865,7 +3865,7 @@ Only the owner has access.
 
 ---
 
-# Q9. What happens when the umask is set to 027?
+#### Q9. What happens when the umask is set to 027?
 
 ### Answer
 
@@ -3885,7 +3885,7 @@ Group gets limited access, while others have no permissions.
 
 ---
 
-# Q10. What happens when the umask is set to 000?
+#### Q10. What happens when the umask is set to 000?
 
 ### Answer
 
@@ -3905,7 +3905,7 @@ This is very permissive and generally not recommended for production systems.
 
 ---
 
-# Q11. How do you check the current umask?
+#### Q11. How do you check the current umask?
 
 ### Answer
 
@@ -3915,7 +3915,7 @@ umask
 
 ---
 
-# Q12. How do you display the umask in symbolic format?
+#### Q12. How do you display the umask in symbolic format?
 
 ### Answer
 
@@ -3925,7 +3925,7 @@ umask -S
 
 ---
 
-# Q13. How do you set the umask to 022?
+#### Q13. How do you set the umask to 022?
 
 ### Answer
 
@@ -3935,7 +3935,7 @@ umask 022
 
 ---
 
-# Q14. How do you verify that the umask is working?
+#### Q14. How do you verify that the umask is working?
 
 ### Answer
 
@@ -3950,7 +3950,7 @@ ls -l test.txt
 
 ---
 
-# Q15. Why are new files not executable by default?
+#### Q15. Why are new files not executable by default?
 
 ### Answer
 
@@ -3958,7 +3958,7 @@ Linux creates files with a default permission of **666**, which does not include
 
 ---
 
-# Q16. Which command changes the permissions of existing files?
+#### Q16. Which command changes the permissions of existing files?
 
 ### Answer
 
@@ -3968,7 +3968,7 @@ chmod
 
 ---
 
-# Q17. Which command changes the default permissions of new files?
+#### Q17. Which command changes the default permissions of new files?
 
 ### Answer
 
@@ -3978,7 +3978,7 @@ umask
 
 ---
 
-# Q18. Is umask permanent?
+#### Q18. Is umask permanent?
 
 ### Answer
 
@@ -3990,7 +3990,7 @@ To make it permanent, add the desired `umask` command to your shell configuratio
 
 ---
 
-# Q19. Can root use umask?
+#### Q19. Can root use umask?
 
 ### Answer
 
@@ -4000,7 +4000,7 @@ Both the root user and normal users can configure a `umask` value for their sess
 
 ---
 
-# Q20. What is the difference between chmod and umask?
+#### Q20. What is the difference between chmod and umask?
 
 ### Answer
 
@@ -4012,7 +4012,7 @@ Both the root user and normal users can configure a `umask` value for their sess
 
 ---
 
-# Q21. Why is umask important?
+#### Q21. Why is umask important?
 
 ### Answer
 
@@ -4020,7 +4020,7 @@ It improves security by ensuring that newly created files and directories receiv
 
 ---
 
-# Q22. Which umask value is recommended for personal systems?
+#### Q22. Which umask value is recommended for personal systems?
 
 ### Answer
 
@@ -4032,7 +4032,7 @@ This provides a good balance between usability and security.
 
 ---
 
-# Q23. Which umask value is recommended for highly secure environments?
+#### Q23. Which umask value is recommended for highly secure environments?
 
 ### Answer
 
@@ -4044,7 +4044,7 @@ Only the owner can access newly created files and directories.
 
 ---
 
-# Q24. Can you use symbolic notation with umask?
+#### Q24. Can you use symbolic notation with umask?
 
 ### Answer
 
@@ -4058,7 +4058,7 @@ umask u=rwx,g=rx,o=rx
 
 ---
 
-# Q25. How do you remember the difference between chmod and umask?
+#### Q25. How do you remember the difference between chmod and umask?
 
 ### Answer
 
@@ -4555,7 +4555,7 @@ The name of the file or directory.
 
 ---
 
-# Key Learning Points
+### Key Learning Points
 
 - `ls -l` is one of the most commonly used Linux commands.
 - It helps verify permissions, ownership, size, and modification time.
@@ -4831,7 +4831,7 @@ Commonly used to review the complete structure of a project directory before dep
 
 ---
 
-# Key Learning Points
+### Key Learning Points
 
 - `ls -l` shows detailed information about files and directories.
 - `ls -la` displays hidden files.
@@ -5243,7 +5243,7 @@ Used to confirm ownership changes after transferring files between users or team
 
 ---
 
-# Key Learning Points
+### Key Learning Points
 
 - `ls -l` can display information for specific files, directories, or entire paths.
 - It is commonly used with `chmod` and `chown` to verify permission and ownership changes.
@@ -5394,7 +5394,7 @@ ls-after-chown.png
 ```
 
 ## ls -l (Part 3A.3)
-# Common Errors & Troubleshooting
+### Common Errors & Troubleshooting
 
 ## Error 1: "No such file or directory"
 
@@ -5514,7 +5514,7 @@ to display details about the directory itself.
 
 ---
 
-# Best Practices
+### Best Practices
 
 - Use `ls -l` before and after running `chmod` or `chown` to verify changes.
 - Use `ls -lh` when working with large files.
@@ -5529,7 +5529,7 @@ This section contains frequently asked interview questions on the `ls -l` comman
 
 ---
 
-# Q1. What is the purpose of the `ls -l` command?
+#### Q1. What is the purpose of the `ls -l` command?
 
 ### Answer
 
@@ -5552,7 +5552,7 @@ ls -l
 
 ---
 
-# Q2. What is the difference between `ls` and `ls -l`?
+#### Q2. What is the difference between `ls` and `ls -l`?
 
 ### Answer
 
@@ -5568,7 +5568,7 @@ ls -l
 
 ---
 
-# Q3. What does the first character in the `ls -l` output represent?
+#### Q3. What does the first character in the `ls -l` output represent?
 
 ### Answer
 
@@ -5594,7 +5594,7 @@ drwxr-xr-x
 
 ---
 
-# Q4. What do the next nine characters in the `ls -l` output represent?
+#### Q4. What do the next nine characters in the `ls -l` output represent?
 
 ### Answer
 
@@ -5616,7 +5616,7 @@ Example:
 
 ---
 
-# Q5. What does the number after the permissions indicate?
+#### Q5. What does the number after the permissions indicate?
 
 ### Answer
 
@@ -5632,7 +5632,7 @@ Here, `1` is the hard link count.
 
 ---
 
-# Q6. How can you display hidden files using `ls`?
+#### Q6. How can you display hidden files using `ls`?
 
 ### Answer
 
@@ -5653,7 +5653,7 @@ This displays hidden files such as:
 
 ---
 
-# Q7. How can you display file sizes in a human-readable format?
+#### Q7. How can you display file sizes in a human-readable format?
 
 ### Answer
 
@@ -5675,7 +5675,7 @@ ls -lh
 
 ---
 
-# Q8. Which command displays information about a directory itself instead of its contents?
+#### Q8. Which command displays information about a directory itself instead of its contents?
 
 ### Answer
 
@@ -5693,7 +5693,7 @@ ls -ld project
 
 ---
 
-# Q9. How can you sort files by modification time?
+#### Q9. How can you sort files by modification time?
 
 ### Answer
 
@@ -5707,7 +5707,7 @@ The most recently modified files appear first.
 
 ---
 
-# Q10. How can you sort files by size?
+#### Q10. How can you sort files by size?
 
 ### Answer
 
@@ -5721,7 +5721,7 @@ The largest files appear first.
 
 ---
 
-# Q11. What is the purpose of the `-R` option?
+#### Q11. What is the purpose of the `-R` option?
 
 ### Answer
 
@@ -5735,7 +5735,7 @@ ls -lR
 
 ---
 
-# Q12. What is the purpose of the `-i` option?
+#### Q12. What is the purpose of the `-i` option?
 
 ### Answer
 
@@ -5755,7 +5755,7 @@ ls -li
 
 ---
 
-# Q13. Why is `ls -l` important for Linux administrators?
+#### Q13. Why is `ls -l` important for Linux administrators?
 
 ### Answer
 
@@ -5770,7 +5770,7 @@ Linux administrators use `ls -l` to:
 
 ---
 
-# Q14. Which commands are commonly used together with `ls -l`?
+#### Q14. Which commands are commonly used together with `ls -l`?
 
 ### Answer
 
@@ -5795,7 +5795,7 @@ The `ls -l` command verifies the updated permissions.
 
 ---
 
-# Q15. How can you verify whether a `chmod` or `chown` command worked successfully?
+#### Q15. How can you verify whether a `chmod` or `chown` command worked successfully?
 
 ### Answer
 
@@ -5858,7 +5858,7 @@ This section covers advanced interview questions, comparison tables, cheat sheet
 
 ---
 
-# Q16. What does the owner field represent in `ls -l` output?
+#### Q16. What does the owner field represent in `ls -l` output?
 
 ### Answer
 
@@ -5880,7 +5880,7 @@ rahul
 
 ---
 
-# Q17. What does the group field represent?
+#### Q17. What does the group field represent?
 
 ### Answer
 
@@ -5896,7 +5896,7 @@ developers
 
 ---
 
-# Q18. What does the size field represent?
+#### Q18. What does the size field represent?
 
 ### Answer
 
@@ -5916,7 +5916,7 @@ ls -lh
 
 ---
 
-# Q19. What does the date field indicate?
+#### Q19. What does the date field indicate?
 
 ### Answer
 
@@ -5930,7 +5930,7 @@ Jul 18 10:30
 
 ---
 
-# Q20. How do you display only directory information?
+#### Q20. How do you display only directory information?
 
 ### Answer
 
@@ -5948,7 +5948,7 @@ ls -ld project
 
 ---
 
-# Q21. How do you list files recursively?
+#### Q21. How do you list files recursively?
 
 ### Answer
 
@@ -5962,7 +5962,7 @@ This displays all files and subdirectories recursively.
 
 ---
 
-# Q22. Which option displays hidden files?
+#### Q22. Which option displays hidden files?
 
 ### Answer
 
@@ -5978,7 +5978,7 @@ ls -la
 
 ---
 
-# Q23. Which option displays file sizes in human-readable format?
+#### Q23. Which option displays file sizes in human-readable format?
 
 ### Answer
 
@@ -5994,7 +5994,7 @@ ls -lh
 
 ---
 
-# Q24. Which option displays inode numbers?
+#### Q24. Which option displays inode numbers?
 
 ### Answer
 
@@ -6010,7 +6010,7 @@ ls -li
 
 ---
 
-# Q25. Which option sorts files by size?
+#### Q25. Which option sorts files by size?
 
 ### Answer
 
@@ -6026,7 +6026,7 @@ ls -lS
 
 ---
 
-# Q26. Which option sorts files by modification time?
+#### Q26. Which option sorts files by modification time?
 
 ### Answer
 
@@ -6042,7 +6042,7 @@ ls -lt
 
 ---
 
-# Q27. How do you display the oldest modified files first?
+#### Q27. How do you display the oldest modified files first?
 
 ### Answer
 
@@ -6054,7 +6054,7 @@ ls -ltr
 
 ---
 
-# Q28. Why is `ls -l` commonly used after `chmod`?
+#### Q28. Why is `ls -l` commonly used after `chmod`?
 
 ### Answer
 
@@ -6069,7 +6069,7 @@ ls -l script.sh
 
 ---
 
-# Q29. Why is `ls -l` commonly used after `chown`?
+#### Q29. Why is `ls -l` commonly used after `chown`?
 
 ### Answer
 
@@ -6084,7 +6084,7 @@ ls -l report.txt
 
 ---
 
-# Q30. Why is `ls -l` important in Linux Administration?
+#### Q30. Why is `ls -l` important in Linux Administration?
 
 ### Answer
 
@@ -6588,7 +6588,7 @@ Indicates the preferred block size for efficient input/output operations.
 
 ---
 
-# Key Learning Points
+### Key Learning Points
 
 - `stat` displays detailed filesystem metadata for files and directories.
 - It shows file size, permissions, owner, group, inode, timestamps, device information, and allocated blocks.
@@ -6979,7 +6979,7 @@ stat-inode.png
 
 ---
 
-# Key Learning Points
+### Key Learning Points
 
 - `stat` displays detailed metadata about files and directories.
 - The `-c` option allows you to display specific information.
