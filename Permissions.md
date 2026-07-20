@@ -193,7 +193,7 @@ r--
 
 ---
 
-# 5. Understanding Permission Representation
+### 5. Understanding Permission Representation
 
 Run the following command:
 
@@ -256,7 +256,7 @@ r--
 
 ---
 
-# 6. Numeric (Octal) Permissions
+### 6. Numeric (Octal) Permissions
 
 Linux represents permissions using numbers.
 
@@ -379,7 +379,7 @@ Used for passwords, private keys, and confidential files.
 
 ---
 
-# 7. Symbolic Permissions
+### 7. Symbolic Permissions
 
 Instead of numbers, Linux also supports symbolic permissions.
 
@@ -432,7 +432,7 @@ chmod u=rw file.txt
 
 ---
 
-# Key Points
+### Key Points
 
 - Linux permissions improve system security.
 - Every file has an owner, a group, and others.
@@ -567,7 +567,7 @@ Copies the permissions of **file1.txt** to **file2.txt**.
 
 ---
 
-# 5. Understanding Numeric Permissions
+### 5. Understanding Numeric Permissions
 
 Linux assigns a numeric value to each permission.
 
@@ -757,7 +757,7 @@ Commonly used for:
 
 ---
 
-# 6. Symbolic Permissions
+### 6. Symbolic Permissions
 
 Instead of numbers, Linux also allows symbolic notation.
 
@@ -876,7 +876,7 @@ Removes execute permission from all users.
 
 ---
 
-# Key Points
+### Key Points
 
 - `chmod` stands for **Change Mode**.
 - It is used to change file and directory permissions.
@@ -1272,7 +1272,7 @@ Used when deploying a website or application so that all project files have cons
 - Use symbolic mode (`u+x`, `g-w`, `o+r`) when changing specific permissions.
 - Use `-R` carefully because it changes permissions for every file and directory inside the specified path.
 
-# chmod Practice Exercises & Screenshot Guide (Part 2A.3)
+## chmod Practice Exercises & Screenshot Guide (Part 2A.3)
 
 This section contains hands-on exercises to help you practice the `chmod` command. Perform these exercises in your Linux terminal and capture screenshots for your GitHub repository.
 
@@ -1489,7 +1489,7 @@ ls -l project
 
 ---
 
-# Screenshot Guide
+### Screenshot Guide
 
 Capture screenshots of the following commands and their outputs.
 
@@ -1652,7 +1652,7 @@ chmod-recursive.png
 
 ---
 
-# Summary
+## Summary
 
 After completing these exercises, you should be able to:
 
@@ -1662,13 +1662,13 @@ After completing these exercises, you should be able to:
 - Verify permission changes using `ls -l`.
 - Capture professional screenshots for your GitHub documentation.
 
-# chmod Practical Examples (Part 2A.2B)
+## chmod Practical Examples (Part 2A.2B)
 
 This section covers more practical examples of the `chmod` command used in Linux system administration.
 
 ---
 
-# Example 11: Give Read Permission to Group
+#### Example 11: Give Read Permission to Group
 
 ## Command
 
@@ -1704,7 +1704,7 @@ Useful when team members need to view reports but should not modify them.
 
 ---
 
-# Example 12: Remove Read Permission from Others
+#### Example 12: Remove Read Permission from Others
 
 ## Command
 
@@ -1736,7 +1736,7 @@ Used to protect confidential company documents.
 
 ---
 
-# Example 13: Add Write Permission to Owner
+#### Example 13: Add Write Permission to Owner
 
 ## Command
 
@@ -1768,7 +1768,7 @@ Useful when a read-only file needs to be updated by its owner.
 
 ---
 
-# Example 14: Remove Execute Permission from Owner
+#### Example 14: Remove Execute Permission from Owner
 
 ## Command
 
@@ -1800,7 +1800,7 @@ Prevents accidental execution of scripts during maintenance.
 
 ---
 
-# Example 15: Give Read and Execute Permission to Group
+#### Example 15: Give Read and Execute Permission to Group
 
 ## Command
 
@@ -1829,7 +1829,7 @@ Allows developers to run scripts without modifying them.
 
 ---
 
-# Example 16: Give Everyone Read Permission
+#### Example 16: Give Everyone Read Permission
 
 ## Command
 
@@ -1857,7 +1857,7 @@ Useful for manuals, documentation, and public reports.
 
 ---
 
-# Example 17: Remove All Permissions from Others
+#### Example 17: Remove All Permissions from Others
 
 ## Command
 
@@ -1890,7 +1890,7 @@ Prevents unauthorized users from accessing sensitive files.
 
 ---
 
-# Example 18: Copy Permissions from Another File
+#### Example 18: Copy Permissions from Another File
 
 ## Command
 
@@ -1922,7 +1922,7 @@ Useful when multiple files should have identical permissions.
 
 ---
 
-# Example 19: Change Permissions of an Entire Project
+#### Example 19: Change Permissions of an Entire Project
 
 ## Command
 
@@ -1948,7 +1948,7 @@ Commonly used while deploying web applications.
 
 ---
 
-# Example 20: Secure a Private Directory
+#### Example 20: Secure a Private Directory
 
 ## Command
 
@@ -1999,7 +1999,7 @@ ls -l
 - Use `755` for executable scripts and directories.
 - Use recursive (`-R`) permission changes carefully because they affect all files and subdirectories.
 
-# chmod Interview Questions and Answers (Part 2A.4)
+## chmod Interview Questions and Answers (Part 2A.4)
 
 This section contains frequently asked interview questions on the `chmod` command. These questions are commonly asked in Linux Administration, Technical Support, System Administrator, Cloud, and DevOps interviews.
 
@@ -2337,7 +2337,7 @@ chmod u=rw,go= filename
 
 ---
 
-# Quick Revision
+### Quick Revision
 
 - `chmod` = Change file or directory permissions.
 - Numeric mode uses values such as `755`, `644`, and `600`.
@@ -2348,7 +2348,7 @@ chmod u=rw,go= filename
 - `644` is common for normal files.
 - `600` is common for confidential files.
 
-# umask Command (User File Creation Mask)
+## umask Command (User File Creation Mask)
 
 ## 1. Definition
 
@@ -2358,7 +2358,7 @@ It does **not** change the permissions of existing files or directories. Instead
 
 ---
 
-# 2. Why is umask Used?
+### 2. Why is umask Used?
 
 The `umask` command is used to:
 
@@ -2371,7 +2371,7 @@ The `umask` command is used to:
 
 ---
 
-# 3. Syntax
+### 3. Syntax
 
 ## Display Current umask
 
@@ -2405,7 +2405,7 @@ umask u=rwx,g=rx,o=rx
 
 ---
 
-# 4. umask Options
+### 4. umask Options
 
 | Option | Description |
 |---------|-------------|
@@ -2416,7 +2416,7 @@ umask u=rwx,g=rx,o=rx
 
 ---
 
-# 5. How umask Works
+### 5. How umask Works
 
 `umask` works by **removing permissions** from the system's default permissions.
 
@@ -2464,7 +2464,7 @@ Final Permission = Default Permission - umask
 
 ---
 
-# 6. Common Numeric umask Values
+### 6. Common Numeric umask Values
 
 ## umask 000
 
@@ -2594,7 +2594,7 @@ Commonly used for:
 
 ---
 
-# 7. Symbolic umask Examples
+### 7. Symbolic umask Examples
 
 Instead of numbers, `umask` also supports symbolic notation.
 
@@ -2650,7 +2650,7 @@ u=rwx,g=rx,o=rx
 
 ---
 
-# 8. Default File & Directory Permissions
+### 8. Default File & Directory Permissions
 
 | Object | Default Permission |
 |---------|-------------------|
@@ -2668,7 +2668,7 @@ After applying umask:
 
 ---
 
-# 9. umask Calculation Explained
+### 9. umask Calculation Explained
 
 ## Example 1
 
@@ -2782,7 +2782,7 @@ rwx------
 
 ---
 
-# Key Points
+### Key Points
 
 - `umask` stands for **User File Creation Mask**.
 - It affects **only newly created files and directories**.
@@ -2796,13 +2796,13 @@ rwx------
 Note: The expression "Default Permission − umask" is a learning shortcut. Internally, Linux applies the umask using bitwise masking, not ordinary arithmetic subtraction.
 
 
-# umask Practical Examples (Part 2B.2A)
+## umask Practical Examples (Part 2B.2A)
 
 This section demonstrates practical examples of the `umask` command used in Linux Administration.
 
 ---
 
-# Example 1: Check the Current umask Value
+#### Example 1: Check the Current umask Value
 
 ## Command
 
@@ -2832,7 +2832,7 @@ A Linux administrator checks the current umask before creating files to understa
 
 ---
 
-# Example 2: Display umask in Symbolic Format
+#### Example 2: Display umask in Symbolic Format
 
 ## Command
 
@@ -2856,7 +2856,7 @@ Useful for beginners and administrators who find symbolic permissions easier to 
 
 ---
 
-# Example 3: Set umask to 022
+#### Example 3: Set umask to 022
 
 ## Command
 
@@ -2902,7 +2902,7 @@ This is the most common default umask on Linux systems because it allows users t
 
 ---
 
-# Example 4: Verify File Permission After Setting umask 022
+#### Example 4: Verify File Permission After Setting umask 022
 
 ## Commands
 
@@ -2936,7 +2936,7 @@ Useful when creating configuration files that should be readable by others but w
 
 ---
 
-# Example 5: Verify Directory Permission After Setting umask 022
+#### Example 5: Verify Directory Permission After Setting umask 022
 
 ## Commands
 
@@ -2968,7 +2968,7 @@ Commonly used when creating project directories that team members need to access
 
 ---
 
-# Example 6: Set umask to 077
+#### Example 6: Set umask to 077
 
 ## Command
 
@@ -3002,7 +3002,7 @@ Ideal for systems storing confidential information such as SSH keys, passwords, 
 
 ---
 
-# Example 7: Create a File After Setting umask 077
+#### Example 7: Create a File After Setting umask 077
 
 ## Commands
 
@@ -3034,7 +3034,7 @@ Used when creating sensitive files that should only be accessible to the owner.
 
 ---
 
-# Example 8: Create a Directory After Setting umask 077
+#### Example 8: Create a Directory After Setting umask 077
 
 ## Commands
 
@@ -3224,13 +3224,13 @@ screenshots/
 └── umask-077-directory-permission.png
 
 
-# umask Practical Examples (Part 2B.2B)
+## umask Practical Examples (Part 2B.2B)
 
 This section contains additional practical examples of the `umask` command used in Linux Administration.
 
 ---
 
-# Example 9: Set umask to 027
+#### Example 9: Set umask to 027
 
 ## Commands
 
@@ -3259,7 +3259,7 @@ Used in organizations where files should be accessible to team members but hidde
 
 ---
 
-# Example 10: Create a File After Setting umask 027
+#### Example 10: Create a File After Setting umask 027
 
 ## Commands
 
@@ -3291,7 +3291,7 @@ Suitable for company reports that the owner can edit and the group can only read
 
 ---
 
-# Example 11: Create a Directory After Setting umask 027
+#### Example 11: Create a Directory After Setting umask 027
 
 ## Commands
 
@@ -3323,7 +3323,7 @@ Useful for team project directories where only authorized group members should h
 
 ---
 
-# Example 12: Set umask to 000
+#### Example 12: Set umask to 000
 
 ## Commands
 
@@ -3350,7 +3350,7 @@ May be used temporarily in isolated testing environments.
 
 ---
 
-# Example 13: Create a File After Setting umask 000
+#### Example 13: Create a File After Setting umask 000
 
 ## Commands
 
@@ -3382,7 +3382,7 @@ Useful only in controlled environments where multiple users need write access.
 
 ---
 
-# Example 14: Create a Directory After Setting umask 000
+#### Example 14: Create a Directory After Setting umask 000
 
 ## Commands
 
@@ -3414,7 +3414,7 @@ Generally avoided in production. Sometimes used for temporary shared directories
 
 ---
 
-# Example 15: Change umask for the Current Session
+#### Example 15: Change umask for the Current Session
 
 ## Commands
 
@@ -3446,7 +3446,7 @@ Administrators often change the umask temporarily while working on a specific pr
 
 ---
 
-# Example 16: Verify umask Before Creating Files
+#### Example 16: Verify umask Before Creating Files
 
 ## Commands
 
@@ -3707,7 +3707,7 @@ ls -l
 
 - Test changes using temporary files before applying them in important environments.
 
-# umask Interview Questions & Answers (Part 2B.4)
+## umask Interview Questions & Answers (Part 2B.4)
 
 This section contains frequently asked interview questions on the `umask` command. These questions are commonly asked in Linux Administration, Technical Support, System Administrator, Cloud, and DevOps interviews.
 
@@ -4067,7 +4067,7 @@ umask u=rwx,g=rx,o=rx
 
 ---
 
-# umask Cheat Sheet
+## umask Cheat Sheet
 
 | Command | Purpose |
 |---------|---------|
@@ -4095,7 +4095,7 @@ umask u=rwx,g=rx,o=rx
 
 ---
 
-# Summary
+## Summary
 
 - `umask` stands for **User File Creation Mask**.
 - It sets the **default permissions** for newly created files and directories.
@@ -4112,7 +4112,7 @@ umask u=rwx,g=rx,o=rx
 
 ---
 
-# chmod vs umask Comparison
+## chmod vs umask Comparison
 
 The following table compares the `chmod` and `umask` commands. Both commands are related to Linux file permissions, but they serve different purposes.
 
@@ -4163,7 +4163,7 @@ umask 022
 
 ---
 
-# Example Workflow
+#### Example Workflow
 
 ### Step 1: Set the Default Permission Mask
 
@@ -4228,7 +4228,7 @@ Remember this simple rule:
 This is one of the most frequently asked Linux interview questions for Technical Support, Linux Administration, AWS, Cloud, and DevOps roles.
 
 
-# ls -l Command (Complete Professional Notes)
+## ls -l Command (Complete Professional Notes)
 
 ## Part 3A.1 – Introduction
 
@@ -4238,7 +4238,7 @@ Linux Administrators, DevOps Engineers, Cloud Engineers, and Technical Support p
 
 ---
 
-# 1. Definition
+### 1. Definition
 
 The `ls -l` command lists files and directories in **long listing format**, showing detailed information such as:
 
@@ -4255,7 +4255,7 @@ Unlike the basic `ls` command, `ls -l` provides complete metadata for each file 
 
 ---
 
-# 2. Why is ls -l Used?
+### 2. Why is ls -l Used?
 
 The `ls -l` command is used to:
 
@@ -4271,7 +4271,7 @@ The `ls -l` command is used to:
 
 ---
 
-# 3. Syntax
+### 3. Syntax
 
 Basic Syntax
 
@@ -4305,7 +4305,7 @@ ls -ld project
 
 ---
 
-# 4. Common Options
+### 4. Common Options
 
 | Command | Description |
 |---------|-------------|
@@ -4321,7 +4321,7 @@ ls -ld project
 
 ---
 
-# 5. Understanding ls -l Output
+### 5. Understanding ls -l Output
 
 Run the following command:
 
@@ -4349,7 +4349,7 @@ Each part of the output has a specific meaning.
 
 ---
 
-# 6. File Type Symbols
+### 6. File Type Symbols
 
 The first character of the permission field indicates the file type.
 
@@ -4385,7 +4385,7 @@ lrwxrwxrwx
 
 ---
 
-# 7. Permission Fields Explained
+### 7. Permission Fields Explained
 
 Example:
 
@@ -4449,7 +4449,7 @@ Cannot write or execute.
 
 ---
 
-# 8. Owner, Group, Size, Date & Filename Explained
+### 8. Owner, Group, Size, Date & Filename Explained
 
 Example
 
@@ -4565,13 +4565,13 @@ The name of the file or directory.
 - Combine `ls -l` with commands such as `chmod`, `chown`, `stat`, `find`, and `grep` for effective Linux administration.
 
 
-# ls -l Practical Examples (Part 3A.2A)
+## ls -l Practical Examples (Part 3A.2A)
 
 This section contains practical examples of the `ls -l` command used in Linux Administration, Technical Support, Cloud, and DevOps environments.
 
 ---
 
-# Example 1: Display Detailed List of Files
+#### Example 1: Display Detailed List of Files
 
 ## Command
 
@@ -4596,7 +4596,7 @@ A Linux administrator checks file permissions before sharing files with other us
 
 ---
 
-# Example 2: View Details of a Specific File
+#### Example 2: View Details of a Specific File
 
 ## Command
 
@@ -4620,7 +4620,7 @@ Useful for checking permissions and ownership of a single configuration file.
 
 ---
 
-# Example 3: View Details of a Directory
+#### Example 3: View Details of a Directory
 
 ## Command
 
@@ -4644,7 +4644,7 @@ Used to verify directory permissions before granting access to team members.
 
 ---
 
-# Example 4: Display Hidden Files
+#### Example 4: Display Hidden Files
 
 ## Command
 
@@ -4672,7 +4672,7 @@ System administrators use this command to view hidden configuration files such a
 
 ---
 
-# Example 5: Display Human-Readable File Sizes
+#### Example 5: Display Human-Readable File Sizes
 
 ## Command
 
@@ -4697,7 +4697,7 @@ Useful when identifying large files that consume disk space.
 
 ---
 
-# Example 6: Sort Files by Modification Time (Newest First)
+#### Example 6: Sort Files by Modification Time (Newest First)
 
 ## Command
 
@@ -4725,7 +4725,7 @@ Helpful for checking which log file or project file was updated most recently.
 
 ---
 
-# Example 7: Sort Files by Modification Time (Oldest First)
+#### Example 7: Sort Files by Modification Time (Oldest First)
 
 ## Command
 
@@ -4751,7 +4751,7 @@ Useful for reviewing historical files in chronological order.
 
 ---
 
-# Example 8: Sort Files by Size
+#### Example 8: Sort Files by Size
 
 ## Command
 
@@ -4777,7 +4777,7 @@ Used to identify large files when troubleshooting low disk space.
 
 ---
 
-# Example 9: Display Inode Numbers
+#### Example 9: Display Inode Numbers
 
 ## Command
 
@@ -4801,7 +4801,7 @@ Useful when troubleshooting hard links or filesystem-related issues.
 
 ---
 
-# Example 10: List Files Recursively
+#### Example 10: List Files Recursively
 
 ## Command
 
@@ -4842,7 +4842,7 @@ Commonly used to review the complete structure of a project directory before dep
 - `ls -li` displays inode numbers.
 - `ls -lR` recursively lists all files and directories.
 
-# Screenshot Guide (Examples 1–10)
+### Screenshot Guide (Examples 1–10)
 
 ## Example 1
 
@@ -4983,13 +4983,13 @@ ls-recursive.png
 ```
 
 
-# ls -l Practical Examples (Part 3A.2B)
+## ls -l Practical Examples (Part 3A.2B)
 
 This section contains additional practical examples of the `ls -l` command used in Linux Administration, Technical Support, Cloud Computing, and DevOps.
 
 ---
 
-# Example 11: Display Details of Multiple Files
+#### Example 11: Display Details of Multiple Files
 
 ## Command
 
@@ -5014,7 +5014,7 @@ Useful when comparing permissions or sizes of multiple files.
 
 ---
 
-# Example 12: List Files Inside a Specific Directory
+#### Example 12: List Files Inside a Specific Directory
 
 ## Command
 
@@ -5040,7 +5040,7 @@ Used to inspect the contents of a project folder before deployment.
 
 ---
 
-# Example 13: Display Root Directory Contents
+#### Example 13: Display Root Directory Contents
 
 ## Command
 
@@ -5067,7 +5067,7 @@ Useful for understanding the Linux filesystem hierarchy.
 
 ---
 
-# Example 14: Display Home Directory Contents
+#### Example 14: Display Home Directory Contents
 
 ## Command
 
@@ -5094,7 +5094,7 @@ Frequently used to check personal files and project folders.
 
 ---
 
-# Example 15: List Only Directory Information
+#### Example 15: List Only Directory Information
 
 ## Command
 
@@ -5118,7 +5118,7 @@ Used to verify directory permissions during user management.
 
 ---
 
-# Example 16: Combine Human-Readable Size with Hidden Files
+#### Example 16: Combine Human-Readable Size with Hidden Files
 
 ## Command
 
@@ -5143,7 +5143,7 @@ Useful when checking hidden configuration files and their sizes.
 
 ---
 
-# Example 17: Display Files with Inode Numbers and Human-Readable Sizes
+#### Example 17: Display Files with Inode Numbers and Human-Readable Sizes
 
 ## Command
 
@@ -5167,7 +5167,7 @@ Helpful for troubleshooting filesystem issues and identifying hard links.
 
 ---
 
-# Example 18: List Directory Recursively with Human-Readable Sizes
+#### Example 18: List Directory Recursively with Human-Readable Sizes
 
 ## Command
 
@@ -5193,7 +5193,7 @@ Used before taking backups or reviewing an application's directory structure.
 
 ---
 
-# Example 19: Check Permissions After Using chmod
+#### Example 19: Check Permissions After Using chmod
 
 ## Commands
 
@@ -5218,7 +5218,7 @@ Administrators verify permission changes after running the `chmod` command.
 
 ---
 
-# Example 20: Verify Ownership After Using chown
+#### Example 20: Verify Ownership After Using chown
 
 ## Commands
 
@@ -5251,7 +5251,7 @@ Used to confirm ownership changes after transferring files between users or team
 - Linux administrators frequently use `ls -l` for troubleshooting, auditing, and file management tasks.
 
 
-# Screenshot Guide (Examples 11–20)
+### Screenshot Guide (Examples 11–20)
 
 ## Example 11
 
@@ -5393,7 +5393,7 @@ Suggested Screenshot:
 ls-after-chown.png
 ```
 
-# ls -l (Part 3A.3)
+## ls -l (Part 3A.3)
 # Common Errors & Troubleshooting
 
 ## Error 1: "No such file or directory"
@@ -5523,7 +5523,7 @@ to display details about the directory itself.
 - Use `ls -lS` to identify large files consuming disk space.
 - Use `ls -ld` when you need information about a directory itself rather than its contents.
 
-# ls -l Interview Questions & Answers (Part 3A.4A)
+## ls -l Interview Questions & Answers (Part 3A.4A)
 
 This section contains frequently asked interview questions on the `ls -l` command. These questions are commonly asked in Linux Administration, Technical Support, System Administrator, AWS, Cloud, and DevOps interviews.
 
@@ -5839,7 +5839,7 @@ Expected Output
 
 ---
 
-# Quick Revision
+### Quick Revision
 
 - `ls` → Lists file and directory names.
 - `ls -l` → Displays detailed file information.
@@ -5852,7 +5852,7 @@ Expected Output
 - `ls -ld` → Shows information about the directory itself.
 - `ls -lR` → Lists files recursively.
 
-# ls -l Interview Questions & Answers (Part 3A.4B)
+## ls -l Interview Questions & Answers (Part 3A.4B)
 
 This section covers advanced interview questions, comparison tables, cheat sheets, and quick revision notes for the `ls` and `ls -l` commands.
 
@@ -6125,7 +6125,7 @@ ls -l report.txt
 
 ---
 
-# ls -l Cheat Sheet
+## ls -l Cheat Sheet
 
 | Command | Description |
 |---------|-------------|
@@ -6144,7 +6144,7 @@ ls -l report.txt
 
 ---
 
-# Summary
+## Summary
 
 - `ls` displays only file and directory names.
 - `ls -l` displays detailed file information.
@@ -6160,7 +6160,7 @@ ls -l report.txt
 
 ---
 
-# Quick Revision Notes
+### Quick Revision Notes
 
 ## Remember These Commands
 
@@ -6204,7 +6204,7 @@ ls -lR
 - Remember the difference between `ls` (basic listing) and `ls -l` (detailed listing), as this is a very common interview question.
 
 
-# stat Command (Complete Professional Notes)
+## stat Command (Complete Professional Notes)
 
 ## Part 3B.1 – Introduction
 
@@ -6230,7 +6230,7 @@ The `stat` command is widely used by Linux Administrators, DevOps Engineers, Clo
 
 ---
 
-# 1. Definition
+### 1. Definition
 
 The `stat` command displays detailed status information about a file or directory.
 
@@ -6240,7 +6240,7 @@ Unlike `ls -l`, it provides low-level filesystem information that is useful for 
 
 ---
 
-# 2. Why is stat Used?
+### 2. Why is stat Used?
 
 The `stat` command is used to:
 
@@ -6257,7 +6257,7 @@ The `stat` command is used to:
 
 ---
 
-# 3. Syntax
+### 3. Syntax
 
 Basic Syntax
 
@@ -6285,7 +6285,7 @@ stat file1.txt file2.txt
 
 ---
 
-# 4. Common Options
+### 4. Common Options
 
 | Command | Description |
 |---------|-------------|
@@ -6305,7 +6305,7 @@ stat file1.txt file2.txt
 
 ---
 
-# 5. Understanding stat Output
+### 5. Understanding stat Output
 
 Run the following command:
 
@@ -6330,7 +6330,7 @@ The output contains complete filesystem metadata about the file.
 
 ---
 
-# 6. File Information Explained
+### 6. File Information Explained
 
 ### File
 
@@ -6438,7 +6438,7 @@ Symbolic permission.
 
 ---
 
-# 7. File Timestamp Explained
+### 7. File Timestamp Explained
 
 The `stat` command displays several timestamps that are useful for auditing and troubleshooting.
 
@@ -6513,7 +6513,7 @@ Shows when the file was originally created.
 
 ---
 
-# 8. Inode, Device & Block Information
+### 8. Inode, Device & Block Information
 
 ## Inode Number
 
@@ -6568,7 +6568,7 @@ Indicates the preferred block size for efficient input/output operations.
 
 ---
 
-# 9. Difference Between stat and ls -l
+### 9. Difference Between stat and ls -l
 
 | Feature | stat | ls -l |
 |---------|------|--------|
@@ -6603,13 +6603,13 @@ Indicates the preferred block size for efficient input/output operations.
  - ctime (Change Time): Last time the file metadata (permissions, ownership, etc.) changed.
 
 
-# stat Practical Examples (Part 3B.2A)
+## stat Practical Examples (Part 3B.2A)
 
 This section contains practical examples of the `stat` command used in Linux Administration, Technical Support, Cloud Computing, and DevOps.
 
 ---
 
-# Example 1: Display Metadata of a File
+#### Example 1: Display Metadata of a File
 
 ## Command
 
@@ -6649,7 +6649,7 @@ stat-file-details.png
 
 ---
 
-# Example 2: Display Metadata of a Directory
+#### Example 2: Display Metadata of a Directory
 
 ## Command
 
@@ -6687,7 +6687,7 @@ stat-directory-details.png
 
 ---
 
-# Example 3: Display Metadata of Multiple Files
+#### Example 3: Display Metadata of Multiple Files
 
 ## Command
 
@@ -6727,7 +6727,7 @@ stat-multiple-files.png
 
 ---
 
-# Example 4: Display Only File Name
+#### Example 4: Display Only File Name
 
 ## Command
 
@@ -6763,7 +6763,7 @@ stat-filename.png
 
 ---
 
-# Example 5: Display Only File Size
+#### Example 5: Display Only File Size
 
 ## Command
 
@@ -6799,7 +6799,7 @@ stat-filesize.png
 
 ---
 
-# Example 6: Display Symbolic Permissions
+#### Example 6: Display Symbolic Permissions
 
 ## Command
 
@@ -6835,7 +6835,7 @@ stat-symbolic-permissions.png
 
 ---
 
-# Example 7: Display Numeric Permissions
+#### Example 7: Display Numeric Permissions
 
 ## Command
 
@@ -6871,7 +6871,7 @@ stat-numeric-permissions.png
 
 ---
 
-# Example 8: Display File Owner
+#### Example 8: Display File Owner
 
 ## Command
 
@@ -6907,7 +6907,7 @@ stat-owner.png
 
 ---
 
-# Example 9: Display File Group
+#### Example 9: Display File Group
 
 ## Command
 
@@ -6943,7 +6943,7 @@ stat-group.png
 
 ---
 
-# Example 10: Display Inode Number
+#### Example 10: Display Inode Number
 
 ## Command
 
