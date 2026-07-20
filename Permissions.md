@@ -1,3 +1,4 @@
+
 # Linux File Permissions (Part 1)
 
 ## Introduction
