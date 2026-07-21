@@ -1,4 +1,4 @@
-## stat Command (Complete Professional Notes)
+# stat Command (Complete Professional Notes)
 
 ## Part 3B.1 – Introduction
 
@@ -1173,3 +1173,519 @@ stat-current-directory.png
 - `stat` helps verify permission and ownership changes after using `chmod` and `chown`.
 - The `-c` option allows customized output, making `stat` very useful for shell scripting and automation.
 - `stat` is commonly used for auditing files, troubleshooting permissions, and analyzing filesystem metadata.
+
+---
+
+## stat Practice Exercises (Part 3B.3)
+
+This section contains hands-on practice exercises to help you master the `stat` command. Complete these exercises on your Linux system and capture screenshots for your GitHub repository.
+
+---
+
+### Practice Exercise 1: Display File Metadata
+
+### Commands
+
+```bash
+touch notes.txt
+stat notes.txt
+```
+
+### Task
+
+Create a file and display its complete metadata.
+
+### Verify
+
+- File name
+- File size
+- Permissions
+- Owner
+- Group
+- Timestamps
+
+---
+
+### Practice Exercise 2: Display Directory Metadata
+
+### Commands
+
+```bash
+mkdir project
+stat project
+```
+
+### Task
+
+Display metadata of a directory.
+
+### Verify
+
+- Directory permissions
+- Owner
+- Group
+- Inode number
+
+---
+
+### Practice Exercise 3: Display Metadata of Multiple Files
+
+### Commands
+
+```bash
+touch file1.txt file2.txt
+stat file1.txt file2.txt
+```
+
+### Task
+
+Compare metadata of multiple files.
+
+---
+
+### Practice Exercise 4: Display Only File Name
+
+### Command
+
+```bash
+stat -c "%n" notes.txt
+```
+
+### Task
+
+Display only the filename.
+
+### Expected Output
+
+```text
+notes.txt
+```
+
+---
+
+### Practice Exercise 5: Display File Size
+
+### Command
+
+```bash
+stat -c "%s" notes.txt
+```
+
+### Task
+
+Display the size of the file in bytes.
+
+---
+
+### Practice Exercise 6: Display Permissions
+
+### Commands
+
+```bash
+chmod 755 notes.txt
+stat -c "%A" notes.txt
+stat -c "%a" notes.txt
+```
+
+### Task
+
+Display symbolic and numeric permissions.
+
+### Expected Output
+
+```text
+-rwxr-xr-x
+755
+```
+
+---
+
+### Practice Exercise 7: Display Owner and Group
+
+### Commands
+
+```bash
+stat -c "%U" notes.txt
+stat -c "%G" notes.txt
+```
+
+### Task
+
+Display the file owner and group.
+
+---
+
+### Practice Exercise 8: Display Inode Number
+
+### Command
+
+```bash
+stat -c "%i" notes.txt
+```
+
+### Task
+
+Display the inode number of the file.
+
+---
+
+### Practice Exercise 9: Display File Timestamps
+
+### Commands
+
+```bash
+stat -c "%x" notes.txt
+stat -c "%y" notes.txt
+stat -c "%z" notes.txt
+```
+
+### Task
+
+Observe the Access, Modify, and Change timestamps.
+
+---
+
+### Practice Exercise 10: Verify Permission Change
+
+### Commands
+
+```bash
+chmod 644 notes.txt
+stat notes.txt
+```
+
+### Task
+
+Verify that the updated permissions are reflected in the metadata.
+
+---
+
+### Practice Exercise 11: Verify Ownership Change
+
+### Commands
+
+```bash
+sudo chown $USER:$USER notes.txt
+stat notes.txt
+```
+
+> Replace `$USER:$USER` with another valid user and group if you are practicing ownership changes between different users.
+
+### Task
+
+Verify the updated owner and group information.
+
+---
+
+### Screenshot Guide
+
+Capture screenshots of the following commands and their outputs.
+
+---
+
+### Screenshot 1
+
+```bash
+stat notes.txt
+```
+
+Suggested Filename
+
+```text
+stat-file-details.png
+```
+
+---
+
+### Screenshot 2
+
+```bash
+stat project
+```
+
+Suggested Filename
+
+```text
+stat-directory-details.png
+```
+
+---
+
+### Screenshot 3
+
+```bash
+stat file1.txt file2.txt
+```
+
+Suggested Filename
+
+```text
+stat-multiple-files.png
+```
+
+---
+
+### Screenshot 4
+
+```bash
+stat -c "%n" notes.txt
+```
+
+Suggested Filename
+
+```text
+stat-filename.png
+```
+
+---
+
+### Screenshot 5
+
+```bash
+stat -c "%s" notes.txt
+```
+
+Suggested Filename
+
+```text
+stat-filesize.png
+```
+
+---
+
+### Screenshot 6
+
+```bash
+stat -c "%A" notes.txt
+stat -c "%a" notes.txt
+```
+
+Suggested Filename
+
+```text
+stat-permissions.png
+```
+
+---
+
+### Screenshot 7
+
+```bash
+stat -c "%U" notes.txt
+stat -c "%G" notes.txt
+```
+
+Suggested Filename
+
+```text
+stat-owner-group.png
+```
+
+---
+
+### Screenshot 8
+
+```bash
+stat -c "%i" notes.txt
+```
+
+Suggested Filename
+
+```text
+stat-inode.png
+```
+
+---
+
+### Screenshot 9
+
+```bash
+stat -c "%x" notes.txt
+stat -c "%y" notes.txt
+stat -c "%z" notes.txt
+```
+
+Suggested Filename
+
+```text
+stat-timestamps.png
+```
+
+---
+
+### Screenshot 10
+
+```bash
+chmod 644 notes.txt
+stat notes.txt
+```
+
+Suggested Filename
+
+```text
+stat-after-chmod.png
+```
+
+---
+
+### Screenshot 11
+
+```bash
+sudo chown $USER:$USER notes.txt
+stat notes.txt
+```
+
+Suggested Filename
+
+```text
+stat-after-chown.png
+```
+
+---
+
+### Common Errors & Troubleshooting
+
+### Error 1: No such file or directory
+
+### Problem
+
+```bash
+stat file.txt
+```
+
+Output:
+
+```text
+stat: cannot stat 'file.txt': No such file or directory
+```
+
+### Reason
+
+The specified file does not exist.
+
+### Solution
+
+Check available files:
+
+```bash
+ls
+```
+
+Or create the file:
+
+```bash
+touch file.txt
+```
+
+---
+
+### Error 2: Permission denied
+
+### Problem
+
+```bash
+stat /root
+```
+
+Output:
+
+```text
+stat: cannot stat '/root': Permission denied
+```
+
+### Reason
+
+The current user does not have permission to access the directory.
+
+### Solution
+
+```bash
+sudo stat /root
+```
+
+---
+
+### Error 3: Incorrect Filename
+
+### Problem
+
+```bash
+stat Note.txt
+```
+
+Output:
+
+```text
+No such file or directory
+```
+
+### Reason
+
+Linux filenames are case-sensitive.
+
+### Solution
+
+Use the correct filename:
+
+```bash
+stat notes.txt
+```
+
+---
+
+### Error 4: Birth Time Not Displayed
+
+### Problem
+
+The **Birth** field is missing from the output.
+
+### Reason
+
+Some Linux filesystems do not store or display file creation time.
+
+### Solution
+
+This is normal behavior. Use `Access`, `Modify`, and `Change` times instead if Birth time is unavailable.
+
+---
+
+### Error 5: Incorrect Permission Interpretation
+
+### Problem
+
+Confusing `Access` permissions with timestamps.
+
+### Solution
+
+Remember:
+
+- `Access: (0644/-rw-r--r--)` → Permissions
+- `Access: 2026-07-21 ...` → Last access timestamp
+
+These are two different sections of the output.
+
+---
+
+### Best Practices
+
+- Use `stat` to verify file metadata after running `chmod` or `chown`.
+- Combine `stat` with `ls -l` for complete file inspection.
+- Use the `-c` option to display only the information you need.
+- Verify timestamps when troubleshooting file modifications.
+- Use `stat` in shell scripts for reporting and automation.
+- Compare metadata of files before deleting or backing them up.
+
+---
+
+### Cleanup Commands
+
+After completing the exercises, remove the practice files and directories.
+
+```bash
+rm -f notes.txt file1.txt file2.txt
+rm -rf project
+```
+
+### Purpose
+
+These commands clean up all temporary files and directories created during the practice exercises, keeping your working environment organized.
