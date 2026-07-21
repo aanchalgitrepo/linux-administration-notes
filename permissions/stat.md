@@ -1322,3 +1322,376 @@ rm -rf project
 ### Purpose
 
 These commands clean up all temporary files and directories created during the practice exercises, keeping your working environment organized.
+
+---
+
+## stat Interview Questions & Answers (Part 3B.4A)
+
+This section contains the most frequently asked interview questions on the `stat` command for Linux Administration, Technical Support, System Administration, AWS, Cloud Computing, and DevOps interviews.
+
+---
+
+### Q1. What is the `stat` command in Linux?
+
+### Answer
+
+The `stat` command is used to display detailed information (metadata) about a file or directory.
+
+It provides information such as:
+
+- File size
+- File type
+- Permissions
+- Owner
+- Group
+- Inode number
+- Number of links
+- Access time
+- Modify time
+- Change time
+- Block information
+- Device information
+
+Unlike `ls -l`, `stat` provides complete filesystem metadata.
+
+### Example
+
+```bash
+stat notes.txt
+```
+
+---
+
+### Q2. Why is the `stat` command used?
+
+### Answer
+
+The `stat` command is used to:
+
+- Display complete file metadata
+- Verify permissions
+- Check ownership
+- View timestamps
+- Identify inode numbers
+- Troubleshoot filesystem issues
+- Audit files and directories
+- Verify changes after `chmod` and `chown`
+
+---
+
+### Q3. What information does the `stat` command display?
+
+### Answer
+
+The `stat` command displays:
+
+- File name
+- File type
+- File size
+- Permissions
+- Owner
+- Group
+- Number of links
+- Inode number
+- Device number
+- Block size
+- Allocated blocks
+- Access Time (atime)
+- Modify Time (mtime)
+- Change Time (ctime)
+- Birth Time (if supported)
+
+### Example
+
+```bash
+stat file.txt
+```
+
+---
+
+### Q4. What is metadata?
+
+### Answer
+
+Metadata is **data about a file**, not the file's actual content.
+
+Metadata includes:
+
+- Owner
+- Group
+- Permissions
+- Size
+- Timestamps
+- Inode number
+
+The `stat` command displays this metadata.
+
+---
+
+### Q5. What is an inode?
+
+### Answer
+
+An inode is a unique number assigned to every file and directory in a Linux filesystem.
+
+It stores metadata such as:
+
+- Permissions
+- Owner
+- Group
+- File size
+- Timestamps
+- Block locations
+
+### Example
+
+```bash
+stat -c "%i" notes.txt
+```
+
+---
+
+### Q6. What is the difference between Access Time, Modify Time, and Change Time?
+
+### Answer
+
+| Time | Meaning |
+|------|----------|
+| Access Time (atime) | Last time the file was read |
+| Modify Time (mtime) | Last time the file content changed |
+| Change Time (ctime) | Last time the file metadata changed |
+
+### Example
+
+```bash
+stat notes.txt
+```
+
+---
+
+### Q7. How do you display only the file size using `stat`?
+
+### Answer
+
+Use:
+
+```bash
+stat -c "%s" filename
+```
+
+### Example
+
+```bash
+stat -c "%s" notes.txt
+```
+
+Output
+
+```text
+2048
+```
+
+---
+
+### Q8. How do you display only the filename?
+
+### Answer
+
+Use:
+
+```bash
+stat -c "%n" filename
+```
+
+### Example
+
+```bash
+stat -c "%n" notes.txt
+```
+
+Output
+
+```text
+notes.txt
+```
+
+---
+
+### Q9. How do you display symbolic file permissions?
+
+### Answer
+
+Use:
+
+```bash
+stat -c "%A" filename
+```
+
+### Example
+
+```bash
+stat -c "%A" notes.txt
+```
+
+Output
+
+```text
+-rw-r--r--
+```
+
+---
+
+### Q10. How do you display numeric permissions?
+
+### Answer
+
+Use:
+
+```bash
+stat -c "%a" filename
+```
+
+### Example
+
+```bash
+stat -c "%a" notes.txt
+```
+
+Output
+
+```text
+644
+```
+
+---
+
+### Q11. How do you display the owner and group of a file?
+
+### Answer
+
+Owner:
+
+```bash
+stat -c "%U" notes.txt
+```
+
+Group:
+
+```bash
+stat -c "%G" notes.txt
+```
+
+These commands display only the owner and group names.
+
+---
+
+### Q12. How do you display the inode number?
+
+### Answer
+
+Use:
+
+```bash
+stat -c "%i" filename
+```
+
+### Example
+
+```bash
+stat -c "%i" notes.txt
+```
+
+Output
+
+```text
+157286
+```
+
+---
+
+### Q13. How do you verify permission changes after using `chmod`?
+
+### Answer
+
+Run the following commands:
+
+```bash
+chmod 755 notes.txt
+stat notes.txt
+```
+
+The updated permissions will appear in the `Access` field.
+
+### Example Output
+
+```text
+Access: (0755/-rwxr-xr-x)
+```
+
+---
+
+### Q14. How do you verify ownership changes after using `chown`?
+
+### Answer
+
+Run:
+
+```bash
+sudo chown rahul:developers notes.txt
+stat notes.txt
+```
+
+The updated owner and group will appear in the `Uid` and `Gid` fields.
+
+### Example Output
+
+```text
+Uid: (1001/rahul)
+Gid: (1002/developers)
+```
+
+---
+
+### Q15. Why is the `stat` command important for Linux administrators?
+
+### Answer
+
+Linux administrators frequently use `stat` because it helps them:
+
+- Verify file permissions
+- Check ownership
+- View inode numbers
+- Troubleshoot permission problems
+- Monitor file timestamps
+- Audit files
+- Analyze filesystem metadata
+- Verify changes after `chmod` and `chown`
+- Support automation scripts
+
+The `stat` command provides more detailed information than `ls -l`, making it an essential tool for Linux system administration.
+
+### Example
+
+```bash
+stat /etc/passwd
+```
+
+This command displays complete metadata for the `/etc/passwd` file, helping administrators inspect permissions, ownership, timestamps, and other filesystem details.
+
+---
+
+### Quick Revision (Questions 1–15)
+
+- `stat` displays complete file metadata.
+- Metadata includes permissions, owner, group, inode, timestamps, size, and device information.
+- `%n` → File name
+- `%s` → File size
+- `%A` → Symbolic permissions
+- `%a` → Numeric permissions
+- `%U` → Owner
+- `%G` → Group
+- `%i` → Inode number
+- `atime` → Last access time
+- `mtime` → Last modification time
+- `ctime` → Last metadata change time
+- `stat` is widely used in Linux Administration, DevOps, Cloud Computing, and Technical Support.
