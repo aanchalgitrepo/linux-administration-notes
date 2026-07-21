@@ -863,3 +863,473 @@ ownership-stat.png
 - `stat` provides more detailed ownership information than `ls -l`.
 
   ---
+
+## Part 4.2B – Practical Examples (Examples 11–20)
+
+This section contains advanced `chown` examples that are commonly used by Linux Administrators, DevOps Engineers, Cloud Engineers, and Technical Support professionals.
+
+---
+
+### Example 11 – Change Ownership Recursively
+
+### Practical Example
+
+Change the ownership of an entire directory, including all files and subdirectories.
+
+### Command
+
+```bash
+sudo chown -R rahul:developers project/
+```
+
+### Command Explanation
+
+- `-R` → Recursive
+- `rahul` → New owner
+- `developers` → New group
+- `project/` → Target directory
+
+### Expected Output
+
+The command runs silently if successful.
+
+Verify:
+
+```bash
+ls -lR project
+```
+
+### Real-World Use Case
+
+After deploying a web application, all project files are assigned to the application owner.
+
+### Screenshot Command
+
+```bash
+sudo chown -R rahul:developers project/
+ls -lR project
+```
+
+Suggested Screenshot
+
+```text
+recursive-chown.png
+```
+
+---
+
+### Example 12 – Copy Ownership Using --reference
+
+### Practical Example
+
+Copy the ownership of one file to another.
+
+### Command
+
+```bash
+sudo chown --reference=file1.txt file2.txt
+```
+
+### Command Explanation
+
+Copies both the owner and group from `file1.txt` to `file2.txt`.
+
+### Expected Output
+
+Verify:
+
+```bash
+ls -l file1.txt file2.txt
+```
+
+Both files should display the same owner and group.
+
+### Real-World Use Case
+
+Useful when newly created files need to match the ownership of existing project files.
+
+### Screenshot Command
+
+```bash
+sudo chown --reference=file1.txt file2.txt
+ls -l file1.txt file2.txt
+```
+
+Suggested Screenshot
+
+```text
+reference-chown.png
+```
+
+---
+
+### Example 13 – Change Ownership of a Directory
+
+### Practical Example
+
+Assign a new owner to a directory.
+
+### Command
+
+```bash
+sudo chown rahul:developers project
+```
+
+### Command Explanation
+
+Changes ownership of the directory only.
+
+### Expected Output
+
+```bash
+ls -ld project
+```
+
+Example Output
+
+```text
+drwxr-xr-x 2 rahul developers 4096 Jul 21 11:00 project
+```
+
+### Real-World Use Case
+
+Assign a project folder to a new developer.
+
+### Screenshot Command
+
+```bash
+sudo chown rahul:developers project
+ls -ld project
+```
+
+Suggested Screenshot
+
+```text
+directory-ownership.png
+```
+
+---
+
+### Example 14 – Change Ownership After Creating a User
+
+### Practical Example
+
+Transfer files to a newly created user.
+
+### Commands
+
+```bash
+sudo useradd -m rahul
+sudo chown rahul notes.txt
+```
+
+### Command Explanation
+
+Creates a user and assigns ownership of the file to that user.
+
+### Expected Output
+
+```bash
+ls -l notes.txt
+```
+
+```text
+-rw-r--r-- 1 rahul developers 1250 Jul 21 11:10 notes.txt
+```
+
+### Real-World Use Case
+
+A new employee joins the team and receives ownership of project files.
+
+### Screenshot Command
+
+```bash
+sudo useradd -m rahul
+sudo chown rahul notes.txt
+ls -l notes.txt
+```
+
+Suggested Screenshot
+
+```text
+ownership-new-user.png
+```
+
+---
+
+### Example 15 – Verify Ownership After Moving Files
+
+### Practical Example
+
+Move a file and verify its ownership.
+
+### Commands
+
+```bash
+mv notes.txt project/
+ls -l project/notes.txt
+```
+
+### Command Explanation
+
+Moves the file into another directory and checks whether ownership remains unchanged.
+
+### Expected Output
+
+```text
+-rw-r--r-- 1 rahul developers 1250 Jul 21 11:15 notes.txt
+```
+
+### Real-World Use Case
+
+Verify file ownership after reorganizing project directories.
+
+### Screenshot Command
+
+```bash
+mv notes.txt project/
+ls -l project/notes.txt
+```
+
+Suggested Screenshot
+
+```text
+ownership-after-move.png
+```
+
+---
+
+### Example 16 – Verify Ownership Using id
+
+### Practical Example
+
+Display user and group IDs.
+
+### Command
+
+```bash
+id rahul
+```
+
+### Command Explanation
+
+Displays the user's UID, GID, and group memberships.
+
+### Expected Output
+
+```text
+uid=1001(rahul) gid=1002(developers) groups=1002(developers)
+```
+
+### Real-World Use Case
+
+Verify user information before assigning ownership.
+
+### Screenshot Command
+
+```bash
+id rahul
+```
+
+Suggested Screenshot
+
+```text
+ownership-id.png
+```
+
+---
+
+### Example 17 – Ownership in Shared Directories
+
+### Practical Example
+
+Assign ownership to a shared team directory.
+
+### Command
+
+```bash
+sudo chown rahul:developers shared_project
+```
+
+### Command Explanation
+
+Changes the owner and group of the shared directory.
+
+### Expected Output
+
+```bash
+ls -ld shared_project
+```
+
+```text
+drwxrwxr-x 2 rahul developers 4096 Jul 21 11:20 shared_project
+```
+
+### Real-World Use Case
+
+Common in software development teams where multiple users collaborate.
+
+### Screenshot Command
+
+```bash
+sudo chown rahul:developers shared_project
+ls -ld shared_project
+```
+
+Suggested Screenshot
+
+```text
+shared-directory-owner.png
+```
+
+---
+
+### Example 18 – Change Ownership Using Wildcards
+
+### Practical Example
+
+Change ownership of all text files in the current directory.
+
+### Command
+
+```bash
+sudo chown rahul *.txt
+```
+
+### Command Explanation
+
+Applies ownership changes to every `.txt` file.
+
+### Expected Output
+
+Verify:
+
+```bash
+ls -l *.txt
+```
+
+### Real-World Use Case
+
+Useful for bulk ownership changes after importing multiple files.
+
+### Screenshot Command
+
+```bash
+sudo chown rahul *.txt
+ls -l *.txt
+```
+
+Suggested Screenshot
+
+```text
+wildcard-chown.png
+```
+
+---
+
+### Example 19 – Change Ownership of a Configuration File
+
+### Practical Example
+
+Assign ownership to a configuration file.
+
+### Command
+
+```bash
+sudo chown root:root /etc/hosts
+```
+
+### Command Explanation
+
+Changes the owner and group of the `/etc/hosts` configuration file.
+
+### Expected Output
+
+Verify:
+
+```bash
+ls -l /etc/hosts
+```
+
+```text
+-rw-r--r-- 1 root root ...
+```
+
+### Real-World Use Case
+
+System administrators ensure important configuration files are owned by `root` for security.
+
+### Screenshot Command
+
+```bash
+sudo chown root:root /etc/hosts
+ls -l /etc/hosts
+```
+
+Suggested Screenshot
+
+```text
+config-file-owner.png
+```
+
+> **Note:** Be careful when changing ownership of system files. Perform this only on test systems or if you understand the impact.
+
+---
+
+### Example 20 – Audit File Ownership
+
+## Practical Example
+
+Review ownership information for multiple files.
+
+### Commands
+
+```bash
+ls -l
+stat notes.txt
+```
+
+### Command Explanation
+
+Uses `ls -l` for a quick overview and `stat` for detailed ownership metadata.
+
+### Expected Output
+
+Displays:
+
+- Owner
+- Group
+- Permissions
+- UID
+- GID
+- Inode
+- Timestamps
+
+### Real-World Use Case
+
+Administrators audit project files before deployment or security reviews.
+
+### Screenshot Command
+
+```bash
+ls -l
+stat notes.txt
+```
+
+Suggested Screenshot
+
+```text
+ownership-audit.png
+```
+
+---
+
+### Key Learning Points
+
+- Use `chown -R` to change ownership recursively.
+- Use `--reference` to copy ownership from another file.
+- Always verify ownership changes with `ls -l` or `stat`.
+- Use `id` to confirm a user's UID, GID, and group membership.
+- Wildcards (`*.txt`) simplify bulk ownership changes.
+- Be cautious when modifying ownership of system configuration files.
+- Ownership audits help maintain security and consistency across Linux systems.
