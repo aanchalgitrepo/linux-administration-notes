@@ -1333,3 +1333,167 @@ ownership-audit.png
 - Wildcards (`*.txt`) simplify bulk ownership changes.
 - Be cautious when modifying ownership of system configuration files.
 - Ownership audits help maintain security and consistency across Linux systems.
+
+---
+
+## Common Errors & Troubleshooting
+
+### Error 1 – Operation not permitted
+
+### Command
+
+```bash
+chown rahul file1.txt
+```
+
+### Output
+
+```text
+Operation not permitted
+```
+
+### Reason
+
+Current user does not have permission.
+
+### Solution
+
+```bash
+sudo chown rahul file1.txt
+```
+
+---
+
+### Error 2 – Invalid User
+
+### Command
+
+```bash
+sudo chown rohit file1.txt
+```
+
+### Output
+
+```text
+invalid user
+```
+
+### Reason
+
+The specified user does not exist.
+
+### Solution
+
+Create the user or use an existing username.
+
+```bash
+sudo useradd -m rohit
+```
+
+---
+
+### Error 3 – Invalid Group
+
+### Command
+
+```bash
+sudo chown rahul:testers file1.txt
+```
+
+### Output
+
+```text
+invalid group
+```
+
+### Reason
+
+The group does not exist.
+
+### Solution
+
+```bash
+sudo groupadd testers
+```
+
+---
+
+### Error 4 – Permission Denied
+
+### Command
+
+```bash
+sudo chown rahul /root/file.txt
+```
+
+### Possible Output
+
+```text
+Permission denied
+```
+
+### Reason
+
+Restricted system file or directory.
+
+### Solution
+
+Ensure the file exists and that you have sufficient privileges. Avoid changing ownership of protected system files unless necessary.
+
+---
+
+### Error 5 – No Such File or Directory
+
+### Command
+
+```bash
+sudo chown rahul unknown.txt
+```
+
+### Output
+
+```text
+No such file or directory
+```
+
+### Solution
+
+Verify the filename.
+
+```bash
+ls
+```
+
+---
+
+### Error 6 – Recursive Ownership Issues
+
+### Problem
+
+Recursive ownership accidentally changes ownership of important system files.
+
+### Solution
+
+Always verify the target directory before using:
+
+```bash
+sudo chown -R user directory
+```
+
+Use `pwd` and `ls` to confirm you are in the correct location.
+
+---
+
+### Best Practices
+
+- Always use `sudo` when changing ownership of files you do not own.
+- Verify ownership using `ls -l` or `stat`.
+- Use `chown -R` carefully because it affects every file and subdirectory.
+- Avoid changing ownership of critical system files such as those under `/etc`, `/bin`, `/usr`, or `/lib` unless you fully understand the impact.
+- Use `--reference` when you need multiple files to have identical ownership.
+- Check users with `id` and groups with `groups` before assigning ownership.
+- Test ownership changes on sample files before applying them in production.
+- Back up important data before performing bulk ownership changes.
+
+---
+
