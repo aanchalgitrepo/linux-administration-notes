@@ -1497,3 +1497,371 @@ Use `pwd` and `ls` to confirm you are in the correct location.
 
 ---
 
+## Part 4.4A – Interview Questions & Answers (1–15)
+
+This section contains the most frequently asked Linux Ownership (`chown`) interview questions. These questions are commonly asked in Linux Administration, Technical Support, System Administration, DevOps, AWS, and Cloud Computing interviews.
+
+---
+
+### Q1. What is Ownership in Linux?
+
+### Professional Answer
+
+Ownership in Linux determines **who owns a file or directory** and **which group is associated with it**.
+
+Every file and directory has:
+
+- Owner (User)
+- Group
+- Others
+
+Ownership works together with Linux permissions to control access to files and directories.
+
+### Example
+
+```bash
+ls -l file.txt
+```
+
+Example Output
+
+```text
+-rw-r--r-- 1 rahul developers 1250 Jul 21 10:30 file.txt
+```
+
+Here:
+
+- Owner → rahul
+- Group → developers
+
+---
+
+### Q2. What is the `chown` command?
+
+### Professional Answer
+
+The `chown` (Change Owner) command is used to change the owner and/or group of a file or directory.
+
+It is one of the most important commands for Linux administrators because it helps manage file ownership securely.
+
+### Example
+
+```bash
+sudo chown rahul file.txt
+```
+
+This command changes the owner of `file.txt` to `rahul`.
+
+---
+
+### Q3. What is the difference between Owner and Group?
+
+### Professional Answer
+
+| Owner | Group |
+|--------|--------|
+| Individual user who owns the file | Collection of users who share access |
+| Has primary control over the file | Members receive permissions assigned to the group |
+| Usually the file creator | Used for collaboration |
+
+### Example
+
+```text
+-rw-r--r-- 1 rahul developers file.txt
+```
+
+- Owner = rahul
+- Group = developers
+
+---
+
+### Q4. What is UID?
+
+### Professional Answer
+
+UID (User ID) is a unique numeric identifier assigned to every Linux user.
+
+Linux internally identifies users by UID rather than by username.
+
+### Example
+
+```bash
+id rahul
+```
+
+Output
+
+```text
+uid=1001(rahul)
+```
+
+---
+
+### Q5. What is GID?
+
+### Professional Answer
+
+GID (Group ID) is a unique numeric identifier assigned to every Linux group.
+
+Linux internally identifies groups by GID.
+
+### Example
+
+```bash
+id rahul
+```
+
+Output
+
+```text
+gid=1002(developers)
+```
+
+---
+
+### Q6. How do you check the owner of a file?
+
+### Professional Answer
+
+The owner can be verified using:
+
+```bash
+ls -l file.txt
+```
+
+or
+
+```bash
+stat file.txt
+```
+
+### Example
+
+```bash
+ls -l file.txt
+```
+
+Output
+
+```text
+-rw-r--r-- 1 rahul developers ...
+```
+
+---
+
+### Q7. How do you change the owner of a file?
+
+### Professional Answer
+
+Use the `chown` command followed by the username.
+
+### Example
+
+```bash
+sudo chown rahul file.txt
+```
+
+This changes only the owner.
+
+---
+
+### Q8. How do you change both owner and group?
+
+### Professional Answer
+
+Specify both the owner and group separated by a colon (`:`).
+
+### Example
+
+```bash
+sudo chown rahul:developers file.txt
+```
+
+This changes:
+
+- Owner → rahul
+- Group → developers
+
+---
+
+### Q9. What is Recursive Ownership?
+
+### Professional Answer
+
+Recursive ownership means changing the ownership of a directory **and all files and subdirectories inside it**.
+
+The `-R` option is used for this purpose.
+
+### Example
+
+```bash
+sudo chown -R rahul:developers project/
+```
+
+---
+
+### Q10. How do you verify ownership after using `chown`?
+
+### Professional Answer
+
+Ownership changes should always be verified using:
+
+```bash
+ls -l
+```
+
+or
+
+```bash
+stat
+```
+
+### Example
+
+```bash
+sudo chown rahul file.txt
+
+ls -l file.txt
+```
+
+---
+
+### Q11. Why is `sudo` commonly used with `chown`?
+
+### Professional Answer
+
+Changing the ownership of files usually requires administrative privileges.
+
+Therefore, `sudo` is commonly used with the `chown` command.
+
+### Example
+
+```bash
+sudo chown rahul file.txt
+```
+
+Without sufficient privileges, Linux returns an error such as:
+
+```text
+Operation not permitted
+```
+
+---
+
+### Q12. What are the most commonly used `chown` options?
+
+### Professional Answer
+
+| Option | Purpose |
+|----------|----------|
+| `-R` | Recursive ownership |
+| `-v` | Verbose output |
+| `-c` | Show only changed files |
+| `-f` | Suppress most error messages |
+| `--reference` | Copy ownership from another file |
+
+### Example
+
+```bash
+sudo chown -R rahul project/
+```
+
+---
+
+### Q13. How do you copy ownership from one file to another?
+
+### Professional Answer
+
+The `--reference` option copies the owner and group from one file to another.
+
+### Example
+
+```bash
+sudo chown --reference=file1.txt file2.txt
+```
+
+This makes `file2.txt` have the same owner and group as `file1.txt`.
+
+---
+
+### Q14. How do you verify user and group information?
+
+### Professional Answer
+
+Use the following commands:
+
+```bash
+id username
+```
+
+```bash
+groups username
+```
+
+These commands display:
+
+- UID
+- GID
+- Group membership
+
+### Example
+
+```bash
+id rahul
+```
+
+Output
+
+```text
+uid=1001(rahul) gid=1002(developers)
+```
+
+---
+
+### Q15. Explain a real-world use case of the `chown` command.
+
+### Professional Answer
+
+Suppose a new developer joins a company and needs access to an existing project.
+
+The Linux administrator transfers ownership of the project directory to the new developer.
+
+### Example
+
+```bash
+sudo chown -R rahul:developers /var/www/project
+```
+
+This command changes the ownership of the entire project so that the developer can work on it without permission issues.
+
+This is a common task in:
+
+- Linux Administration
+- DevOps
+- AWS EC2 management
+- Web server administration
+- Technical Support
+
+---
+
+### Quick Revision (Questions 1–15)
+
+| Question | Short Answer |
+|----------|--------------|
+| What is Ownership? | Identifies the owner and group of a file or directory. |
+| What is `chown`? | Changes the owner and/or group of a file or directory. |
+| Owner vs Group | Owner is an individual user; Group is a collection of users. |
+| UID | Unique User ID. |
+| GID | Unique Group ID. |
+| Verify ownership | `ls -l`, `stat` |
+| Change owner | `sudo chown user file` |
+| Change owner and group | `sudo chown user:group file` |
+| Recursive ownership | `sudo chown -R user:group directory` |
+| User information | `id username` |
+| Group information | `groups username` |
+| Copy ownership | `sudo chown --reference=file1 file2` |
+| Why use `sudo`? | Ownership changes generally require administrative privileges. |
+| Common options | `-R`, `-v`, `-c`, `-f`, `--reference` |
+| Real-world use | Assign project ownership, manage shared directories, administer servers. |
+
+---
