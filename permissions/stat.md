@@ -786,3 +786,390 @@ stat-inode.png
 - `%i` → Inode number
 - These options are especially useful in shell scripting and Linux system administration.
 
+---
+
+## stat Practical Examples (Part 3B.2B)
+
+This section contains advanced practical examples of the `stat` command used in Linux Administration, DevOps, Cloud Computing, and Technical Support.
+
+---
+
+#### Example 11: Display Last Access Time
+
+## Command
+
+```bash
+stat -c "%x" notes.txt
+```
+
+### Command Explanation
+
+Displays the last time the file was accessed (read).
+
+### Expected Output
+
+```text
+2026-07-21 10:15:30.123456789 +0530
+```
+
+### Real-World Use Case
+
+Useful for checking whether a file has been recently read by an application or user.
+
+### Screenshot Command
+
+```bash
+stat -c "%x" notes.txt
+```
+
+Suggested Screenshot:
+
+```text
+stat-access-time.png
+```
+
+---
+
+#### Example 12: Display Last Modification Time
+
+## Command
+
+```bash
+stat -c "%y" notes.txt
+```
+
+### Command Explanation
+
+Displays the last time the file contents were modified.
+
+### Expected Output
+
+```text
+2026-07-21 10:20:45.987654321 +0530
+```
+
+### Real-World Use Case
+
+Useful for tracking changes in configuration files or project files.
+
+### Screenshot Command
+
+```bash
+stat -c "%y" notes.txt
+```
+
+Suggested Screenshot:
+
+```text
+stat-modify-time.png
+```
+
+---
+
+#### Example 13: Display Last Status Change Time
+
+## Command
+
+```bash
+stat -c "%z" notes.txt
+```
+
+### Command Explanation
+
+Displays the last time the file metadata changed (permissions, ownership, etc.).
+
+### Expected Output
+
+```text
+2026-07-21 10:30:12.654321987 +0530
+```
+
+### Real-World Use Case
+
+Useful for verifying whether `chmod` or `chown` has recently modified the file metadata.
+
+### Screenshot Command
+
+```bash
+stat -c "%z" notes.txt
+```
+
+Suggested Screenshot:
+
+```text
+stat-change-time.png
+```
+
+---
+
+#### Example 14: Check Metadata After chmod
+
+## Command
+
+```bash
+chmod 755 notes.txt
+stat notes.txt
+```
+
+### Command Explanation
+
+Changes file permissions and then displays the updated metadata.
+
+### Expected Output
+
+```text
+Access: (0755/-rwxr-xr-x)
+```
+
+### Real-World Use Case
+
+System administrators verify permission changes after using `chmod`.
+
+### Screenshot Command
+
+```bash
+chmod 755 notes.txt
+stat notes.txt
+```
+
+Suggested Screenshot:
+
+```text
+stat-after-chmod.png
+```
+
+---
+
+#### Example 15: Check Metadata After chown
+
+## Command
+
+```bash
+sudo chown rahul:developers notes.txt
+stat notes.txt
+```
+
+### Command Explanation
+
+Changes the owner and group of a file and verifies the updated metadata.
+
+### Expected Output
+
+```text
+Uid: (1001/rahul)
+Gid: (1002/developers)
+```
+
+### Real-World Use Case
+
+Useful for verifying ownership changes after transferring project files.
+
+### Screenshot Command
+
+```bash
+sudo chown rahul:developers notes.txt
+stat notes.txt
+```
+
+Suggested Screenshot:
+
+```text
+stat-after-chown.png
+```
+
+---
+
+#### Example 16: Compare Metadata of Two Files
+
+## Command
+
+```bash
+stat file1.txt file2.txt
+```
+
+### Command Explanation
+
+Displays metadata of two files together for comparison.
+
+### Expected Output
+
+```text
+File: file1.txt
+...
+
+File: file2.txt
+...
+```
+
+### Real-World Use Case
+
+Useful when comparing backup files or configuration files.
+
+### Screenshot Command
+
+```bash
+stat file1.txt file2.txt
+```
+
+Suggested Screenshot:
+
+```text
+stat-compare-files.png
+```
+
+---
+
+#### Example 17: Display File Name and Size Together
+
+## Command
+
+```bash
+stat -c "File: %n | Size: %s bytes" notes.txt
+```
+
+### Command Explanation
+
+Displays the file name and file size in a custom format.
+
+### Expected Output
+
+```text
+File: notes.txt | Size: 2048 bytes
+```
+
+### Real-World Use Case
+
+Useful in shell scripts and automation reports.
+
+### Screenshot Command
+
+```bash
+stat -c "File: %n | Size: %s bytes" notes.txt
+```
+
+Suggested Screenshot:
+
+```text
+stat-custom-format.png
+```
+
+---
+
+#### Example 18: Display Owner, Group and Permissions
+
+## Command
+
+```bash
+stat -c "Owner: %U | Group: %G | Permissions: %A" notes.txt
+```
+
+### Command Explanation
+
+Displays selected metadata in a customized format.
+
+### Expected Output
+
+```text
+Owner: rahul | Group: developers | Permissions: -rw-r--r--
+```
+
+### Real-World Use Case
+
+Useful for quick audits and system administration scripts.
+
+### Screenshot Command
+
+```bash
+stat -c "Owner: %U | Group: %G | Permissions: %A" notes.txt
+```
+
+Suggested Screenshot:
+
+```text
+stat-owner-group-permissions.png
+```
+
+---
+
+#### Example 19: Display Inode and File Name
+
+## Command
+
+```bash
+stat -c "Inode: %i | File: %n" notes.txt
+```
+
+### Command Explanation
+
+Displays the inode number along with the file name.
+
+### Expected Output
+
+```text
+Inode: 157286 | File: notes.txt
+```
+
+### Real-World Use Case
+
+Useful when troubleshooting hard links or filesystem issues.
+
+### Screenshot Command
+
+```bash
+stat -c "Inode: %i | File: %n" notes.txt
+```
+
+Suggested Screenshot:
+
+```text
+stat-inode-file.png
+```
+
+---
+
+#### Example 20: Display Complete Metadata of the Current Directory
+
+## Command
+
+```bash
+stat .
+```
+
+### Command Explanation
+
+Displays complete metadata of the current working directory.
+
+### Expected Output
+
+```text
+File: .
+Size: 4096
+Access: (0755/drwxr-xr-x)
+```
+
+### Real-World Use Case
+
+Useful for checking the permissions, ownership, and timestamps of the current project directory.
+
+### Screenshot Command
+
+```bash
+stat .
+```
+
+Suggested Screenshot:
+
+```text
+stat-current-directory.png
+```
+
+---
+
+### Key Learning Points
+
+- `%x` → Last Access Time (atime)
+- `%y` → Last Modification Time (mtime)
+- `%z` → Last Status Change Time (ctime)
+- `stat` helps verify permission and ownership changes after using `chmod` and `chown`.
+- The `-c` option allows customized output, making `stat` very useful for shell scripting and automation.
+- `stat` is commonly used for auditing files, troubleshooting permissions, and analyzing filesystem metadata.
