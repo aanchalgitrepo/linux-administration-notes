@@ -528,3 +528,625 @@ pgrep sshd
 - Older Linux systems use the `service` command instead of `systemctl`.
 - WSL may not support `systemctl` unless `systemd` is enabled.
 - Learn both `systemctl` and `service` commands because interviews may cover Ubuntu, CentOS, RHEL, Amazon Linux, and WSL.
+
+---
+
+# Part 5.2A – Practical Examples (Examples 1–10)
+
+This section contains the most commonly used Linux service management commands. Since these notes are designed for **WSL Ubuntu**, **Ubuntu Server**, **CentOS/RHEL**, and **Amazon Linux**, each example includes commands for different environments.
+
+> **Important:** If `systemctl` does not work in your WSL, use the WSL alternatives provided below.
+
+---
+
+# Example 1 – Check Service Status
+
+## Practical Example
+
+Check whether the SSH service is running.
+
+### Ubuntu (systemd)
+
+```bash
+systemctl status ssh
+```
+
+### CentOS / RHEL / Amazon Linux
+
+```bash
+systemctl status sshd
+```
+
+### Older CentOS 6
+
+```bash
+service sshd status
+```
+
+### WSL
+
+```bash
+service ssh status
+```
+
+### Command Explanation
+
+- `status` displays the current state of a service.
+- Shows whether the service is active, inactive, or failed.
+
+### Expected Output
+
+```text
+Active: active (running)
+```
+
+or
+
+```text
+Active: inactive (dead)
+```
+
+### Real-World Use Case
+
+Before connecting remotely, a Linux administrator checks whether the SSH service is running.
+
+### Screenshot Command
+
+```bash
+service ssh status
+```
+
+> **WSL Note:** If `systemctl` shows:
+>
+> ```text
+> System has not been booted with systemd...
+> ```
+>
+> use:
+>
+> ```bash
+> service ssh status
+> ```
+
+---
+
+# Example 2 – Start a Service
+
+## Practical Example
+
+Start the SSH service.
+
+### Ubuntu
+
+```bash
+sudo systemctl start ssh
+```
+
+### CentOS
+
+```bash
+sudo systemctl start sshd
+```
+
+### Older CentOS
+
+```bash
+sudo service sshd start
+```
+
+### WSL
+
+```bash
+sudo service ssh start
+```
+
+### Command Explanation
+
+Starts the service if it is currently stopped.
+
+### Expected Output
+
+Normally no output appears if successful.
+
+Verify:
+
+```bash
+service ssh status
+```
+
+### Real-World Use Case
+
+Start SSH before allowing remote access to a server.
+
+### Screenshot Command
+
+```bash
+sudo service ssh start
+service ssh status
+```
+
+### WSL Note
+
+Use `service` instead of `systemctl`.
+
+---
+
+# Example 3 – Stop a Service
+
+## Practical Example
+
+Stop the SSH service.
+
+### Ubuntu
+
+```bash
+sudo systemctl stop ssh
+```
+
+### CentOS
+
+```bash
+sudo systemctl stop sshd
+```
+
+### Older CentOS
+
+```bash
+sudo service sshd stop
+```
+
+### WSL
+
+```bash
+sudo service ssh stop
+```
+
+### Command Explanation
+
+Stops the running service.
+
+### Expected Output
+
+```text
+Active: inactive (dead)
+```
+
+### Real-World Use Case
+
+Stop SSH temporarily for maintenance or security.
+
+### Screenshot Command
+
+```bash
+sudo service ssh stop
+service ssh status
+```
+
+### WSL Note
+
+Restart the service afterward if you still need SSH.
+
+---
+
+# Example 4 – Restart a Service
+
+## Practical Example
+
+Restart the SSH service.
+
+### Ubuntu
+
+```bash
+sudo systemctl restart ssh
+```
+
+### CentOS
+
+```bash
+sudo systemctl restart sshd
+```
+
+### Older CentOS
+
+```bash
+sudo service sshd restart
+```
+
+### WSL
+
+```bash
+sudo service ssh restart
+```
+
+### Command Explanation
+
+Stops and immediately starts the service.
+
+### Expected Output
+
+Usually no output if successful.
+
+### Real-World Use Case
+
+Restart a service after changing its configuration.
+
+### Screenshot Command
+
+```bash
+sudo service ssh restart
+service ssh status
+```
+
+### WSL Note
+
+Recommended after modifying SSH configuration files.
+
+---
+
+# Example 5 – Reload a Service
+
+## Practical Example
+
+Reload a service without completely restarting it.
+
+### Ubuntu
+
+```bash
+sudo systemctl reload nginx
+```
+
+### CentOS
+
+```bash
+sudo systemctl reload nginx
+```
+
+### Older CentOS
+
+```bash
+sudo service nginx reload
+```
+
+### WSL
+
+Only if Nginx is installed:
+
+```bash
+sudo service nginx reload
+```
+
+### Command Explanation
+
+Reloads configuration while keeping the service running.
+
+### Expected Output
+
+No output if successful.
+
+### Real-World Use Case
+
+Reload Nginx after updating website configuration.
+
+### Screenshot Command
+
+```bash
+sudo service nginx reload
+```
+
+### WSL Note
+
+Skip this example if Nginx is not installed.
+
+---
+
+# Example 6 – Enable a Service
+
+## Practical Example
+
+Enable SSH to start automatically during system boot.
+
+### Ubuntu
+
+```bash
+sudo systemctl enable ssh
+```
+
+### CentOS
+
+```bash
+sudo systemctl enable sshd
+```
+
+### Older CentOS
+
+```bash
+chkconfig sshd on
+```
+
+### WSL
+
+Not applicable in most WSL installations because there is no traditional Linux boot process.
+
+### Command Explanation
+
+Registers the service to start automatically after boot.
+
+### Expected Output
+
+```text
+Created symlink...
+```
+
+### Real-World Use Case
+
+Ensure SSH starts automatically whenever the server boots.
+
+### Screenshot Command
+
+Ubuntu Server:
+
+```bash
+sudo systemctl enable ssh
+```
+
+### WSL Note
+
+Usually cannot be demonstrated on standard WSL.
+
+---
+
+# Example 7 – Disable a Service
+
+## Practical Example
+
+Prevent SSH from starting automatically.
+
+### Ubuntu
+
+```bash
+sudo systemctl disable ssh
+```
+
+### CentOS
+
+```bash
+sudo systemctl disable sshd
+```
+
+### Older CentOS
+
+```bash
+chkconfig sshd off
+```
+
+### WSL
+
+Not applicable.
+
+### Command Explanation
+
+Disables automatic startup during boot.
+
+### Expected Output
+
+```text
+Removed symlink...
+```
+
+### Real-World Use Case
+
+Disable unused services to improve security.
+
+### Screenshot Command
+
+Ubuntu Server:
+
+```bash
+sudo systemctl disable ssh
+```
+
+### WSL Note
+
+Cannot normally be demonstrated on WSL.
+
+---
+
+# Example 8 – Check if a Service is Active
+
+## Practical Example
+
+Verify whether SSH is currently active.
+
+### Ubuntu
+
+```bash
+systemctl is-active ssh
+```
+
+### CentOS
+
+```bash
+systemctl is-active sshd
+```
+
+### WSL
+
+```bash
+service ssh status
+```
+
+or
+
+```bash
+pgrep sshd
+```
+
+### Command Explanation
+
+Checks whether a service is running.
+
+### Expected Output
+
+Ubuntu/CentOS
+
+```text
+active
+```
+
+WSL
+
+Displays SSH status or the process ID of `sshd`.
+
+### Real-World Use Case
+
+Monitoring scripts often verify whether important services are active.
+
+### Screenshot Command
+
+```bash
+service ssh status
+```
+
+### WSL Note
+
+`pgrep sshd` is another quick way to confirm that the SSH daemon is running.
+
+---
+
+# Example 9 – List Running Services
+
+## Practical Example
+
+Display all running services.
+
+### Ubuntu
+
+```bash
+systemctl list-units --type=service
+```
+
+### CentOS
+
+```bash
+systemctl list-units --type=service
+```
+
+### Older CentOS
+
+```bash
+service --status-all
+```
+
+### WSL
+
+```bash
+ps aux
+```
+
+### Command Explanation
+
+Displays running services or processes.
+
+### Expected Output
+
+A list of active services or running processes.
+
+### Real-World Use Case
+
+Useful when troubleshooting or auditing a server.
+
+### Screenshot Command
+
+```bash
+ps aux
+```
+
+### WSL Note
+
+`ps aux` is the preferred alternative on WSL.
+
+---
+
+# Example 10 – WSL Alternatives (service, ps, pgrep)
+
+## Practical Example
+
+Use alternative commands to monitor services in WSL.
+
+### Commands
+
+Check service:
+
+```bash
+service ssh status
+```
+
+View all processes:
+
+```bash
+ps aux
+```
+
+Find SSH daemon:
+
+```bash
+pgrep sshd
+```
+
+Search for SSH process:
+
+```bash
+ps aux | grep ssh
+```
+
+### Command Explanation
+
+- `service` → Basic service management
+- `ps aux` → Shows all running processes
+- `pgrep` → Finds a process ID by name
+- `grep` → Filters command output
+
+### Expected Output
+
+Examples:
+
+```text
+sshd is running
+```
+
+```text
+1234
+```
+
+```text
+root     1234 ... sshd
+```
+
+### Real-World Use Case
+
+System administrators use these commands to verify that critical background services are running when `systemctl` is unavailable.
+
+### Screenshot Command
+
+```bash
+service ssh status
+
+ps aux | grep ssh
+
+pgrep sshd
+```
+
+### WSL Note
+
+These commands are the most useful service-management alternatives for WSL users and are commonly used during troubleshooting.
+
+---
+
+# Key Learning Points
+
+- `systemctl` is the standard tool for managing services on modern Linux distributions.
+- WSL may not support `systemctl` unless `systemd` is enabled.
+- Use `service`, `ps aux`, and `pgrep` as alternatives in WSL.
+- Ubuntu uses the `ssh` service name, while CentOS/RHEL typically use `sshd`.
+- Always verify service status after starting, stopping, or restarting a service.
+- Knowing both `systemctl` and `service` commands is valuable for Linux Administration, DevOps, AWS, and Technical Support interviews.
