@@ -3113,3 +3113,490 @@ This ensures the server is ready to serve users without manual intervention.
 | Check running service | `systemctl is-active`, `service status`, `pgrep` |
 | View service logs | `journalctl -u` |
 | Importance of services | They keep essential system functions and applications running automatically. |
+
+---
+
+# Part 5.4B – Interview Questions & Answers (16–30)
+
+This section contains advanced Linux Services interview questions frequently asked in **Linux Administration, Technical Support, DevOps, AWS, Cloud Computing, and System Administration** interviews.
+
+---
+
+# Q16. What is the difference between `systemctl` and `service`?
+
+## Professional Answer
+
+Both commands are used to manage Linux services, but they belong to different service management systems.
+
+- `systemctl` works with **systemd**.
+- `service` works with the older **SysVinit** system and is also commonly used in WSL as an alternative.
+
+### Example
+
+Ubuntu
+
+```bash
+systemctl restart ssh
+```
+
+Older CentOS / WSL
+
+```bash
+service ssh restart
+```
+
+---
+
+# Q17. What is PID 1 in Linux?
+
+## Professional Answer
+
+PID 1 is the **first process** started by the Linux kernel during boot.
+
+On modern Linux systems:
+
+```text
+PID 1 → systemd
+```
+
+On many WSL installations:
+
+```text
+PID 1 → init
+```
+
+This is one reason why `systemctl` may not work in WSL.
+
+### Example
+
+```bash
+ps -p 1 -o comm=
+```
+
+---
+
+# Q18. What happens when you restart a service?
+
+## Professional Answer
+
+Restarting a service stops the running process and starts it again.
+
+It is commonly performed after:
+
+- Configuration changes
+- Software updates
+- Troubleshooting
+
+### Example
+
+```bash
+sudo systemctl restart nginx
+```
+
+---
+
+# Q19. What is a failed service?
+
+## Professional Answer
+
+A failed service is one that could not start or stopped unexpectedly because of an error.
+
+Common causes include:
+
+- Incorrect configuration
+- Missing files
+- Port conflicts
+- Permission issues
+- Missing dependencies
+
+### Example
+
+```bash
+systemctl --failed
+```
+
+---
+
+# Q20. How do you troubleshoot a failed service?
+
+## Professional Answer
+
+A systematic troubleshooting approach is:
+
+1. Check service status.
+2. Review logs.
+3. Verify configuration.
+4. Check processes.
+5. Restart the service if appropriate.
+
+### Commands
+
+```bash
+systemctl status nginx
+```
+
+```bash
+journalctl -u nginx
+```
+
+```bash
+ps aux | grep nginx
+```
+
+---
+
+# Q21. What is the purpose of `journalctl`?
+
+## Professional Answer
+
+`journalctl` displays logs collected by **systemd-journald**.
+
+It is commonly used to:
+
+- View service logs
+- Investigate failures
+- Monitor boot messages
+- Debug system issues
+
+### Example
+
+```bash
+journalctl -u ssh
+```
+
+---
+
+# Q22. What is the difference between `status` and `is-active`?
+
+## Professional Answer
+
+| `status` | `is-active` |
+|----------|-------------|
+| Detailed service information | Only active state |
+| Shows logs and PID | Returns active/inactive |
+| Used for troubleshooting | Used in scripts |
+
+### Example
+
+```bash
+systemctl status ssh
+```
+
+```bash
+systemctl is-active ssh
+```
+
+---
+
+# Q23. What is service masking?
+
+## Professional Answer
+
+Masking completely prevents a service from being started, even manually.
+
+### Example
+
+```bash
+sudo systemctl mask nginx
+```
+
+Remove the mask:
+
+```bash
+sudo systemctl unmask nginx
+```
+
+---
+
+# Q24. What is `multi-user.target`?
+
+## Professional Answer
+
+`multi-user.target` is a systemd target that starts the system in **command-line (non-GUI) mode**.
+
+It is commonly used on Linux servers.
+
+### Example
+
+```bash
+sudo systemctl isolate multi-user.target
+```
+
+---
+
+# Q25. What is Rescue Mode?
+
+## Professional Answer
+
+Rescue Mode starts Linux with only essential services.
+
+It is useful for:
+
+- Recovering from boot failures
+- Repairing filesystems
+- Resetting passwords
+- Troubleshooting system problems
+
+### Example
+
+```bash
+sudo systemctl isolate rescue.target
+```
+
+---
+
+# Q26. Why should you verify a service after restarting it?
+
+## Professional Answer
+
+Restarting a service does not always mean it started successfully.
+
+Always verify its status.
+
+### Example
+
+```bash
+systemctl restart nginx
+```
+
+```bash
+systemctl status nginx
+```
+
+---
+
+# Q27. How do you know whether SSH is running in WSL?
+
+## Professional Answer
+
+Since `systemctl` may not work in WSL, use:
+
+```bash
+service ssh status
+```
+
+or
+
+```bash
+pgrep sshd
+```
+
+or
+
+```bash
+ps aux | grep ssh
+```
+
+---
+
+# Q28. Why is SSH considered an important Linux service?
+
+## Professional Answer
+
+SSH allows secure remote administration.
+
+It is widely used for:
+
+- AWS EC2 management
+- Linux server administration
+- DevOps automation
+- Remote troubleshooting
+- Secure file transfers
+
+### Example
+
+```bash
+ssh user@server-ip
+```
+
+---
+
+# Q29. Why is Docker managed as a service?
+
+## Professional Answer
+
+Docker runs as a background daemon.
+
+Managing it as a service allows:
+
+- Automatic startup
+- Container management
+- Monitoring
+- Restart after configuration changes
+
+### Example
+
+```bash
+systemctl status docker
+```
+
+---
+
+# Q30. Which Linux service management commands should every administrator know?
+
+## Professional Answer
+
+Every Linux administrator should be familiar with:
+
+```bash
+systemctl status
+```
+
+```bash
+systemctl start
+```
+
+```bash
+systemctl stop
+```
+
+```bash
+systemctl restart
+```
+
+```bash
+systemctl reload
+```
+
+```bash
+systemctl enable
+```
+
+```bash
+systemctl disable
+```
+
+```bash
+systemctl is-active
+```
+
+```bash
+journalctl
+```
+
+For WSL:
+
+```bash
+service ssh status
+```
+
+```bash
+ps aux
+```
+
+```bash
+pgrep sshd
+```
+
+---
+
+# `systemctl` vs `service` Comparison Table
+
+| Feature | `systemctl` | `service` |
+|----------|-------------|-----------|
+| Service Manager | systemd | SysVinit (legacy) |
+| Modern Linux | ✅ Yes | Limited |
+| Older Linux | ❌ No | ✅ Yes |
+| WSL Support | Usually unavailable without systemd | ✅ Works in most WSL setups |
+| Detailed Status | ✅ Yes | Basic |
+| Boot Management | `enable`, `disable` | Not supported |
+| Service Logs | Works with `journalctl` | Separate log files |
+| Recommended | Modern Linux distributions | Legacy systems and WSL fallback |
+
+---
+
+# Ubuntu vs CentOS Service Names
+
+| Ubuntu | CentOS / RHEL | Purpose |
+|----------|---------------|----------|
+| ssh | sshd | SSH Server |
+| cron | crond | Scheduled Tasks |
+| apache2 | httpd | Apache Web Server |
+| mysql | mysqld | MySQL Database |
+| docker | docker | Docker Engine |
+| NetworkManager | NetworkManager | Network Management |
+
+---
+
+# Service Management Cheat Sheet
+
+| Command | Description |
+|----------|-------------|
+| `systemctl status ssh` | View service status |
+| `systemctl start ssh` | Start a service |
+| `systemctl stop ssh` | Stop a service |
+| `systemctl restart ssh` | Restart a service |
+| `systemctl reload nginx` | Reload configuration |
+| `systemctl enable ssh` | Enable at boot |
+| `systemctl disable ssh` | Disable at boot |
+| `systemctl is-active ssh` | Check active state |
+| `systemctl --failed` | Show failed services |
+| `systemctl list-units --type=service` | List running services |
+| `journalctl -u ssh` | View service logs |
+| `service ssh status` | WSL/SysVinit service status |
+| `ps aux` | View running processes |
+| `ps aux \| grep ssh` | Search SSH process |
+| `pgrep sshd` | Find SSH process ID |
+
+---
+
+# Summary
+
+- Linux services run important applications in the background.
+- Most modern Linux distributions use **systemd** with the `systemctl` command.
+- Older systems use the `service` command.
+- WSL may require `service`, `ps`, and `pgrep` because `systemctl` might not be available.
+- Always verify service status after starting, stopping, or restarting a service.
+- Use `journalctl` to investigate service failures.
+- Understand the difference between Ubuntu and CentOS service names.
+- Service management is a core skill for Linux Administration, DevOps, AWS, Cloud Computing, and Technical Support.
+
+---
+
+# Quick Revision Notes
+
+## Remember These Commands
+
+```bash
+systemctl status ssh
+systemctl start ssh
+systemctl stop ssh
+systemctl restart ssh
+systemctl reload ssh
+systemctl enable ssh
+systemctl disable ssh
+systemctl is-active ssh
+systemctl --failed
+systemctl list-units --type=service
+journalctl -u ssh
+service ssh status
+ps aux
+ps aux | grep ssh
+pgrep sshd
+```
+
+---
+
+## Remember These Concepts
+
+- **Service** → Background program
+- **Daemon** → Background process (usually ends with `d`)
+- **systemd** → Modern init system
+- **systemctl** → Service management command
+- **journalctl** → View service logs
+- **PID 1** → First process started by the kernel
+- **Restart** → Stop + Start
+- **Reload** → Apply configuration without full restart
+- **Mask** → Prevent service from starting
+- **Rescue Mode** → Minimal environment for recovery
+
+---
+
+# Interview Tips
+
+- Explain the difference between **systemd**, **systemctl**, and **service** clearly.
+- Know why **`systemctl` may not work in WSL** and which alternative commands to use.
+- Remember Ubuntu vs CentOS service names (`ssh` vs `sshd`, `cron` vs `crond`, `apache2` vs `httpd`).
+- Always mention that after restarting a service, you should verify it using `systemctl status` or `service status`.
+- Be comfortable using `journalctl` for troubleshooting.
+- Practice service management commands on your WSL environment and understand which ones require a full Linux server with `systemd`.
