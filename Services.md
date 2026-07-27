@@ -1694,3 +1694,608 @@ pgrep nginx
 - **multi-user.target** switches to text mode, while **rescue.target** is used for recovery.
 - Use `systemctl status`, `journalctl`, `ps`, and `pgrep` together for troubleshooting.
 - Many advanced `systemctl` features require **systemd**, so they are unavailable on a default WSL installation.
+
+  ---
+
+  # Part 5.3 – Practice Exercises
+
+This section contains hands-on exercises to strengthen your understanding of Linux service management. The exercises are designed for **WSL Ubuntu**, **Ubuntu Server**, **CentOS/RHEL**, and **Amazon Linux**.
+
+> **Note:** Some `systemctl` commands require **systemd** and may not work in a default WSL installation. WSL-friendly alternatives are provided where applicable.
+
+---
+
+# Practice Exercise 1 – Check SSH Service Status
+
+## Objective
+
+Verify whether the SSH service is running.
+
+### Ubuntu Server
+
+```bash
+systemctl status ssh
+```
+
+### CentOS
+
+```bash
+systemctl status sshd
+```
+
+### WSL
+
+```bash
+service ssh status
+```
+
+---
+
+# Practice Exercise 2 – Start the SSH Service
+
+## Objective
+
+Start the SSH service.
+
+### Ubuntu Server
+
+```bash
+sudo systemctl start ssh
+```
+
+### CentOS
+
+```bash
+sudo systemctl start sshd
+```
+
+### WSL
+
+```bash
+sudo service ssh start
+```
+
+Verify:
+
+```bash
+service ssh status
+```
+
+---
+
+# Practice Exercise 3 – Stop the SSH Service
+
+## Objective
+
+Stop the SSH service.
+
+### Ubuntu Server
+
+```bash
+sudo systemctl stop ssh
+```
+
+### CentOS
+
+```bash
+sudo systemctl stop sshd
+```
+
+### WSL
+
+```bash
+sudo service ssh stop
+```
+
+Verify:
+
+```bash
+service ssh status
+```
+
+---
+
+# Practice Exercise 4 – Restart the SSH Service
+
+## Objective
+
+Restart the SSH service.
+
+### Ubuntu Server
+
+```bash
+sudo systemctl restart ssh
+```
+
+### CentOS
+
+```bash
+sudo systemctl restart sshd
+```
+
+### WSL
+
+```bash
+sudo service ssh restart
+```
+
+---
+
+# Practice Exercise 5 – Check Running Processes
+
+## Objective
+
+View all running processes.
+
+```bash
+ps aux
+```
+
+Search for SSH:
+
+```bash
+ps aux | grep ssh
+```
+
+---
+
+# Practice Exercise 6 – Find SSH Process ID
+
+## Objective
+
+Locate the SSH daemon process.
+
+```bash
+pgrep sshd
+```
+
+If no output appears, SSH may not be running.
+
+---
+
+# Practice Exercise 7 – List Running Services
+
+## Ubuntu Server / CentOS
+
+```bash
+systemctl list-units --type=service
+```
+
+### WSL
+
+```bash
+ps aux
+```
+
+---
+
+# Practice Exercise 8 – View Service Logs
+
+## Ubuntu Server
+
+```bash
+journalctl -u ssh
+```
+
+### CentOS
+
+```bash
+journalctl -u sshd
+```
+
+### WSL
+
+```bash
+cat /var/log/auth.log
+```
+
+---
+
+# Practice Exercise 9 – Check Active Service
+
+## Ubuntu
+
+```bash
+systemctl is-active ssh
+```
+
+## CentOS
+
+```bash
+systemctl is-active sshd
+```
+
+## WSL
+
+```bash
+service ssh status
+```
+
+---
+
+# Practice Exercise 10 – Check Docker Service
+
+## Ubuntu / CentOS
+
+```bash
+systemctl status docker
+```
+
+### WSL (Docker Desktop)
+
+```bash
+docker ps
+```
+
+```bash
+docker info
+```
+
+---
+
+# Practice Exercise 11 – Restart Nginx (If Installed)
+
+## Ubuntu
+
+```bash
+sudo systemctl restart nginx
+```
+
+## CentOS
+
+```bash
+sudo systemctl restart nginx
+```
+
+## WSL
+
+```bash
+sudo service nginx restart
+```
+
+---
+
+# WSL-Friendly Exercises
+
+Practice these commands in WSL:
+
+```bash
+service ssh status
+```
+
+```bash
+sudo service ssh restart
+```
+
+```bash
+ps aux
+```
+
+```bash
+ps aux | grep ssh
+```
+
+```bash
+pgrep sshd
+```
+
+```bash
+docker ps
+```
+
+```bash
+docker info
+```
+
+---
+
+# Ubuntu Server Exercises
+
+Practice:
+
+```bash
+systemctl status ssh
+```
+
+```bash
+systemctl restart ssh
+```
+
+```bash
+systemctl enable ssh
+```
+
+```bash
+systemctl disable ssh
+```
+
+```bash
+systemctl list-units --type=service
+```
+
+```bash
+journalctl -u ssh
+```
+
+---
+
+# CentOS / RHEL Equivalents
+
+| Ubuntu | CentOS |
+|----------|----------|
+| `systemctl status ssh` | `systemctl status sshd` |
+| `systemctl restart ssh` | `systemctl restart sshd` |
+| `systemctl enable ssh` | `systemctl enable sshd` |
+| `journalctl -u ssh` | `journalctl -u sshd` |
+| `service ssh status` | `service sshd status` |
+
+---
+
+# Screenshot Guide
+
+Take screenshots of the following commands for your GitHub repository:
+
+## WSL
+
+```bash
+service ssh status
+```
+
+```bash
+sudo service ssh restart
+```
+
+```bash
+ps aux
+```
+
+```bash
+ps aux | grep ssh
+```
+
+```bash
+pgrep sshd
+```
+
+```bash
+docker ps
+```
+
+```bash
+docker info
+```
+
+---
+
+## Ubuntu Server
+
+```bash
+systemctl status ssh
+```
+
+```bash
+systemctl restart ssh
+```
+
+```bash
+systemctl enable ssh
+```
+
+```bash
+systemctl list-units --type=service
+```
+
+```bash
+journalctl -u ssh
+```
+
+---
+
+## CentOS
+
+```bash
+systemctl status sshd
+```
+
+```bash
+systemctl restart sshd
+```
+
+```bash
+systemctl enable sshd
+```
+
+---
+
+# Common Errors & Troubleshooting
+
+## Error 1
+
+```text
+System has not been booted with systemd as init system.
+```
+
+### Reason
+
+WSL is not using systemd.
+
+### Solution
+
+Use:
+
+```bash
+service ssh status
+```
+
+---
+
+## Error 2
+
+```text
+Unit ssh.service could not be found.
+```
+
+### Reason
+
+SSH server is not installed.
+
+### Solution
+
+Ubuntu:
+
+```bash
+sudo apt install openssh-server
+```
+
+CentOS:
+
+```bash
+sudo yum install openssh-server
+```
+
+---
+
+## Error 3
+
+```text
+Failed to restart docker.service
+```
+
+### Reason
+
+Docker service is not installed or is managed by Docker Desktop.
+
+### Solution
+
+Verify Docker:
+
+```bash
+docker info
+```
+
+```bash
+docker ps
+```
+
+---
+
+## Error 4
+
+```text
+Permission denied
+```
+
+### Reason
+
+Administrative privileges are required.
+
+### Solution
+
+Use:
+
+```bash
+sudo
+```
+
+---
+
+## Error 5
+
+```text
+command not found
+```
+
+### Reason
+
+The required package is missing or the command name is incorrect.
+
+### Solution
+
+Verify installation and use the correct command for your distribution.
+
+---
+
+# Best Practices
+
+- Always verify service status after starting or stopping a service.
+- Use `sudo` for administrative commands.
+- Understand the difference between **Ubuntu (`ssh`)** and **CentOS (`sshd`)** service names.
+- Use `journalctl` to investigate service failures.
+- On WSL, use `service`, `ps`, and `pgrep` if `systemctl` is unavailable.
+- Restart services only when required, especially on production servers.
+- Avoid disabling critical services such as SSH unless you have an alternate way to access the system.
+- Check logs before restarting a failed service.
+
+---
+
+# Cleanup Commands
+
+If you installed services only for practice, you can remove them later.
+
+## Remove Nginx (Ubuntu)
+
+```bash
+sudo apt remove nginx
+```
+
+---
+
+## Remove OpenSSH Server (Ubuntu)
+
+```bash
+sudo apt remove openssh-server
+```
+
+---
+
+## Remove Docker (Ubuntu)
+
+```bash
+sudo apt remove docker.io
+```
+
+---
+
+## Clean Unused Packages
+
+```bash
+sudo apt autoremove
+```
+
+---
+
+## Verify Removal
+
+```bash
+which nginx
+```
+
+```bash
+which ssh
+```
+
+```bash
+docker --version
+```
+
+---
+
+# Quick Revision
+
+Remember these important commands:
+
+```bash
+service ssh status
+sudo service ssh restart
+ps aux
+ps aux | grep ssh
+pgrep sshd
+systemctl status ssh
+systemctl restart ssh
+systemctl enable ssh
+journalctl -u ssh
+docker ps
+docker info
+```
+
+These commands are frequently used in Linux Administration, DevOps, AWS, Technical Support, and System Administration interviews.
