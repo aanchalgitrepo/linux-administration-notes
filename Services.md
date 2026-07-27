@@ -1150,3 +1150,547 @@ These commands are the most useful service-management alternatives for WSL users
 - Ubuntu uses the `ssh` service name, while CentOS/RHEL typically use `sshd`.
 - Always verify service status after starting, stopping, or restarting a service.
 - Knowing both `systemctl` and `service` commands is valuable for Linux Administration, DevOps, AWS, and Technical Support interviews.
+
+---
+
+# Part 5.2B – Advanced Practical Examples (Examples 11–20)
+
+This section covers advanced Linux Service Management examples used by Linux Administrators, DevOps Engineers, Cloud Engineers, and System Administrators.
+
+> **Note for WSL Users:** Some commands such as `systemctl enable`, `mask`, `rescue.target`, and `multi-user.target` require **systemd** and cannot be demonstrated on a default WSL installation. These are included because they are commonly used on Ubuntu Server, CentOS, RHEL, Amazon Linux, and in interviews.
+
+---
+
+# Example 11 – Enable SSH Service
+
+## Practical Example
+
+Configure SSH to start automatically when the system boots.
+
+### Ubuntu
+
+```bash
+sudo systemctl enable ssh
+```
+
+### CentOS / RHEL / Amazon Linux
+
+```bash
+sudo systemctl enable sshd
+```
+
+### Older CentOS
+
+```bash
+sudo chkconfig sshd on
+```
+
+### WSL
+
+Normally **not applicable** because WSL does not use the traditional Linux boot process.
+
+### Command Explanation
+
+- `enable` creates the required symbolic links.
+- The service starts automatically after every reboot.
+
+### Expected Output
+
+```text
+Created symlink ...
+```
+
+### Real-World Use Case
+
+Enable SSH on a cloud server so remote login is available after every reboot.
+
+### Screenshot Command
+
+```bash
+sudo systemctl enable ssh
+```
+
+### WSL Note
+
+Mention in your GitHub notes:
+
+> `systemctl enable` requires systemd and is generally unavailable on a default WSL installation.
+
+---
+
+# Example 12 – Restart Docker Service
+
+## Practical Example
+
+Restart the Docker service after changing its configuration.
+
+### Ubuntu
+
+```bash
+sudo systemctl restart docker
+```
+
+### CentOS
+
+```bash
+sudo systemctl restart docker
+```
+
+### Older CentOS
+
+```bash
+sudo service docker restart
+```
+
+### WSL
+
+If Docker Desktop integration is enabled:
+
+```bash
+docker ps
+```
+
+or
+
+```bash
+docker info
+```
+
+### Command Explanation
+
+Restarts the Docker daemon.
+
+### Expected Output
+
+Usually no output.
+
+Verify:
+
+```bash
+systemctl status docker
+```
+
+### Real-World Use Case
+
+Restart Docker after editing `/etc/docker/daemon.json`.
+
+### Screenshot Command
+
+```bash
+sudo systemctl restart docker
+systemctl status docker
+```
+
+### WSL Note
+
+If Docker Desktop manages Docker, you usually don't restart it from WSL.
+
+---
+
+# Example 13 – Restart Nginx
+
+## Practical Example
+
+Restart the Nginx web server.
+
+### Ubuntu
+
+```bash
+sudo systemctl restart nginx
+```
+
+### CentOS
+
+```bash
+sudo systemctl restart nginx
+```
+
+### Older CentOS
+
+```bash
+sudo service nginx restart
+```
+
+### WSL
+
+If Nginx is installed:
+
+```bash
+sudo service nginx restart
+```
+
+### Command Explanation
+
+Restarts the Nginx service.
+
+### Expected Output
+
+No output if successful.
+
+### Real-World Use Case
+
+Restart Nginx after updating the website configuration.
+
+### Screenshot Command
+
+```bash
+sudo service nginx restart
+```
+
+### WSL Note
+
+Skip if Nginx is not installed.
+
+---
+
+# Example 14 – View Failed Services
+
+## Practical Example
+
+Display all failed services.
+
+### Ubuntu / CentOS
+
+```bash
+systemctl --failed
+```
+
+### WSL
+
+Not available without systemd.
+
+### Command Explanation
+
+Shows services currently in the failed state.
+
+### Expected Output
+
+```text
+UNIT          LOAD ACTIVE SUB DESCRIPTION
+...
+```
+
+### Real-World Use Case
+
+Administrators use this command during troubleshooting.
+
+### Screenshot Command
+
+```bash
+systemctl --failed
+```
+
+### WSL Note
+
+Mention that this command requires systemd.
+
+---
+
+# Example 15 – Check Boot Services
+
+## Practical Example
+
+List services configured to start during boot.
+
+### Ubuntu
+
+```bash
+systemctl list-unit-files --type=service
+```
+
+### CentOS
+
+```bash
+systemctl list-unit-files --type=service
+```
+
+### WSL
+
+Not supported on most WSL installations.
+
+### Command Explanation
+
+Displays enabled and disabled services.
+
+### Expected Output
+
+```text
+UNIT FILE        STATE
+ssh.service      enabled
+cron.service     enabled
+```
+
+### Real-World Use Case
+
+Audit which services start automatically.
+
+### Screenshot Command
+
+```bash
+systemctl list-unit-files --type=service
+```
+
+---
+
+# Example 16 – View Service Logs
+
+## Practical Example
+
+View logs for the SSH service.
+
+### Ubuntu
+
+```bash
+journalctl -u ssh
+```
+
+### CentOS
+
+```bash
+journalctl -u sshd
+```
+
+### Older CentOS
+
+```bash
+cat /var/log/secure
+```
+
+### WSL
+
+View traditional logs if available.
+
+```bash
+cat /var/log/auth.log
+```
+
+### Command Explanation
+
+Displays service-related log entries.
+
+### Expected Output
+
+```text
+Started OpenSSH Server.
+Accepted password...
+```
+
+### Real-World Use Case
+
+Investigate login failures or service errors.
+
+### Screenshot Command
+
+```bash
+journalctl -u ssh
+```
+
+### WSL Note
+
+`journalctl` may not work without systemd.
+
+---
+
+# Example 17 – Mask and Unmask Services
+
+## Practical Example
+
+Prevent a service from starting.
+
+### Mask
+
+```bash
+sudo systemctl mask nginx
+```
+
+### Unmask
+
+```bash
+sudo systemctl unmask nginx
+```
+
+### Command Explanation
+
+- **mask** completely blocks a service from starting.
+- **unmask** removes the block.
+
+### Expected Output
+
+```text
+Created symlink ...
+```
+
+### Real-World Use Case
+
+Temporarily disable services during maintenance.
+
+### Screenshot Command
+
+```bash
+sudo systemctl mask nginx
+sudo systemctl unmask nginx
+```
+
+### WSL Note
+
+Requires systemd.
+
+---
+
+# Example 18 – Multi-User Target
+
+## Practical Example
+
+Switch to multi-user (non-GUI) mode.
+
+### Command
+
+```bash
+sudo systemctl isolate multi-user.target
+```
+
+### Command Explanation
+
+Changes the current target to command-line mode.
+
+### Expected Output
+
+Graphical interface stops and the system switches to a text console.
+
+### Real-World Use Case
+
+Useful for server administration and troubleshooting.
+
+### Screenshot Command
+
+```bash
+systemctl get-default
+```
+
+### WSL Note
+
+Not applicable.
+
+---
+
+# Example 19 – Rescue Mode
+
+## Practical Example
+
+Boot into rescue mode.
+
+### Command
+
+```bash
+sudo systemctl isolate rescue.target
+```
+
+### Command Explanation
+
+Starts the system in single-user rescue mode.
+
+### Expected Output
+
+Only essential services remain running.
+
+### Real-World Use Case
+
+Recover from system failures or repair corrupted configurations.
+
+### Screenshot Command
+
+```bash
+systemctl rescue
+```
+
+### WSL Note
+
+Not supported.
+
+> **Warning:** Do **not** run this on a production server unless you understand the impact.
+
+---
+
+# Example 20 – Troubleshooting Failed Services
+
+## Practical Example
+
+Investigate why a service failed.
+
+### Commands
+
+Check status:
+
+```bash
+systemctl status nginx
+```
+
+View logs:
+
+```bash
+journalctl -xe
+```
+
+Search processes:
+
+```bash
+ps aux | grep nginx
+```
+
+Find process ID:
+
+```bash
+pgrep nginx
+```
+
+### Command Explanation
+
+These commands help determine:
+
+- Whether the service is running.
+- Why it failed.
+- Error messages.
+- Related processes.
+
+### Expected Output
+
+Shows service status, logs, and process information.
+
+### Real-World Use Case
+
+A website becomes unavailable. The administrator checks the Nginx status, reviews logs, and verifies whether the Nginx process is running.
+
+### Screenshot Command
+
+```bash
+systemctl status nginx
+
+journalctl -xe
+
+ps aux | grep nginx
+```
+
+### WSL Note
+
+If `systemctl` is unavailable, use:
+
+```bash
+service nginx status
+
+ps aux | grep nginx
+
+pgrep nginx
+```
+
+---
+
+# Key Learning Points
+
+- Use **enable** to start services automatically at boot.
+- Restart services after configuration changes.
+- Check failed services using `systemctl --failed`.
+- View logs using `journalctl`.
+- Use **mask** to completely prevent a service from starting.
+- **multi-user.target** switches to text mode, while **rescue.target** is used for recovery.
+- Use `systemctl status`, `journalctl`, `ps`, and `pgrep` together for troubleshooting.
+- Many advanced `systemctl` features require **systemd**, so they are unavailable on a default WSL installation.
