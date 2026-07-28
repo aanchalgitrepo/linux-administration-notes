@@ -1271,3 +1271,511 @@ crontab -l
 
 ---
 
+# Part 6.2B – Advanced Practical Examples (Examples 11–20)
+
+This section covers advanced Cron Job examples used by **Linux Administrators, DevOps Engineers, Cloud Engineers, System Administrators, and Database Administrators**.
+
+> **Note:** These examples work on Ubuntu, Debian, CentOS, RHEL, Amazon Linux, and WSL (provided the Cron service is installed and running).
+
+---
+
+# Example 11 – Run Every 5 Minutes
+
+## ✅ Practical Example
+
+Run a monitoring script every 5 minutes.
+
+### Command
+
+```bash
+*/5 * * * * /home/user/monitor.sh
+```
+
+---
+
+## ✅ Command Explanation
+
+- `*/5` → Every 5 minutes
+- `*` → Every hour
+- `*` → Every day
+- `*` → Every month
+- `*` → Every weekday
+
+---
+
+## ✅ Expected Output
+
+The script executes every 5 minutes.
+
+---
+
+## ✅ Real-World Use Case
+
+- Monitor server CPU usage
+- Check disk space
+- Monitor website availability
+- Monitor application health
+
+---
+
+## ✅ Screenshot Command
+
+```bash
+crontab -e
+```
+
+Add:
+
+```bash
+*/5 * * * * /home/user/monitor.sh
+```
+
+---
+
+# Example 12 – Run Every 30 Minutes
+
+## ✅ Practical Example
+
+Run a cleanup script every 30 minutes.
+
+### Command
+
+```bash
+*/30 * * * * /home/user/cleanup.sh
+```
+
+---
+
+## ✅ Command Explanation
+
+Runs at:
+
+- 00 minutes
+- 30 minutes
+
+of every hour.
+
+---
+
+## ✅ Expected Output
+
+The script executes twice every hour.
+
+---
+
+## ✅ Real-World Use Case
+
+- Clean cache
+- Remove temporary files
+- Refresh monitoring data
+
+---
+
+## ✅ Screenshot Command
+
+```bash
+crontab -e
+```
+
+Add:
+
+```bash
+*/30 * * * * /home/user/cleanup.sh
+```
+
+---
+
+# Example 13 – Run on Weekdays Only
+
+## ✅ Practical Example
+
+Execute a script only from Monday to Friday.
+
+### Command
+
+```bash
+0 9 * * 1-5 /home/user/report.sh
+```
+
+---
+
+## ✅ Command Explanation
+
+- 9:00 AM
+- Monday–Friday
+
+---
+
+## ✅ Expected Output
+
+The report runs every weekday morning.
+
+---
+
+## ✅ Real-World Use Case
+
+Automatically generate office reports on working days.
+
+---
+
+## ✅ Screenshot Command
+
+```bash
+crontab -e
+```
+
+Add:
+
+```bash
+0 9 * * 1-5 /home/user/report.sh
+```
+
+---
+
+# Example 14 – Run on Weekends Only
+
+## ✅ Practical Example
+
+Execute maintenance every Saturday and Sunday.
+
+### Command
+
+```bash
+0 2 * * 6,0 /home/user/maintenance.sh
+```
+
+---
+
+## ✅ Command Explanation
+
+Runs at:
+
+- Saturday
+- Sunday
+
+2:00 AM
+
+---
+
+## ✅ Expected Output
+
+Maintenance script executes every weekend.
+
+---
+
+## ✅ Real-World Use Case
+
+Perform maintenance when user traffic is low.
+
+---
+
+## ✅ Screenshot Command
+
+```bash
+crontab -e
+```
+
+Add:
+
+```bash
+0 2 * * 6,0 /home/user/maintenance.sh
+```
+
+---
+
+# Example 15 – Run on the First Day of Every Month
+
+## ✅ Practical Example
+
+Generate monthly reports.
+
+### Command
+
+```bash
+0 1 1 * * /home/user/monthly-report.sh
+```
+
+---
+
+## ✅ Command Explanation
+
+Runs:
+
+- 1:00 AM
+- Day 1
+- Every month
+
+---
+
+## ✅ Expected Output
+
+Monthly report is generated automatically.
+
+---
+
+## ✅ Real-World Use Case
+
+- Monthly sales report
+- Billing report
+- Performance report
+
+---
+
+## ✅ Screenshot Command
+
+```bash
+crontab -e
+```
+
+Add:
+
+```bash
+0 1 1 * * /home/user/monthly-report.sh
+```
+
+---
+
+# Example 16 – Last Day of the Month (Workaround)
+
+## ✅ Practical Example
+
+Cron has no built-in option for the last day of the month.
+
+Use a shell condition:
+
+### Command
+
+```bash
+0 23 28-31 * * [ "$(date +\%d -d tomorrow)" = "01" ] && /home/user/month-end.sh
+```
+
+---
+
+## ✅ Command Explanation
+
+Cron runs on days 28–31.
+
+The shell checks whether tomorrow is the first day of a new month.
+
+If true, the script executes.
+
+---
+
+## ✅ Expected Output
+
+The script runs only on the last day of each month.
+
+---
+
+## ✅ Real-World Use Case
+
+- Month-end accounting
+- Financial reports
+- Payroll processing
+
+---
+
+## ✅ Screenshot Command
+
+```bash
+crontab -e
+```
+
+Paste the command above.
+
+---
+
+# Example 17 – Using Environment Variables
+
+## ✅ Practical Example
+
+Define environment variables inside crontab.
+
+### Command
+
+```bash
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+0 8 * * * /home/user/script.sh
+```
+
+---
+
+## ✅ Command Explanation
+
+- Sets the shell to Bash.
+- Defines the PATH variable.
+- Ensures commands execute correctly.
+
+---
+
+## ✅ Expected Output
+
+Cron executes the script using the specified environment.
+
+---
+
+## ✅ Real-World Use Case
+
+Prevent Cron Jobs from failing because required commands are not found.
+
+---
+
+## ✅ Screenshot Command
+
+```bash
+crontab -e
+```
+
+---
+
+# Example 18 – Backup Automation
+
+## ✅ Practical Example
+
+Automatically create a backup every night.
+
+### Command
+
+```bash
+0 2 * * * tar -czf /backup/home-backup.tar.gz /home/user
+```
+
+---
+
+## ✅ Command Explanation
+
+Creates a compressed archive of the user's home directory every day at 2:00 AM.
+
+---
+
+## ✅ Expected Output
+
+Backup file:
+
+```text
+/backup/home-backup.tar.gz
+```
+
+---
+
+## ✅ Real-World Use Case
+
+Daily backup of important project files.
+
+---
+
+## ✅ Screenshot Command
+
+```bash
+ls -lh /backup
+```
+
+---
+
+# Example 19 – Log Rotation Automation
+
+## ✅ Practical Example
+
+Compress old log files every Sunday.
+
+### Command
+
+```bash
+0 1 * * 0 gzip /var/log/*.log
+```
+
+---
+
+## ✅ Command Explanation
+
+Compresses all `.log` files every Sunday at 1:00 AM.
+
+---
+
+## ✅ Expected Output
+
+```text
+messages.log.gz
+```
+
+```text
+syslog.log.gz
+```
+
+---
+
+## ✅ Real-World Use Case
+
+Reduce disk usage by compressing old log files.
+
+---
+
+## ✅ Screenshot Command
+
+```bash
+ls -lh /var/log
+```
+
+---
+
+# Example 20 – Database Backup Using Cron
+
+## ✅ Practical Example
+
+Automatically back up a MySQL database every night.
+
+### Command
+
+```bash
+0 3 * * * mysqldump -u root -p'MyPassword' mydatabase > /backup/mydatabase.sql
+```
+
+> **Note:** Hardcoding passwords in crontab is **not recommended** for production systems. Use a secure credentials file or another secure authentication method.
+
+---
+
+## ✅ Command Explanation
+
+- Executes every day at 3:00 AM.
+- Creates a MySQL database backup.
+- Saves it to the `/backup` directory.
+
+---
+
+## ✅ Expected Output
+
+```text
+/backup/mydatabase.sql
+```
+
+---
+
+## ✅ Real-World Use Case
+
+Automated daily database backups for disaster recovery.
+
+---
+
+## ✅ Screenshot Command
+
+```bash
+ls -lh /backup
+```
+
+---
+
+# Key Learning Points
+
+- `*/5` executes every 5 minutes.
+- `*/30` executes every 30 minutes.
+- `1-5` represents Monday through Friday.
+- `6,0` represents Saturday and Sunday.
+- Cron does not directly support the last day of the month, but shell logic provides a reliable workaround.
+- Environment variables help Cron find required commands.
+- Cron is widely used for automated backups, monitoring, log maintenance, and database administration.
+- Always test Cron Jobs manually before scheduling them in production.
+
+---
+
