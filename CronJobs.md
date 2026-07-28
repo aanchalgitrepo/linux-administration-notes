@@ -2445,3 +2445,499 @@ ls /etc/cron.daily
 
 ---
 
+# Part 6.4A – Interview Questions & Answers (1–15)
+
+This section contains the most commonly asked **Linux Administration, DevOps, AWS Cloud, Technical Support, and System Administrator** interview questions related to **Cron Jobs**.
+
+---
+
+# Interview Question 1
+
+## ✅ Question
+
+**What is Cron in Linux?**
+
+### ✅ Professional Answer
+
+Cron is a **time-based job scheduling service (daemon)** in Linux that automatically executes commands or scripts at specified dates and times.
+
+It continuously runs in the background and checks scheduled tasks every minute.
+
+Cron is mainly used to automate repetitive administrative tasks.
+
+---
+
+### ✅ Example
+
+Automatically back up the home directory every day at **2:00 AM**.
+
+```bash
+0 2 * * * /home/user/backup.sh
+```
+
+---
+
+# Interview Question 2
+
+## ✅ Question
+
+**What is a Cron Job?**
+
+### ✅ Professional Answer
+
+A **Cron Job** is a scheduled command or script that is executed automatically by the Cron service at a predefined time.
+
+Cron Jobs eliminate the need for manually running repetitive tasks.
+
+---
+
+### ✅ Example
+
+```bash
+*/5 * * * * /home/user/monitor.sh
+```
+
+This executes the monitoring script every **5 minutes**.
+
+---
+
+# Interview Question 3
+
+## ✅ Question
+
+**What is crontab?**
+
+### ✅ Professional Answer
+
+**crontab (Cron Table)** is a configuration file where users define Cron Jobs.
+
+Each user can maintain their own list of scheduled tasks.
+
+The Cron daemon reads this file and executes jobs at the scheduled time.
+
+---
+
+### ✅ Example
+
+Edit Cron Jobs:
+
+```bash
+crontab -e
+```
+
+View Cron Jobs:
+
+```bash
+crontab -l
+```
+
+---
+
+# Interview Question 4
+
+## ✅ Question
+
+**What is the Cron daemon?**
+
+### ✅ Professional Answer
+
+The **Cron daemon** is the background process responsible for executing scheduled Cron Jobs.
+
+- Ubuntu/Debian service name → `cron`
+- CentOS/RHEL service name → `crond`
+
+It checks the crontab every minute to determine whether a task should be executed.
+
+---
+
+### ✅ Example
+
+Check the process:
+
+```bash
+ps aux | grep cron
+```
+
+CentOS:
+
+```bash
+ps aux | grep crond
+```
+
+---
+
+# Interview Question 5
+
+## ✅ Question
+
+**What is the difference between Cron and crond?**
+
+### ✅ Professional Answer
+
+There is no functional difference.
+
+- **Cron** usually refers to the scheduling system or service.
+- **crond** is the daemon process name used in CentOS, RHEL, and similar distributions.
+
+Ubuntu uses the service name **cron**, while CentOS uses **crond**.
+
+---
+
+### ✅ Example
+
+Ubuntu:
+
+```bash
+systemctl status cron
+```
+
+CentOS:
+
+```bash
+systemctl status crond
+```
+
+---
+
+# Interview Question 6
+
+## ✅ Question
+
+**Explain the Cron syntax.**
+
+### ✅ Professional Answer
+
+Cron syntax consists of **five scheduling fields** followed by the command.
+
+```bash
+* * * * * command
+```
+
+| Field | Meaning |
+|--------|----------|
+| 1 | Minute |
+| 2 | Hour |
+| 3 | Day of Month |
+| 4 | Month |
+| 5 | Day of Week |
+| 6 | Command |
+
+---
+
+### ✅ Example
+
+```bash
+30 2 * * * /home/user/backup.sh
+```
+
+Meaning:
+
+- Minute → 30
+- Hour → 2
+- Every day
+- Every month
+- Every weekday
+
+---
+
+# Interview Question 7
+
+## ✅ Question
+
+**How do you create a Cron Job?**
+
+### ✅ Professional Answer
+
+Use:
+
+```bash
+crontab -e
+```
+
+Add the desired Cron expression followed by the command, save the file, and Cron automatically schedules the task.
+
+---
+
+### ✅ Example
+
+```bash
+0 6 * * * /home/user/report.sh
+```
+
+Runs every day at **6:00 AM**.
+
+---
+
+# Interview Question 8
+
+## ✅ Question
+
+**How do you view existing Cron Jobs?**
+
+### ✅ Professional Answer
+
+Use:
+
+```bash
+crontab -l
+```
+
+This lists all scheduled Cron Jobs for the current user.
+
+---
+
+### ✅ Example
+
+```bash
+crontab -l
+```
+
+Possible output:
+
+```text
+0 2 * * * /home/user/backup.sh
+```
+
+---
+
+# Interview Question 9
+
+## ✅ Question
+
+**How do you remove all Cron Jobs?**
+
+### ✅ Professional Answer
+
+Use:
+
+```bash
+crontab -r
+```
+
+This command permanently removes all Cron Jobs for the current user.
+
+Always verify the existing jobs before removing them.
+
+---
+
+### ✅ Example
+
+```bash
+crontab -l
+```
+
+```bash
+crontab -r
+```
+
+---
+
+# Interview Question 10
+
+## ✅ Question
+
+**How do you verify whether the Cron service is running?**
+
+### ✅ Professional Answer
+
+Use the service management command appropriate for your Linux distribution.
+
+Ubuntu:
+
+```bash
+systemctl status cron
+```
+
+WSL:
+
+```bash
+service cron status
+```
+
+CentOS:
+
+```bash
+systemctl status crond
+```
+
+---
+
+### ✅ Example
+
+```bash
+service cron status
+```
+
+---
+
+# Interview Question 11
+
+## ✅ Question
+
+**How do you schedule a job to run every five minutes?**
+
+### ✅ Professional Answer
+
+Use the following Cron expression:
+
+```bash
+*/5 * * * * command
+```
+
+The `*/5` notation means "every 5 minutes."
+
+---
+
+### ✅ Example
+
+```bash
+*/5 * * * * /home/user/monitor.sh
+```
+
+---
+
+# Interview Question 12
+
+## ✅ Question
+
+**What are the most common crontab commands?**
+
+### ✅ Professional Answer
+
+| Command | Purpose |
+|----------|----------|
+| `crontab -e` | Edit Cron Jobs |
+| `crontab -l` | List Cron Jobs |
+| `crontab -r` | Remove Cron Jobs |
+| `crontab -u user -l` | View another user's Cron Jobs |
+| `crontab -u user -e` | Edit another user's Cron Jobs |
+
+These commands are frequently used by Linux and DevOps engineers.
+
+---
+
+### ✅ Example
+
+```bash
+crontab -e
+```
+
+---
+
+# Interview Question 13
+
+## ✅ Question
+
+**What are some real-world use cases of Cron Jobs?**
+
+### ✅ Professional Answer
+
+Cron Jobs are commonly used for:
+
+- Daily database backups
+- Log cleanup
+- Monitoring server health
+- Sending email reports
+- Running shell scripts
+- Restarting services
+- Generating reports
+- Synchronizing files
+- Security scans
+- Cache cleanup
+
+---
+
+### ✅ Example
+
+```bash
+0 2 * * * mysqldump database > backup.sql
+```
+
+Creates a database backup every night.
+
+---
+
+# Interview Question 14
+
+## ✅ Question
+
+**What happens if the Cron service is stopped?**
+
+### ✅ Professional Answer
+
+If the Cron service is not running, scheduled Cron Jobs will **not execute**.
+
+Even if the jobs are correctly configured in the crontab, they remain pending until the Cron service is started again.
+
+---
+
+### ✅ Example
+
+Start the service:
+
+Ubuntu:
+
+```bash
+sudo systemctl start cron
+```
+
+WSL:
+
+```bash
+sudo service cron start
+```
+
+CentOS:
+
+```bash
+sudo systemctl start crond
+```
+
+---
+
+# Interview Question 15
+
+## ✅ Question
+
+**Why are Cron Jobs important in DevOps and Cloud Computing?**
+
+### ✅ Professional Answer
+
+Cron Jobs are essential because they automate routine operational tasks, reducing manual effort and improving reliability.
+
+They are widely used to:
+
+- Automate backups
+- Rotate logs
+- Monitor servers
+- Execute deployment scripts
+- Generate scheduled reports
+- Perform maintenance tasks
+- Clean temporary files
+
+Automation through Cron helps improve efficiency and reduces the risk of human error.
+
+---
+
+### ✅ Example
+
+Automatically clean temporary files every Sunday:
+
+```bash
+0 3 * * 0 rm -rf /tmp/*
+```
+
+This keeps the server clean without manual intervention.
+
+---
+
+# Quick Interview Tips
+
+- Understand the difference between **Cron**, **Cron Job**, **crontab**, and **crond**.
+- Be comfortable writing and explaining Cron expressions such as `*/5 * * * *` and `0 2 * * *`.
+- Know how to verify the Cron service on **Ubuntu**, **CentOS**, and **WSL**.
+- Remember commonly used commands: `crontab -e`, `crontab -l`, and `crontab -r`.
+- Be ready to discuss practical automation scenarios like backups, log rotation, monitoring, and report generation.
+
+---
+
