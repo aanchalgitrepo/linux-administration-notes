@@ -1779,3 +1779,669 @@ ls -lh /backup
 
 ---
 
+# Part 6.3 – Practice Exercises
+
+This section contains hands-on Cron Job exercises designed for **WSL Ubuntu**, **Ubuntu Server**, **CentOS/RHEL**, **Amazon Linux**, and interview preparation.
+
+> **Prerequisite**
+>
+> Make sure the Cron service is installed and running before starting these exercises.
+
+**Ubuntu**
+
+```bash
+sudo systemctl status cron
+```
+
+**WSL**
+
+```bash
+sudo service cron status
+```
+
+**CentOS / RHEL**
+
+```bash
+sudo systemctl status crond
+```
+
+---
+
+# Practice Exercise 1 – Verify Cron Service
+
+## Objective
+
+Check whether the Cron service is running.
+
+### Ubuntu
+
+```bash
+systemctl status cron
+```
+
+### WSL
+
+```bash
+service cron status
+```
+
+### CentOS
+
+```bash
+systemctl status crond
+```
+
+---
+
+# Practice Exercise 2 – Open Crontab
+
+## Objective
+
+Open the Cron editor.
+
+```bash
+crontab -e
+```
+
+### Expected Result
+
+The crontab editor opens successfully.
+
+---
+
+# Practice Exercise 3 – View Existing Cron Jobs
+
+## Objective
+
+List all scheduled Cron Jobs.
+
+```bash
+crontab -l
+```
+
+### Expected Result
+
+Existing Cron Jobs are displayed.
+
+If no jobs exist:
+
+```text
+no crontab for username
+```
+
+---
+
+# Practice Exercise 4 – Create a Job That Runs Every Minute
+
+## Objective
+
+Create your first Cron Job.
+
+Open crontab:
+
+```bash
+crontab -e
+```
+
+Add:
+
+```bash
+* * * * * echo "Cron Test" >> ~/cron-test.log
+```
+
+### Verify
+
+```bash
+cat ~/cron-test.log
+```
+
+---
+
+# Practice Exercise 5 – Run a Job Every 5 Minutes
+
+## Objective
+
+Schedule a monitoring script.
+
+```bash
+*/5 * * * * /home/$USER/monitor.sh
+```
+
+Verify:
+
+```bash
+crontab -l
+```
+
+---
+
+# Practice Exercise 6 – Run a Job Every Day
+
+## Objective
+
+Schedule a backup.
+
+```bash
+30 2 * * * /home/$USER/backup.sh
+```
+
+Verify:
+
+```bash
+crontab -l
+```
+
+---
+
+# Practice Exercise 7 – Execute a Shell Script Automatically
+
+## Objective
+
+Create and schedule a shell script.
+
+Create script:
+
+```bash
+nano ~/hello.sh
+```
+
+Add:
+
+```bash
+#!/bin/bash
+echo "Cron Executed Successfully" >> ~/hello.log
+```
+
+Make executable:
+
+```bash
+chmod +x ~/hello.sh
+```
+
+Schedule:
+
+```bash
+* * * * * /home/$USER/hello.sh
+```
+
+Verify:
+
+```bash
+cat ~/hello.log
+```
+
+---
+
+# Practice Exercise 8 – Redirect Output to a Log File
+
+## Objective
+
+Store Cron output in a log file.
+
+```bash
+*/10 * * * * /home/$USER/script.sh >> ~/script.log 2>&1
+```
+
+Verify:
+
+```bash
+cat ~/script.log
+```
+
+---
+
+# Practice Exercise 9 – Remove All Cron Jobs
+
+## Objective
+
+Delete all Cron Jobs.
+
+```bash
+crontab -r
+```
+
+Verify:
+
+```bash
+crontab -l
+```
+
+Expected Output:
+
+```text
+no crontab for username
+```
+
+---
+
+# Practice Exercise 10 – Verify Cron Process
+
+## Objective
+
+Confirm that the Cron daemon is running.
+
+Ubuntu / WSL
+
+```bash
+ps aux | grep cron
+```
+
+CentOS
+
+```bash
+ps aux | grep crond
+```
+
+---
+
+# Practice Exercise 11 – View System Crontab
+
+## Objective
+
+Inspect the system-wide crontab configuration.
+
+```bash
+cat /etc/crontab
+```
+
+---
+
+# Practice Exercise 12 – Explore Cron Directories
+
+## Objective
+
+View directories that run scheduled scripts automatically.
+
+```bash
+ls /etc/cron.daily
+```
+
+```bash
+ls /etc/cron.weekly
+```
+
+```bash
+ls /etc/cron.monthly
+```
+
+---
+
+# WSL-Friendly Exercises
+
+Practice these commands in WSL Ubuntu:
+
+```bash
+sudo service cron status
+```
+
+```bash
+sudo service cron start
+```
+
+```bash
+crontab -e
+```
+
+```bash
+crontab -l
+```
+
+```bash
+ps aux | grep cron
+```
+
+```bash
+cat /etc/crontab
+```
+
+```bash
+ls /etc/cron.daily
+```
+
+---
+
+# Ubuntu Server Exercises
+
+Practice the following commands:
+
+```bash
+systemctl status cron
+```
+
+```bash
+systemctl restart cron
+```
+
+```bash
+systemctl enable cron
+```
+
+```bash
+journalctl -u cron
+```
+
+```bash
+crontab -e
+```
+
+```bash
+crontab -l
+```
+
+---
+
+# CentOS / RHEL Equivalents
+
+| Ubuntu | CentOS / RHEL |
+|----------|---------------|
+| cron | crond |
+| systemctl status cron | systemctl status crond |
+| systemctl restart cron | systemctl restart crond |
+| systemctl enable cron | systemctl enable crond |
+| journalctl -u cron | journalctl -u crond |
+
+---
+
+# Screenshot Guide
+
+Capture screenshots for the following commands.
+
+## WSL
+
+```bash
+service cron status
+```
+
+```bash
+service cron start
+```
+
+```bash
+crontab -e
+```
+
+```bash
+crontab -l
+```
+
+```bash
+ps aux | grep cron
+```
+
+```bash
+cat /etc/crontab
+```
+
+---
+
+## Ubuntu Server
+
+```bash
+systemctl status cron
+```
+
+```bash
+systemctl restart cron
+```
+
+```bash
+systemctl enable cron
+```
+
+```bash
+journalctl -u cron
+```
+
+---
+
+## CentOS
+
+```bash
+systemctl status crond
+```
+
+```bash
+systemctl restart crond
+```
+
+```bash
+systemctl enable crond
+```
+
+---
+
+# Common Errors & Troubleshooting
+
+---
+
+## Error 1
+
+```text
+crontab: command not found
+```
+
+### Reason
+
+Cron package is not installed.
+
+### Solution
+
+Ubuntu / Debian
+
+```bash
+sudo apt update
+sudo apt install cron
+```
+
+CentOS
+
+```bash
+sudo yum install cronie
+```
+
+---
+
+## Error 2
+
+```text
+cron: unrecognized service
+```
+
+### Reason
+
+Cron service is not installed or has a different service name.
+
+### Solution
+
+Ubuntu
+
+```bash
+sudo apt install cron
+```
+
+CentOS
+
+```bash
+sudo systemctl status crond
+```
+
+---
+
+## Error 3
+
+```text
+System has not been booted with systemd
+```
+
+### Reason
+
+Default WSL does not use systemd.
+
+### Solution
+
+Use:
+
+```bash
+service cron status
+```
+
+instead of:
+
+```bash
+systemctl status cron
+```
+
+---
+
+## Error 4
+
+```text
+Permission denied
+```
+
+### Reason
+
+The shell script does not have execute permission.
+
+### Solution
+
+```bash
+chmod +x script.sh
+```
+
+---
+
+## Error 5
+
+```text
+No output from Cron Job
+```
+
+### Possible Reasons
+
+- Cron service is stopped.
+- Wrong file path.
+- Missing execute permission.
+- PATH variable is incomplete.
+- Output is redirected elsewhere.
+
+### Solution
+
+Check:
+
+```bash
+service cron status
+```
+
+```bash
+crontab -l
+```
+
+```bash
+ls -l script.sh
+```
+
+---
+
+# Best Practices
+
+- Always verify that the Cron service is running.
+- Use absolute paths in Cron Jobs.
+- Test scripts manually before scheduling them.
+- Redirect output to log files for debugging.
+- Make scripts executable using `chmod +x`.
+- Keep Cron Jobs simple and well documented.
+- Review scheduled jobs regularly using `crontab -l`.
+- Avoid scheduling heavy jobs during peak business hours.
+- Use meaningful script names such as `backup.sh` or `cleanup.sh`.
+- Store backup scripts in a dedicated directory.
+
+---
+
+# Cleanup Commands
+
+Remove current user's Cron Jobs:
+
+```bash
+crontab -r
+```
+
+Remove test log files:
+
+```bash
+rm -f ~/cron-test.log
+```
+
+```bash
+rm -f ~/hello.log
+```
+
+```bash
+rm -f ~/script.log
+```
+
+Remove practice scripts:
+
+```bash
+rm -f ~/hello.sh
+```
+
+```bash
+rm -f ~/backup.sh
+```
+
+```bash
+rm -f ~/monitor.sh
+```
+
+Verify cleanup:
+
+```bash
+crontab -l
+```
+
+```bash
+ls ~
+```
+
+---
+
+# Quick Revision
+
+## Most Important Commands
+
+```bash
+crontab -e
+crontab -l
+crontab -r
+service cron status
+service cron start
+systemctl status cron
+systemctl restart cron
+systemctl enable cron
+systemctl status crond
+journalctl -u cron
+ps aux | grep cron
+cat /etc/crontab
+ls /etc/cron.daily
+```
+
+---
+
+# Practice Checklist
+
+- ✅ Verify Cron service
+- ✅ Open crontab
+- ✅ Create a Cron Job
+- ✅ List Cron Jobs
+- ✅ Schedule a shell script
+- ✅ Redirect output to a log file
+- ✅ Verify Cron process
+- ✅ Explore Cron directories
+- ✅ Remove Cron Jobs
+- ✅ Clean up practice files
+
+> **Interview Tip:** During interviews, don't just explain Cron syntax. Demonstrate that you know how to verify whether the Cron service is running, troubleshoot why a scheduled job didn't execute, and use log files to debug problems. These practical skills are highly valued in Linux Administration, DevOps, AWS, and Technical Support roles.
+
+---
+
