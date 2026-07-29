@@ -31,14 +31,6 @@ linux-administration-notes/
 ├── README.md
 ├── Users.md
 ├── Groups.md
-│
-├── permissions/
-│   ├── README.md
-│   ├── chmod.md
-│   ├── umask.md
-│   ├── ls-l.md
-│   └── stat.md
-│
 ├── Ownership.md
 ├── Services.md
 ├── CronJobs.md
@@ -48,7 +40,27 @@ linux-administration-notes/
 ├── FileSearching.md
 ├── Archiving.md
 ├── Rsync.md
+│
+├── permissions/
+│   ├── README.md
+│   ├── chmod.md
+│   ├── umask.md
+│   ├── ls-l.md
+│   └── stat.md
+│
 └── screenshots/
+    ├── users/
+    ├── groups/
+    ├── ownership/
+    ├── permissions/
+    ├── services/
+    ├── cron/
+    ├── ssh/
+    ├── logs/
+    ├── disk-management/
+    ├── file-searching/
+    ├── archiving/
+    └── rsync/
 ```
 
 ---
