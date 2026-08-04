@@ -1196,3 +1196,476 @@ Works normally and displays the usage of the WSL root filesystem.
 
 ---
 
+# Part 9.2B – Advanced Practical Examples (Examples 11–20)
+
+This section covers advanced Disk Management tasks commonly performed by Linux Administrators, DevOps Engineers, Cloud Engineers, and System Administrators.
+
+> **⚠️ Important for WSL Users**
+>
+> Commands such as `mount`, `umount`, `mkfs`, `fsck`, `swapon`, and `swapoff` may have limited functionality in WSL because it uses a virtual disk (`ext4.vhdx`). For full hands-on practice, use an Ubuntu Server VM, CentOS VM, or an AWS EC2 instance.
+
+---
+
+# Example 11 – Mount a Filesystem
+
+## ✅ Practical Example
+
+Mount a storage partition to a directory.
+
+### ✅ Command
+
+```bash
+sudo mount /dev/sdb1 /mnt/data
+```
+
+### ✅ Command Explanation
+
+- `mount` → Attaches a filesystem.
+- `/dev/sdb1` → Partition to mount.
+- `/mnt/data` → Mount point.
+
+### ✅ Expected Output
+
+Normally no output is displayed if the command succeeds.
+
+Verify using:
+
+```bash
+mount | grep /mnt/data
+```
+
+or
+
+```bash
+findmnt
+```
+
+### ✅ Real-World Use Case
+
+Mount a newly attached AWS EBS volume before using it.
+
+### ✅ Screenshot Command
+
+```bash
+sudo mount /dev/sdb1 /mnt/data
+findmnt
+```
+
+---
+
+# Example 12 – Unmount a Filesystem
+
+## ✅ Practical Example
+
+Safely disconnect a mounted filesystem.
+
+### ✅ Command
+
+```bash
+sudo umount /mnt/data
+```
+
+### ✅ Command Explanation
+
+- `umount` removes the mounted filesystem.
+- Files must not be in use.
+
+### ✅ Expected Output
+
+No output if successful.
+
+Verify:
+
+```bash
+findmnt
+```
+
+### ✅ Real-World Use Case
+
+Unmount a USB drive before removing it.
+
+### ✅ Screenshot Command
+
+```bash
+sudo umount /mnt/data
+findmnt
+```
+
+---
+
+# Example 13 – Create a Filesystem
+
+## ✅ Practical Example
+
+Create an ext4 filesystem.
+
+### ✅ Command
+
+```bash
+sudo mkfs.ext4 /dev/sdb1
+```
+
+### ✅ Command Explanation
+
+Creates an ext4 filesystem on the partition.
+
+**Warning:** This erases all existing data.
+
+### ✅ Expected Output
+
+```text
+Creating filesystem...
+Writing inode tables...
+Writing superblocks...
+```
+
+### ✅ Real-World Use Case
+
+Prepare a new disk before mounting it.
+
+### ✅ Screenshot Command
+
+```bash
+sudo mkfs.ext4 /dev/sdb1
+```
+
+---
+
+# Example 14 – Filesystem Check
+
+## ✅ Practical Example
+
+Check filesystem integrity.
+
+### ✅ Command
+
+```bash
+sudo fsck /dev/sdb1
+```
+
+### ✅ Command Explanation
+
+Scans the filesystem and repairs errors if possible.
+
+### ✅ Expected Output
+
+```text
+Filesystem clean
+```
+
+or
+
+```text
+Fixed inode...
+```
+
+### ✅ Real-World Use Case
+
+Repair corrupted filesystems after an unexpected shutdown.
+
+### ✅ Screenshot Command
+
+```bash
+sudo fsck /dev/sdb1
+```
+
+---
+
+# Example 15 – Enable Swap
+
+## ✅ Practical Example
+
+Enable swap space.
+
+### ✅ Command
+
+```bash
+sudo swapon /swapfile
+```
+
+Verify:
+
+```bash
+free -h
+```
+
+### ✅ Command Explanation
+
+Activates swap memory.
+
+### ✅ Expected Output
+
+```text
+Swap: 2.0G
+```
+
+### ✅ Real-World Use Case
+
+Increase virtual memory for systems with limited RAM.
+
+### ✅ Screenshot Command
+
+```bash
+sudo swapon /swapfile
+free -h
+```
+
+---
+
+# Example 16 – Disable Swap
+
+## ✅ Practical Example
+
+Disable swap space.
+
+### ✅ Command
+
+```bash
+sudo swapoff /swapfile
+```
+
+Verify:
+
+```bash
+free -h
+```
+
+### ✅ Command Explanation
+
+Turns off swap memory.
+
+### ✅ Expected Output
+
+Swap usage becomes:
+
+```text
+Swap: 0B
+```
+
+### ✅ Real-World Use Case
+
+Disable swap before resizing or deleting a swap file.
+
+### ✅ Screenshot Command
+
+```bash
+sudo swapoff /swapfile
+free -h
+```
+
+---
+
+# Example 17 – Find Large Directories
+
+## ✅ Practical Example
+
+Find the largest directories in `/var`.
+
+### ✅ Command
+
+```bash
+sudo du -h /var | sort -hr | head -10
+```
+
+### ✅ Command Explanation
+
+- `du -h` → Shows directory sizes.
+- `sort -hr` → Sorts from largest to smallest.
+- `head -10` → Displays the top 10 results.
+
+### ✅ Expected Output
+
+```text
+1.8G /var/log
+700M /var/cache
+```
+
+### ✅ Real-World Use Case
+
+Locate directories consuming excessive disk space.
+
+### ✅ Screenshot Command
+
+```bash
+sudo du -h /var | sort -hr | head -10
+```
+
+---
+
+# Example 18 – Analyze Disk Usage Recursively
+
+## ✅ Practical Example
+
+Analyze every subdirectory under `/home`.
+
+### ✅ Command
+
+```bash
+du -h /home
+```
+
+### ✅ Command Explanation
+
+Displays the size of every directory recursively.
+
+### ✅ Expected Output
+
+```text
+50M /home/user/Documents
+300M /home/user/Downloads
+```
+
+### ✅ Real-World Use Case
+
+Identify which user directories consume the most storage.
+
+### ✅ Screenshot Command
+
+```bash
+du -h /home
+```
+
+---
+
+# Example 19 – Disk Cleanup Example
+
+## ✅ Practical Example
+
+Remove temporary files and package cache.
+
+### ✅ Command
+
+```bash
+sudo rm -rf /tmp/*
+sudo apt clean
+```
+
+> **CentOS/RHEL**
+
+```bash
+sudo yum clean all
+```
+
+### ✅ Command Explanation
+
+- Removes temporary files.
+- Clears package cache.
+
+### ✅ Expected Output
+
+Usually no output unless an error occurs.
+
+### ✅ Real-World Use Case
+
+Free disk space on production servers.
+
+### ✅ Screenshot Command
+
+```bash
+sudo rm -rf /tmp/*
+sudo apt clean
+df -h
+```
+
+---
+
+# Example 20 – Storage Monitoring Script
+
+## ✅ Practical Example
+
+Create a simple script to monitor disk usage.
+
+### ✅ Command
+
+Create the script:
+
+```bash
+nano disk-monitor.sh
+```
+
+Script:
+
+```bash
+#!/bin/bash
+
+echo "Disk Usage Report"
+echo "-----------------"
+df -h
+
+echo
+echo "Largest Directories"
+du -sh /home/*
+```
+
+Make executable:
+
+```bash
+chmod +x disk-monitor.sh
+```
+
+Run:
+
+```bash
+./disk-monitor.sh
+```
+
+### ✅ Command Explanation
+
+The script:
+
+- Displays disk usage.
+- Displays user directory sizes.
+
+### ✅ Expected Output
+
+```text
+Disk Usage Report
+
+Filesystem Size Used Avail Use%
+
+Largest Directories
+
+2.3G /home/user
+```
+
+### ✅ Real-World Use Case
+
+Automate daily storage monitoring using Cron Jobs.
+
+### ✅ Screenshot Command
+
+```bash
+chmod +x disk-monitor.sh
+./disk-monitor.sh
+```
+
+---
+
+# Summary of Advanced Commands
+
+| Example | Command | Purpose |
+|---------|---------|---------|
+| 11 | `mount` | Mount a filesystem |
+| 12 | `umount` | Unmount a filesystem |
+| 13 | `mkfs.ext4` | Create a filesystem |
+| 14 | `fsck` | Check and repair a filesystem |
+| 15 | `swapon` | Enable swap |
+| 16 | `swapoff` | Disable swap |
+| 17 | `du -h \| sort -hr \| head` | Find large directories |
+| 18 | `du -h /home` | Analyze disk usage recursively |
+| 19 | `rm -rf /tmp/*` + `apt clean` | Clean temporary files and package cache |
+| 20 | `disk-monitor.sh` | Automate storage monitoring |
+
+---
+
+## 💼 Interview Tips
+
+- Always **unmount a filesystem before running `fsck`** to avoid corruption.
+- Be careful with `mkfs` because it **formats the partition and permanently erases data**.
+- Understand the difference between **`mount`** (attach a filesystem) and **`umount`** (detach a filesystem).
+- Use `du` to locate large directories and `df` to check overall filesystem usage.
+- In cloud environments (AWS, Azure, GCP), the usual workflow is: **attach disk → create filesystem → mount → update `/etc/fstab` for persistence**.
+- In WSL, commands like `mkfs`, `fsck`, and partition management are primarily for learning; full practice should be done on a Linux VM or cloud server.
+
+---
+
