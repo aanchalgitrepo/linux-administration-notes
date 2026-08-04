@@ -1239,3 +1239,463 @@ If no login history is available, the output may be empty because WSL sessions a
 
 ---
 
+# Part 8.2B – Advanced Practical Examples (Examples 11–20)
+
+This section covers advanced Linux log analysis techniques used by **Linux Administrators, DevOps Engineers, Cloud Engineers, Site Reliability Engineers (SREs), and Technical Support Engineers**.
+
+> **Note for WSL Users**
+>
+> Some `journalctl` commands require **systemd**. If your WSL installation does not use systemd, use the log files inside `/var/log/` wherever possible.
+
+---
+
+# Example 11 – Filter Logs by Service
+
+## ✅ Practical Example
+
+Display logs for a specific service.
+
+### ✅ Command
+
+```bash
+journalctl -u ssh
+```
+
+For Nginx:
+
+```bash
+journalctl -u nginx
+```
+
+### ✅ Command Explanation
+
+- `journalctl` displays logs managed by **systemd-journald**.
+- `-u` filters logs for a particular service.
+
+### ✅ Expected Output
+
+```text
+Jul 10 sshd: Accepted password for ubuntu
+Jul 10 sshd: Connection closed
+```
+
+### ✅ Real-World Use Case
+
+Troubleshoot SSH, Docker, Nginx, Apache, MySQL, or any systemd-managed service.
+
+### ✅ Screenshot Command
+
+```bash
+journalctl -u ssh
+```
+
+---
+
+# Example 12 – Filter Logs by Date
+
+## ✅ Practical Example
+
+Display logs generated after a specific date.
+
+### ✅ Command
+
+```bash
+journalctl --since "2026-08-01"
+```
+
+Display logs between two dates:
+
+```bash
+journalctl --since "2026-08-01" --until "2026-08-02"
+```
+
+### ✅ Command Explanation
+
+- `--since` specifies the starting date.
+- `--until` specifies the ending date.
+
+### ✅ Expected Output
+
+```text
+Aug 01 ...
+Aug 02 ...
+```
+
+### ✅ Real-World Use Case
+
+Investigate incidents that occurred during a particular maintenance window.
+
+### ✅ Screenshot Command
+
+```bash
+journalctl --since "today"
+```
+
+---
+
+# Example 13 – Filter Logs by Boot
+
+## ✅ Practical Example
+
+View logs from the current or previous boot.
+
+### ✅ Command
+
+Current boot:
+
+```bash
+journalctl -b
+```
+
+Previous boot:
+
+```bash
+journalctl -b -1
+```
+
+### ✅ Command Explanation
+
+- `-b` displays logs from a boot session.
+- `-1` means previous boot.
+
+### ✅ Expected Output
+
+```text
+Boot ID...
+System started...
+```
+
+### ✅ Real-World Use Case
+
+Useful after reboot failures or unexpected system crashes.
+
+### ✅ Screenshot Command
+
+```bash
+journalctl -b
+```
+
+---
+
+# Example 14 – View Failed Login Attempts
+
+## ✅ Practical Example
+
+Display failed login attempts.
+
+### ✅ Command
+
+Ubuntu:
+
+```bash
+sudo cat /var/log/auth.log | grep "Failed"
+```
+
+CentOS:
+
+```bash
+sudo cat /var/log/secure | grep "Failed"
+```
+
+Alternative:
+
+```bash
+lastb
+```
+
+### ✅ Command Explanation
+
+Searches authentication logs for failed login records.
+
+### ✅ Expected Output
+
+```text
+Failed password for user
+```
+
+### ✅ Real-World Use Case
+
+Detect brute-force attacks or unauthorized login attempts.
+
+### ✅ Screenshot Command
+
+```bash
+lastb
+```
+
+---
+
+# Example 15 – View Boot Logs
+
+## ✅ Practical Example
+
+Display system boot logs.
+
+### ✅ Command
+
+```bash
+journalctl -b
+```
+
+Alternative:
+
+```bash
+cat /var/log/boot.log
+```
+
+### ✅ Command Explanation
+
+Shows all log messages generated during system startup.
+
+### ✅ Expected Output
+
+```text
+Started Network Manager
+Started OpenSSH Server
+```
+
+### ✅ Real-World Use Case
+
+Troubleshoot boot failures and service startup issues.
+
+### ✅ Screenshot Command
+
+```bash
+journalctl -b
+```
+
+---
+
+# Example 16 – View Only Error Logs
+
+## ✅ Practical Example
+
+Display only error-level journal entries.
+
+### ✅ Command
+
+```bash
+journalctl -p err
+```
+
+Errors and above:
+
+```bash
+journalctl -p err..alert
+```
+
+### ✅ Command Explanation
+
+- `-p` filters logs by priority.
+- `err` means only error messages.
+
+### ✅ Expected Output
+
+```text
+Failed to start service
+Disk error detected
+```
+
+### ✅ Real-World Use Case
+
+Quickly identify critical problems on production servers.
+
+### ✅ Screenshot Command
+
+```bash
+journalctl -p err
+```
+
+---
+
+# Example 17 – Export Logs
+
+## ✅ Practical Example
+
+Save logs into a file.
+
+### ✅ Command
+
+```bash
+journalctl > system-logs.txt
+```
+
+Export only SSH logs:
+
+```bash
+journalctl -u ssh > ssh-logs.txt
+```
+
+### ✅ Command Explanation
+
+Redirects command output into a text file.
+
+### ✅ Expected Output
+
+A new file:
+
+```text
+system-logs.txt
+```
+
+### ✅ Real-World Use Case
+
+Share logs with teammates or attach them to support tickets.
+
+### ✅ Screenshot Command
+
+```bash
+journalctl > system-logs.txt
+ls -l system-logs.txt
+```
+
+---
+
+# Example 18 – Monitor Logs in Real Time
+
+## ✅ Practical Example
+
+Continuously monitor new log entries.
+
+### ✅ Command
+
+```bash
+journalctl -f
+```
+
+Alternative:
+
+```bash
+tail -f /var/log/syslog
+```
+
+### ✅ Command Explanation
+
+- `-f` means **follow**.
+- Displays new log entries as they are generated.
+
+Press **Ctrl + C** to stop.
+
+### ✅ Expected Output
+
+```text
+New SSH login...
+CRON executed...
+```
+
+### ✅ Real-World Use Case
+
+Monitor live application deployments and service activity.
+
+### ✅ Screenshot Command
+
+```bash
+journalctl -f
+```
+
+---
+
+# Example 19 – Rotate Logs
+
+## ✅ Practical Example
+
+Manually rotate log files.
+
+### ✅ Command
+
+```bash
+sudo logrotate -f /etc/logrotate.conf
+```
+
+### ✅ Command Explanation
+
+- `logrotate` archives old logs.
+- Compresses large log files.
+- Creates fresh log files.
+
+### ✅ Expected Output
+
+```text
+rotating pattern...
+compressing log...
+```
+
+### ✅ Real-World Use Case
+
+Prevent log files from consuming excessive disk space on production servers.
+
+### ✅ Screenshot Command
+
+```bash
+sudo logrotate -f /etc/logrotate.conf
+```
+
+---
+
+# Example 20 – Clear Journal Logs (Use Carefully)
+
+## ✅ Practical Example
+
+Reduce journal size by removing old entries.
+
+### ✅ Command
+
+Keep only the last **100 MB** of journal logs:
+
+```bash
+sudo journalctl --vacuum-size=100M
+```
+
+Keep only the last **7 days** of logs:
+
+```bash
+sudo journalctl --vacuum-time=7d
+```
+
+### ✅ Command Explanation
+
+These commands remove old journal entries while keeping recent logs.
+
+> **Warning:** This permanently deletes old journal data.
+
+### ✅ Expected Output
+
+```text
+Vacuuming done...
+Deleted archived journal files...
+```
+
+### ✅ Real-World Use Case
+
+Free disk space on servers with very large journal databases.
+
+### ✅ Screenshot Command
+
+```bash
+sudo journalctl --vacuum-size=100M
+```
+
+---
+
+# Summary of Advanced Commands
+
+| Example | Command |
+|----------|---------|
+| Filter Service Logs | `journalctl -u ssh` |
+| Filter by Date | `journalctl --since "today"` |
+| Current Boot Logs | `journalctl -b` |
+| Previous Boot | `journalctl -b -1` |
+| Failed Logins | `lastb` |
+| Boot Logs | `journalctl -b` |
+| Error Logs | `journalctl -p err` |
+| Export Logs | `journalctl > system-logs.txt` |
+| Live Monitoring | `journalctl -f` |
+| Rotate Logs | `sudo logrotate -f /etc/logrotate.conf` |
+| Reduce Journal Size | `sudo journalctl --vacuum-size=100M` |
+
+---
+
+> **Interview Tip:** Production Linux servers are commonly monitored using `journalctl`, `tail -f`, `grep`, and `logrotate`. Knowing how to filter logs by **service**, **date**, **boot**, and **priority** is a valuable skill for Linux Administration, DevOps, AWS, and Cloud Engineering interviews.
+
+---
+
