@@ -165,12 +165,11 @@ After completing this repository, you will be able to:
 
 ---
 
-## ⭐ If you found this repository useful, consider giving it a Star.
+## Author
+## Aanchal Verma
 
 ---
 
-## Author
-
-Aanchal Verma
+## ⭐ If you found this repository useful, consider giving it a Star.
 
 ---
