@@ -125,7 +125,6 @@ Run all commands on:
 
 - Ubuntu
 - WSL (Windows Subsystem for Linux)
-- Virtual Machine (VirtualBox/VMware)
 - Linux Server
 
 Take screenshots after executing commands and store them inside the `screenshots/` folder.
@@ -163,3 +162,15 @@ After completing this repository, you will be able to:
 - Search files efficiently.
 - Create and extract archives.
 - Synchronize files using rsync.
+
+---
+
+## ⭐ If you found this repository useful, consider giving it a Star.
+
+---
+
+## Author
+
+Aanchal Verma
+
+---
