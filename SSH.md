@@ -2448,3 +2448,438 @@ cat ~/.ssh/id_rsa.pub
 
 ---
 
+
+# Part 7.4A – Interview Questions & Answers (1–15)
+
+This section covers the most frequently asked **SSH interview questions** for **Linux Administration, DevOps, AWS, Cloud Computing, Technical Support, and System Administration** interviews.
+
+---
+
+# Interview Question 1
+
+## ✅ Question
+
+**What is SSH?**
+
+### ✅ Professional Answer
+
+**SSH (Secure Shell)** is a secure network protocol used to remotely connect to another computer over an encrypted connection.
+
+It allows administrators to:
+
+- Log in remotely
+- Execute commands
+- Transfer files securely
+- Manage Linux servers
+
+SSH encrypts all communication between the client and server, making it much more secure than older protocols like Telnet.
+
+### ✅ Example
+
+```bash
+ssh ubuntu@192.168.1.100
+```
+
+This command connects securely to a remote Linux server.
+
+---
+
+# Interview Question 2
+
+## ✅ Question
+
+**What is the full form of SSH?**
+
+### ✅ Professional Answer
+
+SSH stands for:
+
+> **Secure Shell**
+
+It provides encrypted communication between an SSH client and an SSH server.
+
+---
+
+# Interview Question 3
+
+## ✅ Question
+
+**What is the difference between SSH and Telnet?**
+
+### ✅ Professional Answer
+
+SSH and Telnet are both remote login protocols, but SSH is secure while Telnet is not.
+
+| SSH | Telnet |
+|------|---------|
+| Secure protocol | Insecure protocol |
+| Encrypts all communication | Sends data in plain text |
+| Uses Port 22 | Uses Port 23 |
+| Supports key-based authentication | Password only |
+| Recommended for production | Rarely used today |
+
+### ✅ Example
+
+SSH:
+
+```bash
+ssh user@server
+```
+
+Telnet:
+
+```bash
+telnet server 23
+```
+
+---
+
+# Interview Question 4
+
+## ✅ Question
+
+**What is an SSH Client?**
+
+### ✅ Professional Answer
+
+An **SSH Client** is the application or computer that initiates an SSH connection to a remote server.
+
+Common SSH clients include:
+
+- OpenSSH
+- PuTTY
+- MobaXterm
+- Windows PowerShell
+- Linux Terminal
+
+### ✅ Example
+
+```bash
+ssh ubuntu@192.168.1.100
+```
+
+The local machine running this command is the SSH client.
+
+---
+
+# Interview Question 5
+
+## ✅ Question
+
+**What is an SSH Server?**
+
+### ✅ Professional Answer
+
+An **SSH Server** is the remote system that accepts SSH connections.
+
+It runs the **sshd (SSH daemon)** service, listens for incoming requests, authenticates users, and provides a secure shell session.
+
+### ✅ Example
+
+Ubuntu:
+
+```bash
+systemctl status ssh
+```
+
+CentOS:
+
+```bash
+systemctl status sshd
+```
+
+---
+
+# Interview Question 6
+
+## ✅ Question
+
+**What is Port 22?**
+
+### ✅ Professional Answer
+
+**Port 22** is the default network port used by the SSH protocol.
+
+When an SSH client connects to a remote server without specifying a port, it automatically uses Port 22.
+
+### ✅ Example
+
+```bash
+ssh ubuntu@192.168.1.100
+```
+
+This connects using Port 22 by default.
+
+Custom port:
+
+```bash
+ssh -p 2222 ubuntu@192.168.1.100
+```
+
+---
+
+# Interview Question 7
+
+## ✅ Question
+
+**What is the `ssh` command?**
+
+### ✅ Professional Answer
+
+The `ssh` command is the Linux command-line utility used to establish a secure connection to a remote server.
+
+It supports:
+
+- Remote login
+- Remote command execution
+- SSH key authentication
+- Secure tunneling
+
+### ✅ Example
+
+```bash
+ssh user@server
+```
+
+---
+
+# Interview Question 8
+
+## ✅ Question
+
+**What is `sshd`?**
+
+### ✅ Professional Answer
+
+`sshd` (Secure Shell Daemon) is the background service that listens for incoming SSH connections.
+
+It authenticates users and creates secure remote sessions.
+
+### ✅ Example
+
+CentOS:
+
+```bash
+systemctl status sshd
+```
+
+Verify the process:
+
+```bash
+ps aux | grep sshd
+```
+
+---
+
+# Interview Question 9
+
+## ✅ Question
+
+**What are SSH Keys?**
+
+### ✅ Professional Answer
+
+SSH keys are a pair of cryptographic keys used for secure authentication.
+
+The key pair consists of:
+
+- Private Key
+- Public Key
+
+SSH keys allow users to log in securely without entering a password.
+
+### ✅ Example
+
+Generate keys:
+
+```bash
+ssh-keygen
+```
+
+---
+
+# Interview Question 10
+
+## ✅ Question
+
+**What is a Public Key?**
+
+### ✅ Professional Answer
+
+The **Public Key** is the part of the SSH key pair that can be safely shared.
+
+It is copied to the remote server's:
+
+```text
+~/.ssh/authorized_keys
+```
+
+The server uses it to verify the identity of the client.
+
+### ✅ Example
+
+View the public key:
+
+```bash
+cat ~/.ssh/id_rsa.pub
+```
+
+---
+
+# Interview Question 11
+
+## ✅ Question
+
+**What is a Private Key?**
+
+### ✅ Professional Answer
+
+The **Private Key** is the secret part of the SSH key pair.
+
+It remains only on the client machine and is used to prove the user's identity.
+
+The private key should **never** be shared.
+
+### ✅ Example
+
+Default private key:
+
+```text
+~/.ssh/id_rsa
+```
+
+---
+
+# Interview Question 12
+
+## ✅ Question
+
+**How do you generate SSH keys?**
+
+### ✅ Professional Answer
+
+Use the `ssh-keygen` command to create a new public/private key pair.
+
+### ✅ Example
+
+```bash
+ssh-keygen
+```
+
+Generated files:
+
+```text
+id_rsa
+id_rsa.pub
+```
+
+---
+
+# Interview Question 13
+
+## ✅ Question
+
+**Where are SSH keys stored in Linux?**
+
+### ✅ Professional Answer
+
+SSH keys are stored in the user's `.ssh` directory.
+
+Common files include:
+
+| File | Purpose |
+|------|---------|
+| `~/.ssh/id_rsa` | Private Key |
+| `~/.ssh/id_rsa.pub` | Public Key |
+| `~/.ssh/authorized_keys` | Authorized public keys |
+| `~/.ssh/known_hosts` | Known server fingerprints |
+
+### ✅ Example
+
+```bash
+ls ~/.ssh
+```
+
+---
+
+# Interview Question 14
+
+## ✅ Question
+
+**How do you verify that the SSH service is running?**
+
+### ✅ Professional Answer
+
+The command depends on the Linux distribution.
+
+**Ubuntu**
+
+```bash
+systemctl status ssh
+```
+
+**WSL**
+
+```bash
+service ssh status
+```
+
+**CentOS**
+
+```bash
+systemctl status sshd
+```
+
+A healthy service displays:
+
+```text
+Active: active (running)
+```
+
+---
+
+# Interview Question 15
+
+## ✅ Question
+
+**Why is SSH important in DevOps and Cloud Computing?**
+
+### ✅ Professional Answer
+
+SSH is essential because it enables secure remote management of Linux servers.
+
+It is widely used for:
+
+- Managing AWS EC2 instances
+- Deploying applications
+- Running administrative commands
+- Automating tasks with Ansible
+- Accessing cloud virtual machines
+- Secure file transfers
+- Troubleshooting production servers
+
+SSH provides encrypted communication, making it the standard protocol for Linux administration.
+
+### ✅ Example
+
+Connect to an AWS EC2 Ubuntu instance:
+
+```bash
+ssh -i mykey.pem ubuntu@54.210.120.50
+```
+
+This command securely connects to the EC2 server using an SSH private key.
+
+---
+
+# Quick Interview Tips
+
+- Understand the difference between **SSH**, **SSH Client**, **SSH Server**, and **sshd**.
+- Remember that **SSH uses Port 22** by default.
+- Be able to explain the roles of the **public key** and **private key** in key-based authentication.
+- Know common SSH commands such as `ssh`, `ssh-keygen`, `ssh-copy-id`, and `scp`.
+- Be prepared to compare **SSH vs Telnet** and explain why SSH is preferred.
+- Practice connecting to **localhost** in WSL and, if possible, to a remote server such as an AWS EC2 instance.
+
+---
+
