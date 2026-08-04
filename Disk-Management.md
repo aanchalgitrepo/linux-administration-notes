@@ -2675,3 +2675,461 @@ These commands are used daily by Linux Administrators and DevOps Engineers to mo
 - Mention that advanced commands like `fdisk`, `mkfs`, and `fsck` are generally practiced on a Linux VM or cloud server rather than in WSL due to its virtual disk architecture.
 
 ---
+
+# 📂 Part 9.4B – Interview Questions & Answers (16–30)
+
+This section covers **advanced Disk Management interview questions** commonly asked in **Linux Administration, DevOps, AWS, Cloud Computing, Technical Support, and System Administration** interviews.
+
+---
+
+# Question 16. What is the difference between a physical disk and a partition?
+
+## ✅ Professional Answer
+
+A **physical disk** is the actual storage device (HDD, SSD, or NVMe), while a **partition** is a logical division of that disk.
+
+A single disk can contain multiple partitions, each with its own filesystem.
+
+### ✅ Example
+
+```
+Physical Disk
+   │
+   ├── /dev/sda1
+   ├── /dev/sda2
+   └── /dev/sda3
+```
+
+---
+
+# Question 17. What is a mount point?
+
+## ✅ Professional Answer
+
+A mount point is a directory where a filesystem is attached so that users and applications can access its contents.
+
+Without mounting, Linux cannot access the data stored on a partition.
+
+### ✅ Example
+
+```bash
+sudo mount /dev/sdb1 /mnt/data
+```
+
+---
+
+# Question 18. How can you check mounted filesystems?
+
+## ✅ Professional Answer
+
+You can use:
+
+```bash
+mount
+```
+
+or
+
+```bash
+findmnt
+```
+
+`findmnt` provides a cleaner tree structure.
+
+### ✅ Example
+
+```bash
+findmnt
+```
+
+---
+
+# Question 19. What is the purpose of the `blkid` command?
+
+## ✅ Professional Answer
+
+`blkid` displays filesystem metadata such as:
+
+- UUID
+- Filesystem type
+- Partition label
+
+It is commonly used while configuring `/etc/fstab`.
+
+### ✅ Example
+
+```bash
+sudo blkid
+```
+
+---
+
+# Question 20. What is inode usage?
+
+## ✅ Professional Answer
+
+An inode stores metadata about a file such as ownership, permissions, timestamps, and pointers to the file's data blocks.
+
+Even if free disk space is available, a filesystem can become full if all inodes are used.
+
+### ✅ Example
+
+```bash
+df -i
+```
+
+---
+
+# Question 21. What is swap space and why is it used?
+
+## ✅ Professional Answer
+
+Swap space is virtual memory stored on disk.
+
+When RAM becomes full, Linux moves inactive memory pages to swap, allowing applications to continue running.
+
+Although swap is slower than RAM, it helps prevent memory exhaustion.
+
+### ✅ Example
+
+```bash
+free -h
+```
+
+---
+
+# Question 22. What is the difference between RAM and Swap?
+
+## ✅ Professional Answer
+
+| RAM | Swap |
+|------|------|
+| Physical memory | Disk-based virtual memory |
+| Very fast | Much slower |
+| Used first | Used when RAM is insufficient |
+
+### ✅ Example
+
+```bash
+free -h
+```
+
+---
+
+# Question 23. What is `fsck`?
+
+## ✅ Professional Answer
+
+`fsck` (File System Check) scans and repairs filesystem inconsistencies.
+
+It should generally be run on an **unmounted** filesystem.
+
+### ✅ Example
+
+```bash
+sudo fsck /dev/sdb1
+```
+
+---
+
+# Question 24. What is `mkfs`?
+
+## ✅ Professional Answer
+
+`mkfs` creates a new filesystem on a partition.
+
+It prepares a storage device for use.
+
+**Warning:** It permanently erases existing data on the target partition.
+
+### ✅ Example
+
+```bash
+sudo mkfs.ext4 /dev/sdb1
+```
+
+---
+
+# Question 25. What is `/etc/fstab`?
+
+## ✅ Professional Answer
+
+`/etc/fstab` is the Linux configuration file that defines filesystems to be mounted automatically during system startup.
+
+It commonly uses UUIDs instead of device names.
+
+### ✅ Example
+
+```text
+UUID=xxxx-xxxx  /data  ext4  defaults  0  2
+```
+
+---
+
+# Question 26. How do you identify large directories?
+
+## ✅ Professional Answer
+
+The `du` command helps identify directories consuming the most disk space.
+
+### ✅ Example
+
+```bash
+du -h /var | sort -hr | head -10
+```
+
+---
+
+# Question 27. What should you do if a Linux server reports "No space left on device"?
+
+## ✅ Professional Answer
+
+Follow these troubleshooting steps:
+
+1. Check filesystem usage.
+
+```bash
+df -h
+```
+
+2. Check inode usage.
+
+```bash
+df -i
+```
+
+3. Identify large directories.
+
+```bash
+du -h / | sort -hr | head
+```
+
+4. Remove unnecessary files or logs.
+
+---
+
+# Question 28. Why is `findmnt` preferred over `mount`?
+
+## ✅ Professional Answer
+
+`findmnt` presents mounted filesystems in a structured tree format, making them easier to read and troubleshoot.
+
+`mount` displays the same information but in a longer text format.
+
+### ✅ Example
+
+```bash
+findmnt
+```
+
+---
+
+# Question 29. Why is disk monitoring important in production servers?
+
+## ✅ Professional Answer
+
+Disk monitoring helps:
+
+- Prevent storage exhaustion
+- Avoid application failures
+- Monitor log growth
+- Improve server performance
+- Support capacity planning
+- Detect abnormal storage usage
+
+### ✅ Example
+
+```bash
+df -h
+```
+
+scheduled using **Cron Jobs**.
+
+---
+
+# Question 30. Which Disk Management commands are most commonly used in DevOps?
+
+## ✅ Professional Answer
+
+Frequently used commands include:
+
+```bash
+df -h
+```
+
+```bash
+du -sh
+```
+
+```bash
+lsblk
+```
+
+```bash
+findmnt
+```
+
+```bash
+mount
+```
+
+```bash
+umount
+```
+
+```bash
+blkid
+```
+
+```bash
+free -h
+```
+
+```bash
+df -i
+```
+
+These commands are essential for monitoring and managing Linux storage in production environments.
+
+---
+
+# 📊 df vs du Comparison Table
+
+| Feature | `df` | `du` |
+|----------|------|------|
+| Full Form | Disk Filesystem | Disk Usage |
+| Purpose | Shows filesystem usage | Shows directory/file usage |
+| Scope | Entire filesystem | Individual directories/files |
+| Shows Free Space | ✅ Yes | ❌ No |
+| Shows Directory Size | ❌ No | ✅ Yes |
+| Common Option | `df -h` | `du -sh` |
+| Typical Use Case | Monitor disk capacity | Find large directories |
+
+---
+
+# 📊 mount vs umount Comparison Table
+
+| Feature | `mount` | `umount` |
+|----------|----------|----------|
+| Purpose | Attach a filesystem | Detach a filesystem |
+| Makes Data Accessible | ✅ Yes | ❌ No |
+| Required Before Use | ✅ Yes | ❌ No |
+| Safe Device Removal | ❌ No | ✅ Yes |
+| Typical Command | `mount /dev/sdb1 /mnt/data` | `umount /mnt/data` |
+
+---
+
+# 📊 Filesystem Comparison Table
+
+| Feature | ext4 | XFS | Btrfs |
+|----------|------|-----|--------|
+| Default On | Ubuntu | RHEL/CentOS | SUSE (common) |
+| Stability | Excellent | Excellent | Good |
+| Performance | Very Good | Excellent for large files | Good |
+| Journaling | ✅ Yes | ✅ Yes | ✅ Yes |
+| Snapshots | ❌ No | ❌ No | ✅ Yes |
+| Resize | Yes | Grow only | Grow & Shrink |
+| Best For | General Linux systems | Enterprise servers | Advanced storage features |
+
+---
+
+# 📋 Disk Management Cheat Sheet
+
+| Command | Purpose |
+|----------|---------|
+| `df -h` | Check filesystem usage |
+| `df -i` | Check inode usage |
+| `du -sh directory` | Directory size |
+| `lsblk` | List disks and partitions |
+| `findmnt` | Display mounted filesystems |
+| `mount` | Mount a filesystem |
+| `umount` | Unmount a filesystem |
+| `blkid` | Show UUID and filesystem type |
+| `free -h` | Display RAM and swap |
+| `fdisk -l` | List partitions |
+| `mkfs.ext4` | Create ext4 filesystem |
+| `fsck` | Check and repair filesystem |
+| `swapon` | Enable swap |
+| `swapoff` | Disable swap |
+
+---
+
+# 📝 Summary
+
+- Disk Management is essential for organizing, monitoring, and maintaining Linux storage.
+- Partitions divide physical disks into logical sections.
+- Filesystems organize how data is stored and accessed.
+- Mount points make storage devices accessible through the Linux directory tree.
+- `df` monitors overall filesystem usage, while `du` identifies large files and directories.
+- `lsblk`, `blkid`, and `findmnt` help inspect storage devices and mounted filesystems.
+- `mount` and `umount` are used to attach and detach filesystems.
+- `mkfs` creates filesystems, and `fsck` checks filesystem integrity.
+- Swap space provides virtual memory when RAM is exhausted.
+- These concepts are fundamental for Linux Administration, DevOps, AWS, Cloud Computing, and System Administration.
+
+---
+
+# ⚡ Quick Revision Notes
+
+Remember these commands:
+
+```bash
+df -h
+```
+
+```bash
+du -sh /home
+```
+
+```bash
+lsblk
+```
+
+```bash
+findmnt
+```
+
+```bash
+mount
+```
+
+```bash
+umount
+```
+
+```bash
+blkid
+```
+
+```bash
+free -h
+```
+
+```bash
+df -i
+```
+
+```bash
+sudo fdisk -l
+```
+
+```bash
+sudo mkfs.ext4 /dev/sdb1
+```
+
+```bash
+sudo fsck /dev/sdb1
+```
+
+---
+
+# 💼 Interview Tips
+
+- Explain the storage flow clearly: **Physical Disk → Partition → Filesystem → Mount Point → User Access**.
+- Be prepared to differentiate **`df` vs `du`**, **`mount` vs `umount`**, and **ext4 vs XFS vs Btrfs**.
+- Mention that `fsck` should generally be run on **unmounted filesystems**.
+- Clarify that `mkfs` formats a partition and erases existing data.
+- In WSL, explain that advanced disk operations are limited because WSL uses a virtual disk (`ext4.vhdx`), so tasks like partitioning and filesystem creation are better practiced on a Linux VM or cloud instance.
+- In DevOps interviews, relate these commands to practical scenarios such as monitoring storage with `df -h`, finding large log directories with `du`, mounting cloud volumes, and automating disk checks with Cron Jobs.
+
+---
