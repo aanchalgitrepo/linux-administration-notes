@@ -645,3 +645,597 @@ Used to configure:
 
 ---
 
+# Part 8.2A – Practical Examples (Examples 1–10)
+
+This section contains practical examples for viewing and analyzing Linux system logs. These commands are commonly used by **Linux Administrators, DevOps Engineers, Cloud Engineers, and Technical Support Engineers**.
+
+> **Note for WSL Users**
+>
+> Some log files (such as `auth.log` or `syslog`) may not exist depending on your WSL configuration. If `systemd` is not enabled, `journalctl` may also have limited functionality. Wherever applicable, WSL alternatives are provided.
+
+---
+
+# Example 1 – View System Log (syslog)
+
+## ✅ Practical Example
+
+View the main system log file.
+
+### ✅ Command
+
+```bash
+cat /var/log/syslog
+```
+
+### ✅ Command Explanation
+
+- `cat` displays the entire contents of the file.
+- `/var/log/syslog` stores general system and application logs (Ubuntu/Debian).
+
+### ✅ Expected Output
+
+```text
+Jul 10 10:20:11 ubuntu systemd[1]: Started OpenSSH Server.
+Jul 10 10:25:18 CRON[1234]: (root) CMD (...)
+```
+
+### ✅ Real-World Use Case
+
+Used to troubleshoot system events, service startup, and application errors.
+
+### ✅ Screenshot Command
+
+```bash
+cat /var/log/syslog
+```
+
+### ✅ Ubuntu
+
+```bash
+cat /var/log/syslog
+```
+
+### ✅ CentOS
+
+```bash
+cat /var/log/messages
+```
+
+### ✅ WSL Note
+
+If `/var/log/syslog` does not exist:
+
+```bash
+ls /var/log
+```
+
+---
+
+# Example 2 – View Authentication Log
+
+## ✅ Practical Example
+
+View user authentication logs.
+
+### ✅ Command
+
+```bash
+cat /var/log/auth.log
+```
+
+### ✅ Command Explanation
+
+Displays:
+
+- SSH logins
+- sudo activity
+- Failed login attempts
+- Authentication events
+
+### ✅ Expected Output
+
+```text
+Accepted password for ubuntu
+sudo: user executed command
+```
+
+### ✅ Real-World Use Case
+
+Useful for investigating login failures and security incidents.
+
+### ✅ Screenshot Command
+
+```bash
+cat /var/log/auth.log
+```
+
+### ✅ Ubuntu
+
+```bash
+cat /var/log/auth.log
+```
+
+### ✅ CentOS
+
+```bash
+cat /var/log/secure
+```
+
+### ✅ WSL Note
+
+This file may not exist if SSH or logging services are not configured.
+
+---
+
+# Example 3 – Use `tail`
+
+## ✅ Practical Example
+
+Display the last 10 lines of a log file.
+
+### ✅ Command
+
+```bash
+tail /var/log/syslog
+```
+
+### ✅ Command Explanation
+
+`tail` shows the most recent entries in a file.
+
+### ✅ Expected Output
+
+```text
+...
+System boot completed
+SSH connection accepted
+```
+
+### ✅ Real-World Use Case
+
+Quickly check the latest events after an issue occurs.
+
+### ✅ Screenshot Command
+
+```bash
+tail /var/log/syslog
+```
+
+### ✅ Ubuntu
+
+```bash
+tail /var/log/syslog
+```
+
+### ✅ CentOS
+
+```bash
+tail /var/log/messages
+```
+
+### ✅ WSL Note
+
+Use any available log file:
+
+```bash
+tail filename
+```
+
+---
+
+# Example 4 – Monitor Logs in Real Time (`tail -f`)
+
+## ✅ Practical Example
+
+Watch new log entries as they are added.
+
+### ✅ Command
+
+```bash
+tail -f /var/log/syslog
+```
+
+### ✅ Command Explanation
+
+- `-f` means **follow**.
+- Displays new log entries continuously.
+
+Press **Ctrl + C** to stop monitoring.
+
+### ✅ Expected Output
+
+```text
+Jul 10 11:02:01 CRON...
+Jul 10 11:03:12 sshd...
+```
+
+### ✅ Real-World Use Case
+
+Monitor services while troubleshooting or during deployments.
+
+### ✅ Screenshot Command
+
+```bash
+tail -f /var/log/syslog
+```
+
+### ✅ Ubuntu
+
+```bash
+tail -f /var/log/syslog
+```
+
+### ✅ CentOS
+
+```bash
+tail -f /var/log/messages
+```
+
+### ✅ WSL Note
+
+Use any existing log file.
+
+---
+
+# Example 5 – Use `head`
+
+## ✅ Practical Example
+
+Display the first 10 lines of a log file.
+
+### ✅ Command
+
+```bash
+head /var/log/syslog
+```
+
+### ✅ Command Explanation
+
+Shows the beginning of the file.
+
+### ✅ Expected Output
+
+```text
+Jul 10 System started...
+```
+
+### ✅ Real-World Use Case
+
+Useful for checking the initial entries in a log.
+
+### ✅ Screenshot Command
+
+```bash
+head /var/log/syslog
+```
+
+### ✅ Ubuntu
+
+```bash
+head /var/log/syslog
+```
+
+### ✅ CentOS
+
+```bash
+head /var/log/messages
+```
+
+### ✅ WSL Note
+
+Works with any available log file.
+
+---
+
+# Example 6 – Use `less`
+
+## ✅ Practical Example
+
+View large log files page by page.
+
+### ✅ Command
+
+```bash
+less /var/log/syslog
+```
+
+### ✅ Command Explanation
+
+Navigate using:
+
+- ↑ ↓ Arrow keys
+- Spacebar
+- Page Up/Page Down
+
+Exit:
+
+```text
+q
+```
+
+### ✅ Expected Output
+
+The log opens in an interactive viewer.
+
+### ✅ Real-World Use Case
+
+Preferred over `cat` for reading large log files.
+
+### ✅ Screenshot Command
+
+```bash
+less /var/log/syslog
+```
+
+### ✅ Ubuntu
+
+```bash
+less /var/log/syslog
+```
+
+### ✅ CentOS
+
+```bash
+less /var/log/messages
+```
+
+### ✅ WSL Note
+
+Use any existing log file.
+
+---
+
+# Example 7 – Search Logs Using `grep`
+
+## ✅ Practical Example
+
+Search for a keyword inside log files.
+
+### ✅ Command
+
+```bash
+grep "error" /var/log/syslog
+```
+
+### ✅ Command Explanation
+
+Searches for all lines containing the word **error**.
+
+### ✅ Expected Output
+
+```text
+Jul 10 ERROR Failed to start service
+```
+
+### ✅ Real-World Use Case
+
+Quickly identify errors without reading the entire log file.
+
+### ✅ Screenshot Command
+
+```bash
+grep "error" /var/log/syslog
+```
+
+### ✅ Ubuntu
+
+```bash
+grep "error" /var/log/syslog
+```
+
+### ✅ CentOS
+
+```bash
+grep "error" /var/log/messages
+```
+
+### ✅ WSL Note
+
+Search any available log file.
+
+---
+
+# Example 8 – View Kernel Logs (`dmesg`)
+
+## ✅ Practical Example
+
+Display kernel messages.
+
+### ✅ Command
+
+```bash
+dmesg
+```
+
+### ✅ Command Explanation
+
+Shows:
+
+- Hardware detection
+- Driver loading
+- Kernel messages
+- Boot information
+
+### ✅ Expected Output
+
+```text
+Linux version ...
+USB device detected
+```
+
+### ✅ Real-World Use Case
+
+Used to troubleshoot hardware, drivers, and boot issues.
+
+### ✅ Screenshot Command
+
+```bash
+dmesg | head
+```
+
+### ✅ Ubuntu
+
+```bash
+dmesg
+```
+
+### ✅ CentOS
+
+```bash
+dmesg
+```
+
+### ✅ WSL Note
+
+Some hardware-related messages may differ because WSL runs on the Windows kernel.
+
+---
+
+# Example 9 – View Journal Logs (`journalctl`)
+
+## ✅ Practical Example
+
+Display logs collected by `systemd-journald`.
+
+### ✅ Command
+
+```bash
+journalctl
+```
+
+### ✅ Command Explanation
+
+Shows:
+
+- Service logs
+- Boot logs
+- System events
+- Kernel messages
+
+### ✅ Expected Output
+
+```text
+Jul 10 systemd...
+Jul 10 ssh...
+```
+
+### ✅ Real-World Use Case
+
+Useful for diagnosing services managed by `systemd`.
+
+### ✅ Screenshot Command
+
+```bash
+journalctl
+```
+
+### ✅ Ubuntu
+
+```bash
+journalctl
+```
+
+### ✅ CentOS
+
+```bash
+journalctl
+```
+
+### ✅ WSL Note
+
+If you receive:
+
+```text
+System has not been booted with systemd.
+```
+
+or
+
+```text
+No journal files were found.
+```
+
+your WSL environment is likely not using `systemd`. Use log files in `/var/log/` instead.
+
+---
+
+# Example 10 – View Login History (`last`)
+
+## ✅ Practical Example
+
+Display user login history.
+
+### ✅ Command
+
+```bash
+last
+```
+
+### ✅ Command Explanation
+
+Reads login records from:
+
+```text
+/var/log/wtmp
+```
+
+Shows:
+
+- Username
+- Terminal
+- Login time
+- Logout time
+
+### ✅ Expected Output
+
+```text
+ubuntu pts/0 ...
+```
+
+### ✅ Real-World Use Case
+
+Useful for auditing user access and investigating login activity.
+
+### ✅ Screenshot Command
+
+```bash
+last
+```
+
+### ✅ Ubuntu
+
+```bash
+last
+```
+
+### ✅ CentOS
+
+```bash
+last
+```
+
+### ✅ WSL Note
+
+If no login history is available, the output may be empty because WSL sessions are handled differently than traditional Linux logins.
+
+---
+
+# Summary of Commands
+
+| Example | Command |
+|----------|---------|
+| View System Log | `cat /var/log/syslog` |
+| View Authentication Log | `cat /var/log/auth.log` |
+| Last 10 Lines | `tail /var/log/syslog` |
+| Real-Time Monitoring | `tail -f /var/log/syslog` |
+| First 10 Lines | `head /var/log/syslog` |
+| View Large File | `less /var/log/syslog` |
+| Search Logs | `grep "error" /var/log/syslog` |
+| Kernel Logs | `dmesg` |
+| Journal Logs | `journalctl` |
+| Login History | `last` |
+
+> **Interview Tip:** Learn the difference between `tail`, `tail -f`, `head`, `less`, `grep`, `dmesg`, and `journalctl`. Interviewers often ask which command you would use to troubleshoot a service, monitor logs in real time, or investigate login activity.
+
+---
+
