@@ -1699,3 +1699,674 @@ sudo journalctl --vacuum-size=100M
 
 ---
 
+# Part 8.3 – Practice Exercises
+
+This section helps you practice **Linux System Logs** in a hands-on manner. These exercises are suitable for **WSL Ubuntu, Ubuntu Server, CentOS/RHEL, Amazon Linux, DevOps, AWS, and Linux Administration**.
+
+> **Note for WSL Users**
+>
+> Some log files and `journalctl` commands may not work if **systemd** is disabled. Use the WSL alternatives provided wherever applicable.
+
+---
+
+# Practice Exercise 1 – View the System Log
+
+## Objective
+
+Display the main system log file.
+
+### Ubuntu
+
+```bash
+cat /var/log/syslog
+```
+
+### CentOS
+
+```bash
+cat /var/log/messages
+```
+
+### WSL
+
+```bash
+ls /var/log
+cat /var/log/syslog
+```
+
+---
+
+# Practice Exercise 2 – View Authentication Logs
+
+## Objective
+
+Check user authentication events.
+
+### Ubuntu
+
+```bash
+cat /var/log/auth.log
+```
+
+### CentOS
+
+```bash
+cat /var/log/secure
+```
+
+### WSL
+
+```bash
+ls /var/log
+```
+
+If `auth.log` is unavailable, continue with the next exercises using available log files.
+
+---
+
+# Practice Exercise 3 – Display Last Log Entries
+
+## Objective
+
+View the latest log messages.
+
+### Ubuntu
+
+```bash
+tail /var/log/syslog
+```
+
+### CentOS
+
+```bash
+tail /var/log/messages
+```
+
+### WSL
+
+```bash
+tail /var/log/syslog
+```
+
+---
+
+# Practice Exercise 4 – Monitor Logs in Real Time
+
+## Objective
+
+Watch new log entries as they are generated.
+
+### Ubuntu
+
+```bash
+tail -f /var/log/syslog
+```
+
+### CentOS
+
+```bash
+tail -f /var/log/messages
+```
+
+### WSL
+
+```bash
+tail -f /var/log/syslog
+```
+
+Stop monitoring:
+
+```text
+Ctrl + C
+```
+
+---
+
+# Practice Exercise 5 – Search Logs Using grep
+
+## Objective
+
+Find specific keywords in log files.
+
+### Ubuntu
+
+```bash
+grep "error" /var/log/syslog
+```
+
+### CentOS
+
+```bash
+grep "error" /var/log/messages
+```
+
+### WSL
+
+```bash
+grep "error" /var/log/syslog
+```
+
+---
+
+# Practice Exercise 6 – Display Kernel Messages
+
+## Objective
+
+View kernel messages.
+
+### Ubuntu
+
+```bash
+dmesg
+```
+
+### CentOS
+
+```bash
+dmesg
+```
+
+### WSL
+
+```bash
+dmesg
+```
+
+---
+
+# Practice Exercise 7 – View Journal Logs
+
+## Objective
+
+Display logs collected by systemd.
+
+### Ubuntu
+
+```bash
+journalctl
+```
+
+### CentOS
+
+```bash
+journalctl
+```
+
+### WSL
+
+```bash
+journalctl
+```
+
+If unavailable:
+
+```text
+System has not been booted with systemd.
+```
+
+Use:
+
+```bash
+cat /var/log/syslog
+```
+
+---
+
+# Practice Exercise 8 – Filter Logs by Service
+
+## Objective
+
+Display logs for the SSH service.
+
+### Ubuntu
+
+```bash
+journalctl -u ssh
+```
+
+### CentOS
+
+```bash
+journalctl -u sshd
+```
+
+### WSL
+
+If `journalctl` is unavailable, use:
+
+```bash
+grep ssh /var/log/syslog
+```
+
+---
+
+# Practice Exercise 9 – View Login History
+
+## Objective
+
+Display successful user logins.
+
+### Ubuntu
+
+```bash
+last
+```
+
+### CentOS
+
+```bash
+last
+```
+
+### WSL
+
+```bash
+last
+```
+
+---
+
+# Practice Exercise 10 – View Failed Login Attempts
+
+## Objective
+
+Display failed login attempts.
+
+### Ubuntu
+
+```bash
+lastb
+```
+
+### CentOS
+
+```bash
+lastb
+```
+
+### WSL
+
+If no output appears, it simply means there are no recorded failed login attempts.
+
+---
+
+# Practice Exercise 11 – Export Logs
+
+## Objective
+
+Save journal logs to a text file.
+
+### Ubuntu
+
+```bash
+journalctl > logs.txt
+```
+
+### CentOS
+
+```bash
+journalctl > logs.txt
+```
+
+### WSL
+
+If `journalctl` is unavailable:
+
+```bash
+cat /var/log/syslog > logs.txt
+```
+
+Verify:
+
+```bash
+ls -l logs.txt
+```
+
+---
+
+# Practice Exercise 12 – View Boot Logs
+
+## Objective
+
+Display logs from the current boot.
+
+### Ubuntu
+
+```bash
+journalctl -b
+```
+
+### CentOS
+
+```bash
+journalctl -b
+```
+
+### WSL
+
+This command may not work without systemd.
+
+---
+
+# WSL-Friendly Practice
+
+Practice the following commands:
+
+```bash
+ls /var/log
+cat /var/log/syslog
+tail /var/log/syslog
+tail -f /var/log/syslog
+head /var/log/syslog
+less /var/log/syslog
+grep "error" /var/log/syslog
+dmesg
+last
+```
+
+If `journalctl` works:
+
+```bash
+journalctl
+journalctl -b
+journalctl -u ssh
+```
+
+---
+
+# Ubuntu Server Exercises
+
+Practice:
+
+```bash
+journalctl
+journalctl -u ssh
+journalctl -b
+journalctl --since today
+journalctl -f
+tail -f /var/log/syslog
+cat /var/log/auth.log
+last
+lastb
+dmesg
+```
+
+---
+
+# CentOS Equivalents
+
+| Ubuntu | CentOS |
+|---------|---------|
+| `/var/log/syslog` | `/var/log/messages` |
+| `/var/log/auth.log` | `/var/log/secure` |
+| `journalctl -u ssh` | `journalctl -u sshd` |
+| `tail /var/log/syslog` | `tail /var/log/messages` |
+| `grep error /var/log/syslog` | `grep error /var/log/messages` |
+
+---
+
+# Screenshot Guide
+
+Capture screenshots for the following commands:
+
+```bash
+cat /var/log/syslog
+```
+
+```bash
+cat /var/log/auth.log
+```
+
+```bash
+tail /var/log/syslog
+```
+
+```bash
+tail -f /var/log/syslog
+```
+
+```bash
+head /var/log/syslog
+```
+
+```bash
+less /var/log/syslog
+```
+
+```bash
+grep "error" /var/log/syslog
+```
+
+```bash
+dmesg
+```
+
+```bash
+journalctl
+```
+
+```bash
+journalctl -u ssh
+```
+
+```bash
+journalctl -b
+```
+
+```bash
+last
+```
+
+```bash
+lastb
+```
+
+```bash
+journalctl > logs.txt
+```
+
+```bash
+ls -l logs.txt
+```
+
+Store screenshots in:
+
+```text
+screenshots/system-logs/
+```
+
+Suggested names:
+
+```text
+01-syslog.png
+02-auth-log.png
+03-tail.png
+04-tail-follow.png
+05-head.png
+06-less.png
+07-grep-error.png
+08-dmesg.png
+09-journalctl.png
+10-journalctl-ssh.png
+11-journalctl-boot.png
+12-last.png
+13-lastb.png
+14-export-logs.png
+```
+
+---
+
+# Common Errors & Troubleshooting
+
+## Error 1
+
+```text
+No such file or directory
+```
+
+### Reason
+
+The specified log file does not exist.
+
+### Solution
+
+Check available logs:
+
+```bash
+ls /var/log
+```
+
+---
+
+## Error 2
+
+```text
+Permission denied
+```
+
+### Reason
+
+The current user does not have permission to read the log.
+
+### Solution
+
+```bash
+sudo cat /var/log/syslog
+```
+
+---
+
+## Error 3
+
+```text
+System has not been booted with systemd.
+```
+
+### Reason
+
+WSL is running without **systemd**.
+
+### Solution
+
+Use:
+
+```bash
+cat /var/log/syslog
+```
+
+or enable **systemd** in WSL.
+
+---
+
+## Error 4
+
+```text
+No journal files were found.
+```
+
+### Reason
+
+The system journal is unavailable.
+
+### Solution
+
+Use log files stored in:
+
+```text
+/var/log/
+```
+
+---
+
+## Error 5
+
+```text
+lastb: Permission denied
+```
+
+### Reason
+
+Reading failed login records requires administrative privileges.
+
+### Solution
+
+```bash
+sudo lastb
+```
+
+---
+
+## Error 6
+
+```text
+journalctl: command not found
+```
+
+### Reason
+
+The `systemd` package is not installed or not available.
+
+### Solution
+
+Use standard log files under `/var/log/`.
+
+---
+
+# Best Practices
+
+- Always check logs before restarting services.
+- Use `tail -f` for live troubleshooting.
+- Prefer `less` instead of `cat` for large log files.
+- Use `grep` to quickly locate errors or keywords.
+- Review authentication logs regularly.
+- Archive and rotate logs to prevent disk space issues.
+- Avoid deleting log files manually.
+- Use `journalctl` on systems running `systemd`.
+- Monitor critical services such as SSH, Nginx, Docker, and MySQL.
+- Verify changes after troubleshooting by checking the relevant logs again.
+
+---
+
+# Cleanup Commands
+
+Remove exported log files created during practice:
+
+```bash
+rm -f logs.txt
+```
+
+Remove any additional practice files:
+
+```bash
+rm -f system-logs.txt
+```
+
+Verify cleanup:
+
+```bash
+ls
+```
+
+---
+
+# Practice Checklist
+
+| Task | Status |
+|------|--------|
+| View system logs | ☐ |
+| View authentication logs | ☐ |
+| Read logs using `head` | ☐ |
+| Read logs using `tail` | ☐ |
+| Monitor logs using `tail -f` | ☐ |
+| Search logs using `grep` | ☐ |
+| View kernel logs using `dmesg` | ☐ |
+| View journal logs | ☐ |
+| View login history | ☐ |
+| View failed login attempts | ☐ |
+| Export logs | ☐ |
+| Capture screenshots | ☐ |
+
+> **Interview Tip:** Be ready to explain **which log file or command you would use** for common tasks, such as checking SSH login failures, monitoring a service in real time, viewing kernel messages, or troubleshooting a boot issue. Practical familiarity with these commands is often tested in Linux and DevOps interviews.
+
+---
+
