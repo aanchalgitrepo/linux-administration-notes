@@ -2307,3 +2307,371 @@ sudo rm -rf /tmp/*
 > **💡 Interview Tip:** Before an interview, practice explaining the differences between **`df` vs `du`**, **`mount` vs `umount`**, and **`lsblk` vs `blkid`**. These comparisons are commonly asked in Linux Administration, DevOps, and Cloud interviews.
 
 ---
+
+# Part 9.4A – Interview Questions & Answers (1–15)
+
+This section covers the **most frequently asked Disk Management interview questions** for **Linux Administration, DevOps, AWS, Cloud Computing, Technical Support, and System Administration** roles.
+
+---
+
+# Question 1. What is Disk Management in Linux?
+
+## ✅ Professional Answer
+
+Disk Management is the process of managing storage devices, partitions, filesystems, and mounted storage in a Linux operating system. It involves creating partitions, formatting disks, mounting filesystems, monitoring disk usage, managing swap space, and maintaining storage health.
+
+Proper disk management ensures efficient storage utilization, better system performance, and prevents data loss.
+
+### ✅ Example
+
+```bash
+df -h
+```
+
+Displays available and used disk space.
+
+---
+
+# Question 2. Why is Disk Management important?
+
+## ✅ Professional Answer
+
+Disk Management is important because it:
+
+- Organizes storage efficiently.
+- Prevents disk full errors.
+- Improves system performance.
+- Supports backup and disaster recovery.
+- Helps monitor storage usage.
+- Ensures applications have enough disk space.
+- Maintains filesystem integrity.
+
+### ✅ Example
+
+A production server can stop accepting new log files if the `/var` partition becomes full. Using `df -h` helps identify and resolve such issues before they affect services.
+
+---
+
+# Question 3. What is a Filesystem?
+
+## ✅ Professional Answer
+
+A **filesystem** is the method Linux uses to organize, store, and retrieve files on a storage device.
+
+Without a filesystem, Linux cannot read or write data to a disk.
+
+Common Linux filesystems include:
+
+- ext4
+- XFS
+- Btrfs
+- FAT32
+- exFAT
+- NTFS
+
+### ✅ Example
+
+```bash
+sudo mkfs.ext4 /dev/sdb1
+```
+
+Creates an **ext4** filesystem on the partition.
+
+---
+
+# Question 4. What is a Partition?
+
+## ✅ Professional Answer
+
+A partition is a logical division of a physical disk. A single hard disk can contain multiple partitions, each with its own filesystem.
+
+Partitions help organize data and isolate operating systems or applications.
+
+### ✅ Example
+
+```text
+Disk
+│
+├── /dev/sda1
+├── /dev/sda2
+└── /dev/sda3
+```
+
+Each partition can be mounted separately.
+
+---
+
+# Question 5. What is a Mount Point?
+
+## ✅ Professional Answer
+
+A **mount point** is a directory where a filesystem is attached so that users and applications can access its contents.
+
+In Linux, every mounted storage device becomes part of the single directory hierarchy.
+
+### ✅ Example
+
+```bash
+sudo mount /dev/sdb1 /mnt/data
+```
+
+The partition `/dev/sdb1` becomes accessible through `/mnt/data`.
+
+---
+
+# Question 6. What is the `df` command?
+
+## ✅ Professional Answer
+
+The `df` (Disk Filesystem) command displays disk space usage for mounted filesystems.
+
+It shows:
+
+- Total space
+- Used space
+- Available space
+- Usage percentage
+- Mount point
+
+### ✅ Example
+
+```bash
+df -h
+```
+
+Sample Output:
+
+```text
+Filesystem Size Used Avail Use% Mounted on
+/dev/sda1 50G 20G 28G 42% /
+```
+
+---
+
+# Question 7. What is the difference between `df` and `du`?
+
+## ✅ Professional Answer
+
+| `df` | `du` |
+|------|------|
+| Displays filesystem usage | Displays directory or file usage |
+| Works at filesystem level | Works at directory/file level |
+| Shows free disk space | Shows which folders consume space |
+
+### ✅ Example
+
+```bash
+df -h
+```
+
+```bash
+du -sh /home
+```
+
+`df` tells you how much free space is available, while `du` helps identify which directories are using that space.
+
+---
+
+# Question 8. What is the `du` command?
+
+## ✅ Professional Answer
+
+The `du` (Disk Usage) command displays the amount of disk space used by files and directories.
+
+It is mainly used to locate directories consuming excessive storage.
+
+### ✅ Example
+
+```bash
+du -sh /var/log
+```
+
+Sample Output:
+
+```text
+850M    /var/log
+```
+
+---
+
+# Question 9. What is the `lsblk` command?
+
+## ✅ Professional Answer
+
+`lsblk` lists all available block devices such as:
+
+- Hard disks
+- SSDs
+- NVMe drives
+- USB drives
+- Partitions
+
+It also shows mount points and device hierarchy.
+
+### ✅ Example
+
+```bash
+lsblk
+```
+
+Sample Output:
+
+```text
+NAME   SIZE TYPE MOUNTPOINT
+sda     50G disk
+└─sda1  50G part /
+```
+
+---
+
+# Question 10. What is the `mount` command?
+
+## ✅ Professional Answer
+
+The `mount` command attaches a filesystem to a directory so that it becomes accessible.
+
+Until a filesystem is mounted, users cannot access its data.
+
+### ✅ Example
+
+```bash
+sudo mount /dev/sdb1 /mnt/data
+```
+
+Now the files on `/dev/sdb1` are available under `/mnt/data`.
+
+---
+
+# Question 11. What is the `umount` command?
+
+## ✅ Professional Answer
+
+The `umount` command safely disconnects a mounted filesystem from the directory tree.
+
+Unmounting ensures that all pending data is written to disk before the device is removed.
+
+### ✅ Example
+
+```bash
+sudo umount /mnt/data
+```
+
+---
+
+# Question 12. What is Swap Space?
+
+## ✅ Professional Answer
+
+Swap space is a dedicated area on a disk used as **virtual memory** when physical RAM is fully utilized.
+
+Linux temporarily moves inactive memory pages from RAM to swap to free up memory for active processes.
+
+Although swap is slower than RAM, it helps prevent applications from crashing due to insufficient memory.
+
+### ✅ Example
+
+```bash
+free -h
+```
+
+Sample Output:
+
+```text
+Swap: 2.0G
+```
+
+---
+
+# Question 13. How can you check disk usage in Linux?
+
+## ✅ Professional Answer
+
+The most common command is:
+
+```bash
+df -h
+```
+
+It displays:
+
+- Total disk size
+- Used space
+- Free space
+- Percentage used
+- Mounted filesystem
+
+To check the size of a specific directory:
+
+```bash
+du -sh /home
+```
+
+---
+
+# Question 14. How can you check mounted filesystems?
+
+## ✅ Professional Answer
+
+Use the following commands:
+
+```bash
+mount
+```
+
+or
+
+```bash
+findmnt
+```
+
+`findmnt` provides a cleaner and more structured view of mounted filesystems.
+
+### ✅ Example
+
+```bash
+findmnt
+```
+
+---
+
+# Question 15. Which Disk Management commands should every Linux Administrator know?
+
+## ✅ Professional Answer
+
+Every Linux Administrator should be comfortable with the following commands:
+
+| Command | Purpose |
+|----------|---------|
+| `df -h` | Check filesystem usage |
+| `du -sh` | Check directory size |
+| `lsblk` | List block devices |
+| `mount` | Mount a filesystem |
+| `umount` | Unmount a filesystem |
+| `findmnt` | Display mounted filesystems |
+| `blkid` | Show filesystem UUID |
+| `free -h` | Display RAM and swap usage |
+| `fdisk -l` | View partition information |
+| `df -i` | Check inode usage |
+
+### ✅ Example
+
+```bash
+df -h
+lsblk
+findmnt
+free -h
+```
+
+These commands are used daily by Linux Administrators and DevOps Engineers to monitor storage, troubleshoot issues, and manage disks.
+
+---
+
+# 🎯 Interview Tips
+
+- Clearly explain the difference between a **disk**, **partition**, **filesystem**, and **mount point**.
+- Remember that **`df`** checks overall filesystem usage, while **`du`** checks the size of files and directories.
+- Know that **`mount`** attaches a filesystem, whereas **`umount`** safely detaches it.
+- Be able to explain why **swap space** exists and when it is used.
+- Mention that advanced commands like `fdisk`, `mkfs`, and `fsck` are generally practiced on a Linux VM or cloud server rather than in WSL due to its virtual disk architecture.
+
+---
