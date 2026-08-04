@@ -2883,3 +2883,542 @@ This command securely connects to the EC2 server using an SSH private key.
 
 ---
 
+# Part 7.4B – Interview Questions & Answers (16–30)
+
+This section contains **advanced SSH interview questions** frequently asked in **Linux Administration, DevOps, AWS Cloud, System Administration, Technical Support, and Cloud Engineer** interviews.
+
+---
+
+# Interview Question 16
+
+## ✅ Question
+
+**What is the difference between `ssh` and `sshd`?**
+
+### ✅ Professional Answer
+
+| ssh | sshd |
+|------|-------|
+| SSH Client | SSH Server Daemon |
+| Initiates connection | Accepts connection |
+| Used by users | Runs on server |
+| Executed manually | Runs as a background service |
+
+### ✅ Example
+
+Client:
+
+```bash
+ssh ubuntu@192.168.1.100
+```
+
+Server:
+
+```bash
+systemctl status sshd
+```
+
+---
+
+# Interview Question 17
+
+## ✅ Question
+
+**What is passwordless SSH authentication?**
+
+### ✅ Professional Answer
+
+Passwordless authentication uses an **SSH key pair** instead of a password.
+
+The client keeps the **private key**, while the server stores the **public key** inside:
+
+```text
+~/.ssh/authorized_keys
+```
+
+This is more secure and is commonly used in automation.
+
+### ✅ Example
+
+```bash
+ssh-keygen
+ssh-copy-id ubuntu@server
+```
+
+---
+
+# Interview Question 18
+
+## ✅ Question
+
+**What is the purpose of `authorized_keys`?**
+
+### ✅ Professional Answer
+
+`authorized_keys` contains the public keys that are allowed to log in to the server.
+
+If the client's public key matches one in this file, SSH grants access.
+
+### ✅ Example
+
+```bash
+cat ~/.ssh/authorized_keys
+```
+
+---
+
+# Interview Question 19
+
+## ✅ Question
+
+**What is `known_hosts`?**
+
+### ✅ Professional Answer
+
+`known_hosts` stores fingerprints of SSH servers that the client has connected to previously.
+
+It helps detect server identity changes and protects against **man-in-the-middle attacks**.
+
+### ✅ Example
+
+```bash
+cat ~/.ssh/known_hosts
+```
+
+---
+
+# Interview Question 20
+
+## ✅ Question
+
+**What is the default SSH configuration file?**
+
+### ✅ Professional Answer
+
+Server configuration:
+
+```text
+/etc/ssh/sshd_config
+```
+
+Client configuration:
+
+```text
+/etc/ssh/ssh_config
+```
+
+User-specific client configuration:
+
+```text
+~/.ssh/config
+```
+
+---
+
+# Interview Question 21
+
+## ✅ Question
+
+**How do you change the default SSH port?**
+
+### ✅ Professional Answer
+
+Edit:
+
+```bash
+sudo nano /etc/ssh/sshd_config
+```
+
+Change:
+
+```text
+Port 22
+```
+
+to
+
+```text
+Port 2222
+```
+
+Restart SSH:
+
+Ubuntu
+
+```bash
+sudo systemctl restart ssh
+```
+
+WSL
+
+```bash
+sudo service ssh restart
+```
+
+CentOS
+
+```bash
+sudo systemctl restart sshd
+```
+
+---
+
+# Interview Question 22
+
+## ✅ Question
+
+**Why should root login be disabled?**
+
+### ✅ Professional Answer
+
+Direct root login increases security risks because attackers often target the root account.
+
+A better approach is:
+
+- Login using a normal user.
+- Use `sudo` when administrative privileges are required.
+
+### ✅ Example
+
+```text
+PermitRootLogin no
+```
+
+---
+
+# Interview Question 23
+
+## ✅ Question
+
+**Why is key-based authentication more secure than passwords?**
+
+### ✅ Professional Answer
+
+SSH keys use cryptographic authentication, making them much harder to compromise than passwords.
+
+Advantages include:
+
+- Strong encryption
+- Resistant to brute-force attacks
+- Suitable for automation
+- Eliminates password reuse
+
+---
+
+# Interview Question 24
+
+## ✅ Question
+
+**How do you troubleshoot SSH connection problems?**
+
+### ✅ Professional Answer
+
+Common troubleshooting steps:
+
+1. Check the SSH service status.
+2. Verify Port 22 (or the configured port) is listening.
+3. Confirm firewall rules.
+4. Verify IP address and hostname.
+5. Use verbose mode.
+6. Review SSH logs.
+
+### ✅ Example
+
+```bash
+ssh -v user@server
+```
+
+---
+
+# Interview Question 25
+
+## ✅ Question
+
+**How do you verify that SSH is listening on Port 22?**
+
+### ✅ Professional Answer
+
+Use:
+
+```bash
+ss -tlnp | grep :22
+```
+
+Alternative:
+
+```bash
+netstat -tlnp | grep :22
+```
+
+Expected Output:
+
+```text
+LISTEN 0 128 *:22 *:*
+```
+
+---
+
+# Interview Question 26
+
+## ✅ Question
+
+**What is SCP?**
+
+### ✅ Professional Answer
+
+**SCP (Secure Copy Protocol)** is used to securely transfer files between systems using SSH.
+
+### ✅ Example
+
+```bash
+scp file.txt ubuntu@server:/home/ubuntu
+```
+
+---
+
+# Interview Question 27
+
+## ✅ Question
+
+**What is SFTP?**
+
+### ✅ Professional Answer
+
+**SFTP (SSH File Transfer Protocol)** is an interactive file transfer protocol that operates over SSH.
+
+Unlike FTP, all communication is encrypted.
+
+### ✅ Example
+
+```bash
+sftp ubuntu@server
+```
+
+---
+
+# Interview Question 28
+
+## ✅ Question
+
+**Why is SSH important in AWS?**
+
+### ✅ Professional Answer
+
+SSH is the primary method for securely accessing Linux EC2 instances.
+
+Common tasks include:
+
+- Deploying applications
+- Installing software
+- Monitoring logs
+- Managing services
+- Troubleshooting
+
+### ✅ Example
+
+```bash
+ssh -i mykey.pem ubuntu@54.x.x.x
+```
+
+---
+
+# Interview Question 29
+
+## ✅ Question
+
+**Can SSH be used for automation?**
+
+### ✅ Professional Answer
+
+Yes.
+
+SSH is widely used in:
+
+- Ansible
+- Jenkins
+- GitHub Actions
+- Shell Scripts
+- CI/CD Pipelines
+
+Passwordless authentication enables secure automation without manual password entry.
+
+---
+
+# Interview Question 30
+
+## ✅ Question
+
+**How would you secure an SSH server in a production environment?**
+
+### ✅ Professional Answer
+
+Best practices include:
+
+- Disable root login.
+- Use SSH keys instead of passwords.
+- Disable password authentication after verifying key-based access.
+- Change the default port if required by organizational policy.
+- Keep OpenSSH updated.
+- Limit user access with `AllowUsers` or `AllowGroups`.
+- Enable logging and monitor login attempts.
+- Restrict access using firewalls or security groups.
+- Regularly audit SSH configuration.
+
+---
+
+# SSH vs Telnet Comparison
+
+| Feature | SSH | Telnet |
+|---------|-----|---------|
+| Full Form | Secure Shell | Telecommunication Network |
+| Security | Encrypted | Plain text |
+| Default Port | 22 | 23 |
+| Authentication | Password & SSH Keys | Password only |
+| Encryption | Yes | No |
+| File Transfer | SCP, SFTP | Not Supported |
+| Production Ready | Yes | No |
+| Cloud Support | Yes | Rarely Used |
+| DevOps Usage | Standard | Obsolete |
+| Recommended | ✅ Yes | ❌ No |
+
+---
+
+# SSH Cheat Sheet
+
+| Command | Description |
+|----------|-------------|
+| `ssh user@host` | Connect to remote server |
+| `ssh -p 2222 user@host` | Connect using custom port |
+| `ssh -v user@host` | Verbose mode |
+| `ssh -V` | Display SSH version |
+| `ssh localhost` | Connect to local machine |
+| `ssh-keygen` | Generate SSH key pair |
+| `ssh-copy-id user@host` | Copy public key to server |
+| `scp file user@host:/path` | Securely copy file |
+| `scp -r dir user@host:/path` | Copy directory recursively |
+| `sftp user@host` | Start SFTP session |
+| `service ssh status` | Check SSH status (WSL) |
+| `systemctl status ssh` | Check SSH status (Ubuntu) |
+| `systemctl status sshd` | Check SSH status (CentOS) |
+| `ss -tlnp \| grep :22` | Verify SSH listening port |
+| `cat ~/.ssh/id_rsa.pub` | View public key |
+| `cat ~/.ssh/authorized_keys` | View authorized keys |
+| `cat ~/.ssh/known_hosts` | View known hosts |
+
+---
+
+# Summary
+
+- SSH is the industry-standard protocol for secure remote access.
+- It encrypts all communication between client and server.
+- SSH uses **Port 22** by default.
+- `ssh` is the client, while `sshd` is the server daemon.
+- SSH keys provide secure, passwordless authentication.
+- SCP and SFTP enable encrypted file transfers.
+- SSH is essential for Linux Administration, AWS, DevOps, Cloud Computing, and System Administration.
+- Understanding SSH configuration, authentication, and troubleshooting is a core skill for infrastructure engineers.
+
+---
+
+# Quick Revision Notes
+
+## Remember These Commands
+
+```bash
+ssh user@host
+ssh localhost
+ssh -p 2222 user@host
+ssh -v user@host
+ssh -V
+ssh-keygen
+ssh-copy-id user@host
+scp file.txt user@host:/path
+scp -r project user@host:/path
+sftp user@host
+systemctl status ssh
+systemctl status sshd
+service ssh status
+ss -tlnp | grep :22
+cat ~/.ssh/id_rsa.pub
+cat ~/.ssh/authorized_keys
+cat ~/.ssh/known_hosts
+```
+
+## Remember These Files
+
+```text
+/etc/ssh/sshd_config
+/etc/ssh/ssh_config
+~/.ssh/id_rsa
+~/.ssh/id_rsa.pub
+~/.ssh/authorized_keys
+~/.ssh/known_hosts
+```
+
+## Remember These Ports
+
+| Service | Port |
+|----------|------|
+| SSH | 22 |
+| Telnet | 23 |
+
+---
+
+# Interview Tips
+
+### ✅ Explain concepts before commands.
+
+For example, if asked **"What is SSH?"**, first explain that it is a secure protocol for remote administration, then give a command example.
+
+---
+
+### ✅ Use real-world examples.
+
+Mention scenarios such as:
+
+- Connecting to an AWS EC2 instance
+- Managing Ubuntu or CentOS servers
+- Deploying applications remotely
+- Using Ansible or Jenkins for automation
+
+---
+
+### ✅ Know the difference between Ubuntu, CentOS, and WSL.
+
+| Ubuntu | CentOS | WSL |
+|----------|---------|-----|
+| `systemctl status ssh` | `systemctl status sshd` | `service ssh status` |
+
+---
+
+### ✅ Demonstrate troubleshooting skills.
+
+If SSH fails:
+
+1. Check the service status.
+2. Verify Port 22 is listening.
+3. Test with `ssh -v`.
+4. Check firewall rules.
+5. Review `sshd_config`.
+6. Examine SSH logs.
+
+---
+
+### ✅ Common Commands to Memorize
+
+```bash
+ssh
+ssh-keygen
+ssh-copy-id
+scp
+sftp
+ssh -v
+ssh -p
+systemctl status ssh
+systemctl status sshd
+service ssh status
+```
+
+> **Pro Tip for Interviews:** If you mention that you've practiced SSH in **WSL** and also know the equivalent commands for **Ubuntu Server**, **CentOS/RHEL**, and **AWS EC2**, it demonstrates practical, cross-platform Linux administration skills.
+
+---
