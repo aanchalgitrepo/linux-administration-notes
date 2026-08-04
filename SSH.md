@@ -1172,3 +1172,529 @@ exit
 
 ---
 
+# Part 7.2B – Advanced Practical Examples (Examples 11–20)
+
+This section covers advanced SSH examples commonly used by **Linux Administrators, DevOps Engineers, Cloud Engineers, AWS Engineers, and System Administrators**.
+
+> **Important**
+>
+> Some examples modify SSH configuration. If you are using **WSL**, you can safely read and understand these commands, but only make configuration changes if you know how to recover them. For production servers, always keep a backup of `sshd_config` before editing.
+
+---
+
+# Example 11 – Connect Using a Custom Port
+
+## ✅ Practical Example
+
+Connect to an SSH server running on a non-default port.
+
+### ✅ Command
+
+```bash
+ssh -p 2222 ubuntu@192.168.1.100
+```
+
+### ✅ Command Explanation
+
+- `ssh` → SSH client
+- `-p` → Specify port number
+- `2222` → Custom SSH port
+- `ubuntu` → Username
+- `192.168.1.100` → Remote server IP
+
+### ✅ Expected Output
+
+```text
+ubuntu@192.168.1.100's password:
+```
+
+or, if key authentication is configured:
+
+```text
+Welcome to Ubuntu...
+```
+
+### ✅ Real-World Use Case
+
+Many organizations change SSH from **Port 22** to another port (for example, **2222**) to reduce automated scanning and unauthorized login attempts.
+
+### ✅ Screenshot Command
+
+```bash
+ssh -p 2222 ubuntu@192.168.1.100
+```
+
+---
+
+# Example 12 – Use Verbose Mode (ssh -v)
+
+## ✅ Practical Example
+
+Display detailed SSH connection information.
+
+### ✅ Command
+
+```bash
+ssh -v localhost
+```
+
+or
+
+```bash
+ssh -v ubuntu@192.168.1.100
+```
+
+### ✅ Command Explanation
+
+The `-v` option enables **verbose mode**, showing:
+
+- Connection process
+- Key exchange
+- Authentication steps
+- Errors
+- Debug information
+
+### ✅ Expected Output
+
+```text
+OpenSSH_9.x
+debug1: Connecting to...
+debug1: Authentication succeeded.
+```
+
+### ✅ Real-World Use Case
+
+Useful for troubleshooting authentication failures and connection problems.
+
+### ✅ Screenshot Command
+
+```bash
+ssh -v localhost
+```
+
+---
+
+# Example 13 – Passwordless Authentication
+
+## ✅ Practical Example
+
+Log in without entering a password.
+
+### ✅ Command
+
+Generate a key pair:
+
+```bash
+ssh-keygen
+```
+
+Copy the key:
+
+```bash
+ssh-copy-id ubuntu@192.168.1.100
+```
+
+Login:
+
+```bash
+ssh ubuntu@192.168.1.100
+```
+
+### ✅ Command Explanation
+
+SSH authenticates using the private/public key pair instead of a password.
+
+### ✅ Expected Output
+
+```text
+Welcome to Ubuntu...
+```
+
+(No password prompt.)
+
+### ✅ Real-World Use Case
+
+Commonly used in:
+
+- DevOps automation
+- CI/CD pipelines
+- Jenkins
+- Ansible
+- GitHub Actions
+
+### ✅ Screenshot Command
+
+```bash
+ssh-keygen
+ssh-copy-id ubuntu@192.168.1.100
+```
+
+---
+
+# Example 14 – Edit `sshd_config`
+
+## ✅ Practical Example
+
+Modify the SSH server configuration.
+
+### ✅ Command
+
+```bash
+sudo nano /etc/ssh/sshd_config
+```
+
+### ✅ Command Explanation
+
+Opens the main SSH server configuration file.
+
+Common settings include:
+
+- Port
+- PermitRootLogin
+- PasswordAuthentication
+- PubkeyAuthentication
+
+### ✅ Expected Output
+
+Configuration file opens in the editor.
+
+### ✅ Real-World Use Case
+
+Administrators customize SSH security settings.
+
+### ✅ Screenshot Command
+
+```bash
+sudo nano /etc/ssh/sshd_config
+```
+
+> **Tip:** Take a screenshot after opening the file, but avoid saving changes unless you intend to modify the configuration.
+
+---
+
+# Example 15 – Restart SSH After Configuration Changes
+
+## ✅ Practical Example
+
+Restart the SSH service after editing the configuration.
+
+### ✅ Ubuntu
+
+```bash
+sudo systemctl restart ssh
+```
+
+### ✅ CentOS
+
+```bash
+sudo systemctl restart sshd
+```
+
+### ✅ WSL
+
+```bash
+sudo service ssh restart
+```
+
+### ✅ Command Explanation
+
+Reloads the SSH server so configuration changes take effect.
+
+### ✅ Expected Output
+
+No output if the restart succeeds.
+
+Verify:
+
+```bash
+service ssh status
+```
+
+### ✅ Real-World Use Case
+
+Required after changing any setting in `sshd_config`.
+
+### ✅ Screenshot Command
+
+```bash
+sudo service ssh restart
+service ssh status
+```
+
+---
+
+# Example 16 – Disable Root Login
+
+## ✅ Practical Example
+
+Prevent direct SSH login as the root user.
+
+### ✅ Command
+
+Open:
+
+```bash
+sudo nano /etc/ssh/sshd_config
+```
+
+Find:
+
+```text
+PermitRootLogin yes
+```
+
+Change to:
+
+```text
+PermitRootLogin no
+```
+
+Restart SSH:
+
+```bash
+sudo service ssh restart
+```
+
+### ✅ Command Explanation
+
+Disables direct root access over SSH.
+
+### ✅ Expected Output
+
+Root login via SSH is denied.
+
+### ✅ Real-World Use Case
+
+A security best practice on production Linux servers.
+
+### ✅ Screenshot Command
+
+```bash
+grep PermitRootLogin /etc/ssh/sshd_config
+```
+
+---
+
+# Example 17 – Disable Password Authentication
+
+## ✅ Practical Example
+
+Allow only SSH key authentication.
+
+### ✅ Command
+
+Open:
+
+```bash
+sudo nano /etc/ssh/sshd_config
+```
+
+Find:
+
+```text
+PasswordAuthentication yes
+```
+
+Change to:
+
+```text
+PasswordAuthentication no
+```
+
+Restart:
+
+```bash
+sudo service ssh restart
+```
+
+### ✅ Command Explanation
+
+Disables password-based logins.
+
+Only users with valid SSH keys can log in.
+
+### ✅ Expected Output
+
+Password authentication is disabled.
+
+### ✅ Real-World Use Case
+
+Improves server security against brute-force attacks.
+
+### ✅ Screenshot Command
+
+```bash
+grep PasswordAuthentication /etc/ssh/sshd_config
+```
+
+> **Warning:** Ensure key-based authentication is working before disabling passwords, otherwise you may lock yourself out of the server.
+
+---
+
+# Example 18 – Configure Key-Based Authentication
+
+## ✅ Practical Example
+
+Set up secure login using SSH keys.
+
+### ✅ Command
+
+Generate keys:
+
+```bash
+ssh-keygen
+```
+
+Copy public key:
+
+```bash
+ssh-copy-id ubuntu@192.168.1.100
+```
+
+Login:
+
+```bash
+ssh ubuntu@192.168.1.100
+```
+
+### ✅ Command Explanation
+
+Copies the public key into:
+
+```text
+~/.ssh/authorized_keys
+```
+
+The server authenticates the client using the key pair.
+
+### ✅ Expected Output
+
+Passwordless login succeeds.
+
+### ✅ Real-World Use Case
+
+Standard authentication method in cloud environments such as AWS EC2.
+
+### ✅ Screenshot Command
+
+```bash
+ls ~/.ssh
+cat ~/.ssh/id_rsa.pub
+```
+
+---
+
+# Example 19 – Transfer Files with SCP
+
+## ✅ Practical Example
+
+Copy a file securely to a remote server.
+
+### ✅ Command
+
+```bash
+scp notes.txt ubuntu@192.168.1.100:/home/ubuntu
+```
+
+Copy a directory:
+
+```bash
+scp -r project ubuntu@192.168.1.100:/home/ubuntu
+```
+
+### ✅ Command Explanation
+
+- `scp` → Secure Copy
+- `-r` → Copy directories recursively
+
+### ✅ Expected Output
+
+The file is transferred successfully.
+
+### ✅ Real-World Use Case
+
+Used for deploying application files, scripts, configuration files, and backups.
+
+### ✅ Screenshot Command
+
+```bash
+scp notes.txt ubuntu@192.168.1.100:/home/ubuntu
+```
+
+---
+
+# Example 20 – Connect Using SFTP
+
+## ✅ Practical Example
+
+Start a secure file transfer session.
+
+### ✅ Command
+
+```bash
+sftp ubuntu@192.168.1.100
+```
+
+Common SFTP commands:
+
+```bash
+ls
+pwd
+get file.txt
+put file.txt
+exit
+```
+
+### ✅ Command Explanation
+
+SFTP provides encrypted file transfer using the SSH protocol.
+
+### ✅ Expected Output
+
+```text
+Connected to 192.168.1.100
+sftp>
+```
+
+### ✅ Real-World Use Case
+
+Administrators securely upload website files, backups, and configuration files to remote Linux servers.
+
+### ✅ Screenshot Command
+
+```bash
+sftp ubuntu@192.168.1.100
+```
+
+---
+
+# Summary of Advanced Commands
+
+| Example | Command |
+|----------|---------|
+| Custom Port | `ssh -p 2222 user@host` |
+| Verbose Mode | `ssh -v user@host` |
+| Passwordless Login | `ssh-keygen`, `ssh-copy-id` |
+| Edit SSH Config | `sudo nano /etc/ssh/sshd_config` |
+| Restart SSH | `sudo service ssh restart` |
+| Disable Root Login | `PermitRootLogin no` |
+| Disable Password Login | `PasswordAuthentication no` |
+| Key Authentication | `ssh-copy-id user@host` |
+| Secure Copy | `scp file user@host:/path` |
+| Secure FTP | `sftp user@host` |
+
+---
+
+## 📸 GitHub Screenshot Recommendation
+
+You can easily capture screenshots for these examples in **WSL**:
+
+- ✅ Example 12 (`ssh -v localhost`)
+- ✅ Example 14 (`nano /etc/ssh/sshd_config`)
+- ✅ Example 15 (`service ssh restart`)
+- ✅ Example 18 (`ssh-keygen`, `ls ~/.ssh`)
+
+Examples **11, 13, 19, and 20** require a remote Linux server (such as an AWS EC2 instance, Virtual Machine, or another Linux system) for full practical execution.
+
+---
+
