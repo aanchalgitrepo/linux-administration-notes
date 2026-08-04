@@ -626,3 +626,573 @@ sda      8:0    0   50G  0 disk
 
 ---
 
+# Part 9.2A – Practical Examples (Examples 1–10)
+
+This section covers the most commonly used **Disk Management** commands used by **Linux Administrators, DevOps Engineers, Cloud Engineers, AWS Engineers, and System Administrators**.
+
+> **Note for WSL Users**
+>
+> Most commands in this section work in WSL. However, commands related to physical disk partitioning (such as `fdisk`) may show limited information because WSL runs inside a virtual disk (`ext4.vhdx`).
+
+---
+
+# Example 1 – Check Disk Usage
+
+## ✅ Practical Example
+
+Display disk usage for all mounted filesystems.
+
+### ✅ Command
+
+```bash
+df -h
+```
+
+### ✅ Command Explanation
+
+- `df` → Displays filesystem disk usage.
+- `-h` → Shows sizes in a human-readable format (KB, MB, GB).
+
+### ✅ Expected Output
+
+```text
+Filesystem      Size Used Avail Use% Mounted on
+/dev/sda1        50G  18G   30G  38% /
+```
+
+### ✅ Real-World Use Case
+
+System administrators regularly use `df -h` to ensure servers do not run out of disk space.
+
+### ✅ Screenshot Command
+
+```bash
+df -h
+```
+
+### ✅ Ubuntu
+
+```bash
+df -h
+```
+
+### ✅ CentOS
+
+```bash
+df -h
+```
+
+### ✅ WSL Note
+
+Fully supported in WSL.
+
+---
+
+# Example 2 – Check Directory Size
+
+## ✅ Practical Example
+
+Display the total size of a directory.
+
+### ✅ Command
+
+```bash
+du -sh /home
+```
+
+### ✅ Command Explanation
+
+- `du` → Displays disk usage of files/directories.
+- `-s` → Summary only.
+- `-h` → Human-readable output.
+
+### ✅ Expected Output
+
+```text
+2.4G    /home
+```
+
+### ✅ Real-World Use Case
+
+Find which directory is consuming the most disk space.
+
+### ✅ Screenshot Command
+
+```bash
+du -sh /home
+```
+
+### ✅ Ubuntu
+
+```bash
+du -sh /home
+```
+
+### ✅ CentOS
+
+```bash
+du -sh /home
+```
+
+### ✅ WSL Note
+
+Works normally.
+
+---
+
+# Example 3 – List Block Devices
+
+## ✅ Practical Example
+
+Display available storage devices.
+
+### ✅ Command
+
+```bash
+lsblk
+```
+
+### ✅ Command Explanation
+
+Lists all available block devices including:
+
+- HDD
+- SSD
+- NVMe
+- Partitions
+
+### ✅ Expected Output
+
+```text
+NAME   SIZE TYPE MOUNTPOINT
+sda     50G disk
+└─sda1  50G part /
+```
+
+### ✅ Real-World Use Case
+
+Useful when adding a new disk to a Linux server.
+
+### ✅ Screenshot Command
+
+```bash
+lsblk
+```
+
+### ✅ Ubuntu
+
+```bash
+lsblk
+```
+
+### ✅ CentOS
+
+```bash
+lsblk
+```
+
+### ✅ WSL Note
+
+Shows the WSL virtual disk instead of physical Windows disks.
+
+---
+
+# Example 4 – Display Mounted Filesystems
+
+## ✅ Practical Example
+
+Display all currently mounted filesystems.
+
+### ✅ Command
+
+```bash
+mount
+```
+
+### ✅ Command Explanation
+
+Shows all mounted filesystems along with their mount points and options.
+
+### ✅ Expected Output
+
+```text
+/dev/sda1 on / type ext4 (...)
+```
+
+### ✅ Real-World Use Case
+
+Verify whether a storage device has been mounted successfully.
+
+### ✅ Screenshot Command
+
+```bash
+mount
+```
+
+### ✅ Ubuntu
+
+```bash
+mount
+```
+
+### ✅ CentOS
+
+```bash
+mount
+```
+
+### ✅ WSL Note
+
+Displays WSL mount information and Windows-mounted drives.
+
+---
+
+# Example 5 – Show Mounted Filesystems
+
+## ✅ Practical Example
+
+Display mounted filesystems in a tree structure.
+
+### ✅ Command
+
+```bash
+findmnt
+```
+
+### ✅ Command Explanation
+
+Displays all mounted filesystems in an easy-to-read hierarchical format.
+
+### ✅ Expected Output
+
+```text
+TARGET SOURCE
+/      /dev/sda1
+```
+
+### ✅ Real-World Use Case
+
+Useful when troubleshooting mount-related issues.
+
+### ✅ Screenshot Command
+
+```bash
+findmnt
+```
+
+### ✅ Ubuntu
+
+```bash
+findmnt
+```
+
+### ✅ CentOS
+
+```bash
+findmnt
+```
+
+### ✅ WSL Note
+
+Fully supported.
+
+---
+
+# Example 6 – View Filesystem UUID
+
+## ✅ Practical Example
+
+Display filesystem UUID information.
+
+### ✅ Command
+
+```bash
+sudo blkid
+```
+
+### ✅ Command Explanation
+
+Displays:
+
+- UUID
+- Filesystem type
+- Partition label
+
+### ✅ Expected Output
+
+```text
+/dev/sda1: UUID="AB12-CD34" TYPE="ext4"
+```
+
+### ✅ Real-World Use Case
+
+Used while configuring:
+
+```text
+/etc/fstab
+```
+
+for permanent mounts.
+
+### ✅ Screenshot Command
+
+```bash
+sudo blkid
+```
+
+### ✅ Ubuntu
+
+```bash
+sudo blkid
+```
+
+### ✅ CentOS
+
+```bash
+sudo blkid
+```
+
+### ✅ WSL Note
+
+May show limited output because WSL uses a virtual filesystem.
+
+---
+
+# Example 7 – Display RAM and Swap
+
+## ✅ Practical Example
+
+Display memory and swap usage.
+
+### ✅ Command
+
+```bash
+free -h
+```
+
+### ✅ Command Explanation
+
+Displays:
+
+- Total RAM
+- Used RAM
+- Free RAM
+- Swap usage
+
+### ✅ Expected Output
+
+```text
+              total used free
+Mem:          3.8G 1.5G 2.3G
+Swap:         2.0G 0B 2.0G
+```
+
+### ✅ Real-World Use Case
+
+Monitor system memory before starting large applications.
+
+### ✅ Screenshot Command
+
+```bash
+free -h
+```
+
+### ✅ Ubuntu
+
+```bash
+free -h
+```
+
+### ✅ CentOS
+
+```bash
+free -h
+```
+
+### ✅ WSL Note
+
+Swap values depend on the WSL configuration.
+
+---
+
+# Example 8 – View Disk Partitions
+
+## ✅ Practical Example
+
+Display partition table information.
+
+### ✅ Command
+
+```bash
+sudo fdisk -l
+```
+
+### ✅ Command Explanation
+
+Lists:
+
+- Disks
+- Partitions
+- Sizes
+- Partition types
+
+### ✅ Expected Output
+
+```text
+Disk /dev/sda: 50 GiB
+/dev/sda1 Linux filesystem
+```
+
+### ✅ Real-World Use Case
+
+Used before partitioning or resizing storage devices.
+
+### ✅ Screenshot Command
+
+```bash
+sudo fdisk -l
+```
+
+### ✅ Ubuntu
+
+```bash
+sudo fdisk -l
+```
+
+### ✅ CentOS
+
+```bash
+sudo fdisk -l
+```
+
+### ✅ WSL Note
+
+Physical Windows disks are generally **not** visible. Output is limited to the WSL virtual disk.
+
+---
+
+# Example 9 – Check Inode Usage
+
+## ✅ Practical Example
+
+Display inode usage for mounted filesystems.
+
+### ✅ Command
+
+```bash
+df -i
+```
+
+### ✅ Command Explanation
+
+Shows:
+
+- Total inodes
+- Used inodes
+- Free inodes
+
+### ✅ Expected Output
+
+```text
+Filesystem Inodes IUsed IFree IUse%
+/dev/sda1 3276800 12345 3264455 1%
+```
+
+### ✅ Real-World Use Case
+
+Useful when a filesystem reports **"No space left on device"** even though disk space is still available.
+
+### ✅ Screenshot Command
+
+```bash
+df -i
+```
+
+### ✅ Ubuntu
+
+```bash
+df -i
+```
+
+### ✅ CentOS
+
+```bash
+df -i
+```
+
+### ✅ WSL Note
+
+Works normally.
+
+---
+
+# Example 10 – Check Root Filesystem Usage
+
+## ✅ Practical Example
+
+Display usage information for the root (`/`) filesystem.
+
+### ✅ Command
+
+```bash
+df -h /
+```
+
+### ✅ Command Explanation
+
+Shows only the disk usage of the root filesystem instead of all mounted filesystems.
+
+### ✅ Expected Output
+
+```text
+Filesystem Size Used Avail Use%
+/dev/sda1   50G 18G 30G 38%
+```
+
+### ✅ Real-World Use Case
+
+Monitor the primary filesystem where Linux is installed to prevent system outages caused by a full root partition.
+
+### ✅ Screenshot Command
+
+```bash
+df -h /
+```
+
+### ✅ Ubuntu
+
+```bash
+df -h /
+```
+
+### ✅ CentOS
+
+```bash
+df -h /
+```
+
+### ✅ WSL Note
+
+Works normally and displays the usage of the WSL root filesystem.
+
+---
+
+# Summary of Commands
+
+| Example | Command | Purpose |
+|---------|---------|---------|
+| 1 | `df -h` | Check disk usage |
+| 2 | `du -sh /home` | Check directory size |
+| 3 | `lsblk` | List block devices |
+| 4 | `mount` | Display mounted filesystems |
+| 5 | `findmnt` | Show mount tree |
+| 6 | `sudo blkid` | View filesystem UUID |
+| 7 | `free -h` | Display RAM and swap |
+| 8 | `sudo fdisk -l` | View partitions |
+| 9 | `df -i` | Check inode usage |
+| 10 | `df -h /` | Check root filesystem usage |
+
+> **Interview Tip:** These commands (`df`, `du`, `lsblk`, `mount`, `findmnt`, `blkid`, `free`, `fdisk`, and `df -i`) are among the most frequently asked practical Linux commands in interviews. Make sure you understand **what each command displays, when to use it, and how its output is interpreted**, especially the differences between `df` and `du`, and between `mount` and `findmnt`.
+
+---
+
