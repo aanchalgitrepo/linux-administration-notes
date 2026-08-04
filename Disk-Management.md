@@ -1669,3 +1669,641 @@ chmod +x disk-monitor.sh
 
 ---
 
+# Part 9.3 – Practice Exercises
+
+This section provides hands-on exercises to help you practice **Linux Disk Management**. These exercises are suitable for **Linux Administration, DevOps, AWS, Cloud Computing, Technical Support, and System Administration**.
+
+> **📌 Note for WSL Users**
+>
+> Commands such as `df`, `du`, `lsblk`, `findmnt`, `mount`, and `free` work well in WSL.
+>
+> Commands that modify disks (`fdisk`, `mkfs`, `fsck`, `swapon`, `swapoff`) should preferably be practiced on an **Ubuntu Server VM**, **CentOS VM**, or **AWS EC2** instance.
+
+---
+
+# ✅ Practice Exercise 1 – Check Disk Usage
+
+### Objective
+
+View the disk usage of all mounted filesystems.
+
+### Command
+
+```bash
+df -h
+```
+
+### Expected Result
+
+- Displays disk usage in a human-readable format.
+- Shows total, used, and available space.
+
+---
+
+# ✅ Practice Exercise 2 – Check Root Filesystem Usage
+
+### Objective
+
+Display usage information only for the root filesystem.
+
+### Command
+
+```bash
+df -h /
+```
+
+### Expected Result
+
+Shows storage usage of the root (`/`) partition.
+
+---
+
+# ✅ Practice Exercise 3 – Check Home Directory Size
+
+### Objective
+
+Display the total size of your home directory.
+
+### Command
+
+```bash
+du -sh ~
+```
+
+### Expected Result
+
+Example:
+
+```text
+2.1G    /home/user
+```
+
+---
+
+# ✅ Practice Exercise 4 – Find the Largest Directories
+
+### Objective
+
+Identify directories consuming the most disk space.
+
+### Command
+
+```bash
+du -h ~ | sort -hr | head -10
+```
+
+### Expected Result
+
+Lists the ten largest directories.
+
+---
+
+# ✅ Practice Exercise 5 – List Block Devices
+
+### Objective
+
+Display available storage devices.
+
+### Command
+
+```bash
+lsblk
+```
+
+### Expected Result
+
+Shows:
+
+- Disks
+- Partitions
+- Mount points
+
+---
+
+# ✅ Practice Exercise 6 – Display Mounted Filesystems
+
+### Objective
+
+Display currently mounted filesystems.
+
+### Command
+
+```bash
+findmnt
+```
+
+### Expected Result
+
+Shows the filesystem hierarchy and mount points.
+
+---
+
+# ✅ Practice Exercise 7 – View Memory and Swap
+
+### Objective
+
+Display RAM and swap usage.
+
+### Command
+
+```bash
+free -h
+```
+
+### Expected Result
+
+Displays:
+
+- Total RAM
+- Used RAM
+- Available RAM
+- Swap usage
+
+---
+
+# ✅ Practice Exercise 8 – Check Inode Usage
+
+### Objective
+
+Display inode usage.
+
+### Command
+
+```bash
+df -i
+```
+
+### Expected Result
+
+Shows:
+
+- Total inodes
+- Used inodes
+- Free inodes
+
+---
+
+# ✅ Practice Exercise 9 – View Filesystem UUID
+
+### Objective
+
+Display filesystem UUID information.
+
+### Command
+
+```bash
+sudo blkid
+```
+
+### Expected Result
+
+Displays UUID and filesystem type.
+
+---
+
+# ✅ Practice Exercise 10 – Analyze Entire Home Directory
+
+### Objective
+
+Display the size of every directory under `/home`.
+
+### Command
+
+```bash
+du -h /home
+```
+
+### Expected Result
+
+Shows recursive directory sizes.
+
+---
+
+# ✅ Practice Exercise 11 – Create a Disk Usage Report
+
+### Objective
+
+Save disk usage information to a file.
+
+### Command
+
+```bash
+df -h > disk-report.txt
+cat disk-report.txt
+```
+
+### Expected Result
+
+Creates a report containing disk usage information.
+
+---
+
+# ✅ Practice Exercise 12 – Create a Storage Monitoring Script
+
+### Objective
+
+Automate disk usage reporting.
+
+### Command
+
+```bash
+nano disk-monitor.sh
+```
+
+Paste:
+
+```bash
+#!/bin/bash
+
+echo "===== Disk Usage ====="
+df -h
+
+echo
+echo "===== Home Directory Size ====="
+du -sh ~
+
+echo
+echo "===== Memory Usage ====="
+free -h
+```
+
+Make executable:
+
+```bash
+chmod +x disk-monitor.sh
+```
+
+Run:
+
+```bash
+./disk-monitor.sh
+```
+
+### Expected Result
+
+Displays:
+
+- Disk usage
+- Home directory size
+- RAM and swap usage
+
+---
+
+# ✅ WSL-Friendly Exercises
+
+The following exercises work correctly in WSL:
+
+```bash
+df -h
+```
+
+```bash
+df -h /
+```
+
+```bash
+du -sh ~
+```
+
+```bash
+du -h ~ | sort -hr | head
+```
+
+```bash
+lsblk
+```
+
+```bash
+findmnt
+```
+
+```bash
+mount
+```
+
+```bash
+free -h
+```
+
+```bash
+df -i
+```
+
+```bash
+sudo blkid
+```
+
+> **Note:** `blkid` output may be limited depending on your WSL configuration.
+
+---
+
+# ✅ Ubuntu Server Exercises
+
+Practice the following on an Ubuntu Server VM or AWS EC2 instance.
+
+```bash
+sudo fdisk -l
+```
+
+```bash
+sudo mkfs.ext4 /dev/sdb1
+```
+
+```bash
+sudo mount /dev/sdb1 /mnt/data
+```
+
+```bash
+sudo umount /mnt/data
+```
+
+```bash
+sudo fsck /dev/sdb1
+```
+
+```bash
+sudo swapon /swapfile
+```
+
+```bash
+sudo swapoff /swapfile
+```
+
+---
+
+# ✅ CentOS Equivalents
+
+Most commands are the same.
+
+| Ubuntu | CentOS |
+|---------|---------|
+| `df -h` | `df -h` |
+| `du -sh` | `du -sh` |
+| `lsblk` | `lsblk` |
+| `findmnt` | `findmnt` |
+| `mount` | `mount` |
+| `umount` | `umount` |
+| `free -h` | `free -h` |
+| `blkid` | `blkid` |
+| `fdisk -l` | `fdisk -l` |
+| `mkfs.ext4` | `mkfs.xfs` or `mkfs.ext4` (depending on the filesystem you want) |
+
+---
+
+# ✅ Screenshot Guide
+
+Capture screenshots for the following commands:
+
+### Disk Usage
+
+```bash
+df -h
+```
+
+### Root Filesystem
+
+```bash
+df -h /
+```
+
+### Directory Size
+
+```bash
+du -sh ~
+```
+
+### Recursive Directory Size
+
+```bash
+du -h /home
+```
+
+### Largest Directories
+
+```bash
+du -h ~ | sort -hr | head -10
+```
+
+### Block Devices
+
+```bash
+lsblk
+```
+
+### Mounted Filesystems
+
+```bash
+findmnt
+```
+
+### RAM and Swap
+
+```bash
+free -h
+```
+
+### Filesystem UUID
+
+```bash
+sudo blkid
+```
+
+### Inode Usage
+
+```bash
+df -i
+```
+
+### Disk Report
+
+```bash
+df -h > disk-report.txt
+cat disk-report.txt
+```
+
+### Storage Monitoring Script
+
+```bash
+chmod +x disk-monitor.sh
+./disk-monitor.sh
+```
+
+---
+
+# ✅ Common Errors & Troubleshooting
+
+## Error 1 – Permission Denied
+
+```text
+Permission denied
+```
+
+### Solution
+
+Run the command with `sudo`.
+
+```bash
+sudo blkid
+```
+
+---
+
+## Error 2 – Command Not Found
+
+```text
+Command 'fdisk' not found
+```
+
+### Solution
+
+Install the required package.
+
+Ubuntu:
+
+```bash
+sudo apt update
+sudo apt install fdisk
+```
+
+CentOS:
+
+```bash
+sudo yum install util-linux
+```
+
+---
+
+## Error 3 – Device Busy
+
+```text
+target is busy
+```
+
+### Cause
+
+The filesystem is currently in use.
+
+### Solution
+
+Close all files and processes using the mount point, then retry:
+
+```bash
+sudo umount /mnt/data
+```
+
+---
+
+## Error 4 – Filesystem Check on Mounted Device
+
+```text
+fsck: Device is mounted
+```
+
+### Solution
+
+Unmount the filesystem first.
+
+```bash
+sudo umount /dev/sdb1
+sudo fsck /dev/sdb1
+```
+
+---
+
+## Error 5 – Filesystem Already Mounted
+
+```text
+already mounted
+```
+
+### Solution
+
+Verify with:
+
+```bash
+findmnt
+```
+
+or
+
+```bash
+mount
+```
+
+---
+
+## Error 6 – Limited Output in WSL
+
+### Cause
+
+WSL uses a virtual disk (`ext4.vhdx`).
+
+### Solution
+
+Use an Ubuntu Server VM or cloud instance for advanced disk management tasks.
+
+---
+
+# ✅ Best Practices
+
+- Monitor disk usage regularly using `df -h`.
+- Use `du` to locate large directories before deleting files.
+- Always verify mounted filesystems with `findmnt`.
+- Run `fsck` only on unmounted filesystems.
+- Back up important data before formatting (`mkfs`) or partitioning disks.
+- Use descriptive mount points such as `/mnt/data` or `/mnt/backup`.
+- Monitor inode usage with `df -i`, especially on servers handling many small files.
+- Use swap only when necessary and monitor its usage with `free -h`.
+- Test storage scripts before scheduling them with Cron.
+- Avoid modifying physical partitions from WSL.
+
+---
+
+# ✅ Cleanup Commands
+
+Remove the practice report:
+
+```bash
+rm -f disk-report.txt
+```
+
+Remove the monitoring script:
+
+```bash
+rm -f disk-monitor.sh
+```
+
+Remove temporary mount directory (if created):
+
+```bash
+sudo rmdir /mnt/data
+```
+
+Clear temporary files (use carefully):
+
+```bash
+sudo rm -rf /tmp/*
+```
+
+---
+
+# 🎯 Practice Checklist
+
+| Task | Status |
+|------|:------:|
+| Check disk usage with `df -h` | ☐ |
+| Check root filesystem usage | ☐ |
+| Check directory size with `du` | ☐ |
+| Find largest directories | ☐ |
+| List block devices | ☐ |
+| Display mounted filesystems | ☐ |
+| Check memory and swap | ☐ |
+| View filesystem UUID | ☐ |
+| Check inode usage | ☐ |
+| Create a disk usage report | ☐ |
+| Create and run a storage monitoring script | ☐ |
+| Capture screenshots for GitHub | ☐ |
+
+> **💡 Interview Tip:** Before an interview, practice explaining the differences between **`df` vs `du`**, **`mount` vs `umount`**, and **`lsblk` vs `blkid`**. These comparisons are commonly asked in Linux Administration, DevOps, and Cloud interviews.
+
+---
