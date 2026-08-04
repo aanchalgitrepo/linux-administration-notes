@@ -1698,3 +1698,753 @@ Examples **11, 13, 19, and 20** require a remote Linux server (such as an AWS EC
 
 ---
 
+# Part 7.3 – Practice Exercises
+
+This section contains hands-on SSH practice exercises for **WSL Ubuntu, Ubuntu Server, CentOS/RHEL, Amazon Linux, AWS EC2, and DevOps environments**.
+
+> **Prerequisites**
+>
+> Make sure OpenSSH is installed before starting the exercises.
+
+---
+
+# Install OpenSSH Server
+
+## Ubuntu / WSL
+
+```bash
+sudo apt update
+sudo apt install openssh-server
+```
+
+## CentOS / RHEL
+
+```bash
+sudo yum install openssh-server
+```
+
+or
+
+```bash
+sudo dnf install openssh-server
+```
+
+---
+
+# Start SSH Service
+
+## Ubuntu
+
+```bash
+sudo systemctl start ssh
+```
+
+## WSL
+
+```bash
+sudo service ssh start
+```
+
+## CentOS
+
+```bash
+sudo systemctl start sshd
+```
+
+---
+
+# Practice Exercise 1 – Verify SSH Version
+
+## Objective
+
+Check whether the SSH client is installed.
+
+### Command
+
+```bash
+ssh -V
+```
+
+### Expected Output
+
+```text
+OpenSSH_9.x
+```
+
+---
+
+# Practice Exercise 2 – Check SSH Service Status
+
+## Objective
+
+Verify whether the SSH service is running.
+
+### Ubuntu
+
+```bash
+systemctl status ssh
+```
+
+### WSL
+
+```bash
+service ssh status
+```
+
+### CentOS
+
+```bash
+systemctl status sshd
+```
+
+---
+
+# Practice Exercise 3 – Start SSH Service
+
+## Objective
+
+Start the SSH server.
+
+### Ubuntu
+
+```bash
+sudo systemctl start ssh
+```
+
+### WSL
+
+```bash
+sudo service ssh start
+```
+
+### CentOS
+
+```bash
+sudo systemctl start sshd
+```
+
+Verify:
+
+```bash
+service ssh status
+```
+
+---
+
+# Practice Exercise 4 – Restart SSH Service
+
+## Objective
+
+Restart SSH after configuration changes.
+
+### Ubuntu
+
+```bash
+sudo systemctl restart ssh
+```
+
+### WSL
+
+```bash
+sudo service ssh restart
+```
+
+### CentOS
+
+```bash
+sudo systemctl restart sshd
+```
+
+---
+
+# Practice Exercise 5 – Connect to Localhost
+
+## Objective
+
+Test the SSH server.
+
+### Command
+
+```bash
+ssh localhost
+```
+
+After login:
+
+```bash
+whoami
+```
+
+Exit:
+
+```bash
+exit
+```
+
+---
+
+# Practice Exercise 6 – Generate SSH Keys
+
+## Objective
+
+Create a public/private key pair.
+
+### Command
+
+```bash
+ssh-keygen
+```
+
+Verify:
+
+```bash
+ls ~/.ssh
+```
+
+Expected files:
+
+```text
+id_rsa
+id_rsa.pub
+```
+
+---
+
+# Practice Exercise 7 – View Public Key
+
+## Objective
+
+Display the public key.
+
+### Command
+
+```bash
+cat ~/.ssh/id_rsa.pub
+```
+
+---
+
+# Practice Exercise 8 – Check Listening Port
+
+## Objective
+
+Verify that SSH is listening on Port 22.
+
+### Command
+
+```bash
+ss -tlnp | grep :22
+```
+
+Alternative:
+
+```bash
+netstat -tlnp | grep :22
+```
+
+---
+
+# Practice Exercise 9 – View SSH Configuration
+
+## Objective
+
+Open the SSH server configuration file.
+
+### Command
+
+```bash
+sudo nano /etc/ssh/sshd_config
+```
+
+Do **not** modify the file unless required.
+
+---
+
+# Practice Exercise 10 – Check Verbose Connection
+
+## Objective
+
+View detailed connection information.
+
+### Command
+
+```bash
+ssh -v localhost
+```
+
+Observe:
+
+- Authentication
+- Key exchange
+- Connection details
+
+---
+
+# Practice Exercise 11 – View Known Hosts
+
+## Objective
+
+Display trusted SSH servers.
+
+### Command
+
+```bash
+cat ~/.ssh/known_hosts
+```
+
+---
+
+# Practice Exercise 12 – Verify SSH Process
+
+## Objective
+
+Verify that the SSH daemon is running.
+
+### Command
+
+```bash
+ps aux | grep ssh
+```
+
+or
+
+```bash
+pgrep sshd
+```
+
+---
+
+# WSL-Friendly Exercises
+
+Practice these commands in WSL.
+
+```bash
+ssh -V
+```
+
+```bash
+sudo service ssh status
+```
+
+```bash
+sudo service ssh start
+```
+
+```bash
+sudo service ssh restart
+```
+
+```bash
+ssh localhost
+```
+
+```bash
+ssh -v localhost
+```
+
+```bash
+ssh-keygen
+```
+
+```bash
+ls ~/.ssh
+```
+
+```bash
+cat ~/.ssh/id_rsa.pub
+```
+
+```bash
+ss -tlnp | grep :22
+```
+
+---
+
+# Ubuntu Server Exercises
+
+Practice:
+
+```bash
+systemctl status ssh
+```
+
+```bash
+systemctl restart ssh
+```
+
+```bash
+systemctl enable ssh
+```
+
+```bash
+journalctl -u ssh
+```
+
+```bash
+ssh localhost
+```
+
+---
+
+# CentOS / RHEL Equivalents
+
+| Ubuntu | CentOS / RHEL |
+|----------|---------------|
+| ssh | sshd |
+| systemctl status ssh | systemctl status sshd |
+| systemctl start ssh | systemctl start sshd |
+| systemctl restart ssh | systemctl restart sshd |
+| systemctl enable ssh | systemctl enable sshd |
+| journalctl -u ssh | journalctl -u sshd |
+
+---
+
+# Screenshot Guide
+
+Capture screenshots for the following commands.
+
+## WSL
+
+```bash
+ssh -V
+```
+
+```bash
+sudo service ssh status
+```
+
+```bash
+sudo service ssh start
+```
+
+```bash
+sudo service ssh restart
+```
+
+```bash
+ssh localhost
+```
+
+```bash
+ssh -v localhost
+```
+
+```bash
+ssh-keygen
+```
+
+```bash
+ls ~/.ssh
+```
+
+```bash
+cat ~/.ssh/id_rsa.pub
+```
+
+```bash
+ss -tlnp | grep :22
+```
+
+---
+
+## Ubuntu Server
+
+```bash
+systemctl status ssh
+```
+
+```bash
+systemctl restart ssh
+```
+
+```bash
+journalctl -u ssh
+```
+
+---
+
+## CentOS
+
+```bash
+systemctl status sshd
+```
+
+```bash
+systemctl restart sshd
+```
+
+```bash
+journalctl -u sshd
+```
+
+---
+
+# Common Errors & Troubleshooting
+
+---
+
+## Error 1
+
+```text
+ssh: command not found
+```
+
+### Reason
+
+OpenSSH Client is not installed.
+
+### Solution
+
+Ubuntu / WSL
+
+```bash
+sudo apt install openssh-client
+```
+
+CentOS
+
+```bash
+sudo yum install openssh-clients
+```
+
+---
+
+## Error 2
+
+```text
+ssh: connect to host localhost port 22: Connection refused
+```
+
+### Reason
+
+SSH service is not running.
+
+### Solution
+
+WSL
+
+```bash
+sudo service ssh start
+```
+
+Ubuntu
+
+```bash
+sudo systemctl start ssh
+```
+
+CentOS
+
+```bash
+sudo systemctl start sshd
+```
+
+---
+
+## Error 3
+
+```text
+Permission denied (publickey,password)
+```
+
+### Reason
+
+- Wrong username
+- Incorrect password
+- SSH key not configured
+- Public key missing from `authorized_keys`
+
+### Solution
+
+Verify:
+
+```bash
+ssh-keygen
+```
+
+```bash
+ssh-copy-id user@server
+```
+
+---
+
+## Error 4
+
+```text
+Host key verification failed
+```
+
+### Reason
+
+The server's host key has changed.
+
+### Solution
+
+Remove the old key:
+
+```bash
+ssh-keygen -R hostname
+```
+
+Reconnect.
+
+---
+
+## Error 5
+
+```text
+System has not been booted with systemd
+```
+
+### Reason
+
+WSL without systemd.
+
+### Solution
+
+Use:
+
+```bash
+service ssh status
+```
+
+instead of
+
+```bash
+systemctl status ssh
+```
+
+---
+
+## Error 6
+
+```text
+Connection timed out
+```
+
+### Reason
+
+- Wrong IP address
+- Firewall blocking Port 22
+- SSH service stopped
+- Network issue
+
+### Solution
+
+Check:
+
+```bash
+ping server-ip
+```
+
+```bash
+ss -tlnp | grep :22
+```
+
+---
+
+# Best Practices
+
+- Always use **SSH instead of Telnet**.
+- Prefer **SSH key authentication** over passwords.
+- Keep your **private key (`id_rsa`) secure**.
+- Never share your private key.
+- Disable root login on production servers.
+- Disable password authentication after confirming key-based login works.
+- Use strong passphrases for SSH keys.
+- Restart SSH after configuration changes.
+- Test configuration before logging out of a remote server.
+- Back up `sshd_config` before editing.
+
+---
+
+# Cleanup Commands
+
+Remove generated SSH keys (practice only):
+
+```bash
+rm -f ~/.ssh/id_rsa
+```
+
+```bash
+rm -f ~/.ssh/id_rsa.pub
+```
+
+Remove known hosts:
+
+```bash
+rm -f ~/.ssh/known_hosts
+```
+
+Stop SSH service (optional):
+
+### WSL
+
+```bash
+sudo service ssh stop
+```
+
+### Ubuntu
+
+```bash
+sudo systemctl stop ssh
+```
+
+### CentOS
+
+```bash
+sudo systemctl stop sshd
+```
+
+Verify cleanup:
+
+```bash
+ls ~/.ssh
+```
+
+```bash
+service ssh status
+```
+
+---
+
+# Quick Revision
+
+## Most Important Commands
+
+```bash
+ssh -V
+ssh localhost
+ssh -v localhost
+ssh-keygen
+ssh-copy-id user@host
+scp file.txt user@host:/home/user
+sftp user@host
+service ssh status
+service ssh start
+service ssh restart
+systemctl status ssh
+systemctl status sshd
+ss -tlnp | grep :22
+cat ~/.ssh/id_rsa.pub
+```
+
+---
+
+# Practice Checklist
+
+- ✅ Verify SSH version
+- ✅ Start SSH service
+- ✅ Check SSH status
+- ✅ Restart SSH service
+- ✅ Connect to localhost
+- ✅ Generate SSH keys
+- ✅ View public key
+- ✅ Verify Port 22
+- ✅ Open `sshd_config`
+- ✅ Test verbose SSH connection
+
+> **Interview Tip:** Interviewers often ask you to troubleshoot SSH issues. A strong answer is to check whether the SSH service is running, verify Port 22 is listening, confirm firewall rules, review `sshd_config`, and use `ssh -v` to diagnose authentication or connection problems.
+
+---
+
