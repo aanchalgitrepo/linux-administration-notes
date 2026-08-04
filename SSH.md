@@ -618,3 +618,557 @@ systemctl status sshd
 - SSH is widely used for Linux Administration, DevOps, Cloud Computing, GitHub authentication, and AWS EC2 server management.
 
 ---
+
+
+# Part 7.2A – Practical Examples (Examples 1–10)
+
+This section contains **beginner-to-professional SSH practical examples** for **Linux Administration, DevOps, AWS, Cloud Computing, and Technical Support**.
+
+> **Note for WSL Users**
+>
+> Most SSH commands work in WSL after installing the OpenSSH Server.
+>
+> ```bash
+> sudo apt update
+> sudo apt install openssh-server
+> sudo service ssh start
+> ```
+
+---
+
+# Example 1 – Check SSH Version
+
+## ✅ Practical Example
+
+Check the installed SSH client version.
+
+### ✅ Command
+
+```bash
+ssh -V
+```
+
+### ✅ Command Explanation
+
+- `ssh` → SSH client
+- `-V` → Display SSH version
+
+### ✅ Expected Output
+
+```text
+OpenSSH_9.xp1 Ubuntu-3ubuntu0.x
+```
+
+(The exact version may differ.)
+
+### ✅ Real-World Use Case
+
+Before connecting to production servers, administrators verify that the SSH client is installed and supported.
+
+### ✅ Screenshot Command
+
+```bash
+ssh -V
+```
+
+### ✅ Ubuntu
+
+```bash
+ssh -V
+```
+
+### ✅ CentOS
+
+```bash
+ssh -V
+```
+
+### ✅ WSL Note
+
+Works directly if OpenSSH Client is installed.
+
+---
+
+# Example 2 – Check SSH Service Status
+
+## ✅ Practical Example
+
+Verify whether the SSH service is running.
+
+### ✅ Ubuntu
+
+```bash
+systemctl status ssh
+```
+
+### ✅ CentOS
+
+```bash
+systemctl status sshd
+```
+
+### ✅ WSL
+
+```bash
+service ssh status
+```
+
+### ✅ Command Explanation
+
+Displays:
+
+- Running status
+- Service PID
+- Startup information
+
+### ✅ Expected Output
+
+```text
+Active: active (running)
+```
+
+### ✅ Real-World Use Case
+
+Always verify the SSH service before attempting remote login.
+
+### ✅ Screenshot Command
+
+**Ubuntu**
+
+```bash
+systemctl status ssh
+```
+
+**WSL**
+
+```bash
+service ssh status
+```
+
+---
+
+# Example 3 – Start SSH Service
+
+## ✅ Practical Example
+
+Start the SSH server.
+
+### ✅ Ubuntu
+
+```bash
+sudo systemctl start ssh
+```
+
+### ✅ CentOS
+
+```bash
+sudo systemctl start sshd
+```
+
+### ✅ WSL
+
+```bash
+sudo service ssh start
+```
+
+### ✅ Command Explanation
+
+Starts the SSH daemon so it can accept incoming connections.
+
+### ✅ Expected Output
+
+Normally no output is displayed if the command succeeds.
+
+Verify:
+
+```bash
+service ssh status
+```
+
+### ✅ Real-World Use Case
+
+Required after installing OpenSSH Server or after stopping the service.
+
+### ✅ Screenshot Command
+
+```bash
+sudo service ssh start
+service ssh status
+```
+
+---
+
+# Example 4 – Stop SSH Service
+
+## ✅ Practical Example
+
+Stop the SSH server.
+
+### ✅ Ubuntu
+
+```bash
+sudo systemctl stop ssh
+```
+
+### ✅ CentOS
+
+```bash
+sudo systemctl stop sshd
+```
+
+### ✅ WSL
+
+```bash
+sudo service ssh stop
+```
+
+### ✅ Command Explanation
+
+Stops the SSH daemon.
+
+### ✅ Expected Output
+
+Verify:
+
+```bash
+service ssh status
+```
+
+Output:
+
+```text
+inactive (dead)
+```
+
+### ✅ Real-World Use Case
+
+Useful during maintenance or troubleshooting.
+
+### ✅ Screenshot Command
+
+```bash
+sudo service ssh stop
+service ssh status
+```
+
+> **⚠️ Note:** Do **not** stop SSH on a remote production server if you are connected through SSH, as it will disconnect your session.
+
+---
+
+# Example 5 – Restart SSH Service
+
+## ✅ Practical Example
+
+Restart SSH after configuration changes.
+
+### ✅ Ubuntu
+
+```bash
+sudo systemctl restart ssh
+```
+
+### ✅ CentOS
+
+```bash
+sudo systemctl restart sshd
+```
+
+### ✅ WSL
+
+```bash
+sudo service ssh restart
+```
+
+### ✅ Command Explanation
+
+Stops and starts the SSH service to apply configuration changes.
+
+### ✅ Expected Output
+
+Usually no output if successful.
+
+Verify:
+
+```bash
+service ssh status
+```
+
+### ✅ Real-World Use Case
+
+After editing `/etc/ssh/sshd_config`, restart SSH to apply new settings.
+
+### ✅ Screenshot Command
+
+```bash
+sudo service ssh restart
+service ssh status
+```
+
+---
+
+# Example 6 – Connect to Localhost
+
+## ✅ Practical Example
+
+Connect to your own machine using SSH.
+
+### ✅ Command
+
+```bash
+ssh localhost
+```
+
+or
+
+```bash
+ssh username@localhost
+```
+
+### ✅ Command Explanation
+
+Creates an SSH connection to the local computer.
+
+### ✅ Expected Output
+
+First connection:
+
+```text
+Are you sure you want to continue connecting (yes/no)?
+```
+
+Type:
+
+```text
+yes
+```
+
+Then enter your password.
+
+### ✅ Real-World Use Case
+
+Useful for testing the SSH server before allowing remote access.
+
+### ✅ Screenshot Command
+
+```bash
+ssh localhost
+```
+
+### ✅ Ubuntu
+
+Works if the SSH server is running.
+
+### ✅ CentOS
+
+Works if `sshd` is active.
+
+### ✅ WSL Note
+
+Works after installing and starting OpenSSH Server.
+
+---
+
+# Example 7 – Connect to a Remote Server
+
+## ✅ Practical Example
+
+Connect to another Linux server.
+
+### ✅ Command
+
+```bash
+ssh ubuntu@192.168.1.100
+```
+
+### ✅ Command Explanation
+
+- `ubuntu` → Remote username
+- `192.168.1.100` → Server IP address
+
+### ✅ Expected Output
+
+```text
+ubuntu@192.168.1.100's password:
+```
+
+After authentication, you receive a remote shell prompt.
+
+### ✅ Real-World Use Case
+
+DevOps engineers use SSH to manage AWS EC2, Azure VMs, Google Compute Engine, and on-premises Linux servers.
+
+### ✅ Screenshot Command
+
+```bash
+ssh ubuntu@192.168.1.100
+```
+
+---
+
+# Example 8 – Generate an SSH Key Pair
+
+## ✅ Practical Example
+
+Create a public/private SSH key pair.
+
+### ✅ Command
+
+```bash
+ssh-keygen
+```
+
+### ✅ Command Explanation
+
+Creates:
+
+- Private key
+- Public key
+
+Default location:
+
+```text
+~/.ssh/
+```
+
+### ✅ Expected Output
+
+```text
+Generating public/private rsa key pair...
+```
+
+Files created:
+
+```text
+id_rsa
+id_rsa.pub
+```
+
+### ✅ Real-World Use Case
+
+Used for passwordless authentication and GitHub access.
+
+### ✅ Screenshot Command
+
+```bash
+ssh-keygen
+ls ~/.ssh
+```
+
+---
+
+# Example 9 – Copy SSH Key to a Server
+
+## ✅ Practical Example
+
+Copy your public key to a remote server.
+
+### ✅ Command
+
+```bash
+ssh-copy-id ubuntu@192.168.1.100
+```
+
+### ✅ Command Explanation
+
+Adds your public key to the remote server's:
+
+```text
+~/.ssh/authorized_keys
+```
+
+### ✅ Expected Output
+
+```text
+Number of key(s) added: 1
+```
+
+### ✅ Real-World Use Case
+
+Enables secure passwordless login, commonly used in DevOps automation and CI/CD pipelines.
+
+### ✅ Screenshot Command
+
+```bash
+ssh-copy-id ubuntu@192.168.1.100
+```
+
+> **Note:** If you don't have another Linux machine or VM, you may skip executing this command in WSL and simply document it in your notes.
+
+---
+
+# Example 10 – Verify SSH Connection
+
+## ✅ Practical Example
+
+Confirm that SSH login works correctly.
+
+### ✅ Command
+
+```bash
+ssh localhost
+```
+
+After login:
+
+```bash
+hostname
+```
+
+or
+
+```bash
+whoami
+```
+
+### ✅ Command Explanation
+
+Checks whether an SSH session has been successfully established.
+
+### ✅ Expected Output
+
+Example:
+
+```text
+ubuntu
+```
+
+or
+
+```text
+DESKTOP-XXXX
+```
+
+### ✅ Real-World Use Case
+
+System administrators verify connectivity after configuring SSH or deploying new servers.
+
+### ✅ Screenshot Command
+
+```bash
+ssh localhost
+hostname
+whoami
+exit
+```
+
+---
+
+# Summary of Commands
+
+| Example | Command |
+|----------|---------|
+| Check Version | `ssh -V` |
+| Service Status | `service ssh status` / `systemctl status ssh` |
+| Start Service | `sudo service ssh start` |
+| Stop Service | `sudo service ssh stop` |
+| Restart Service | `sudo service ssh restart` |
+| Local Connection | `ssh localhost` |
+| Remote Connection | `ssh user@server` |
+| Generate Keys | `ssh-keygen` |
+| Copy Keys | `ssh-copy-id user@server` |
+| Verify Login | `ssh localhost` |
+
+> **Interview Tip:** For your GitHub repository, you can perform and capture screenshots for Examples **1, 2, 3, 5, 6, 8, and 10** directly in WSL. Examples **7** and **9** require another Linux machine or cloud VM (such as AWS EC2), so it's acceptable to document them without screenshots if you don't have a remote server available.
+
+---
+
