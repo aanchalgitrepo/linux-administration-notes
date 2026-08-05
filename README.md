@@ -163,10 +163,7 @@ After completing this repository, you will be able to:
 - Create and extract archives.
 - Synchronize files using rsync.
 
----
-
 ## ⭐ If you found this repository useful, consider giving it a Star.
 
 ## Author
-# Aanchal Verma
-
+   Aanchal Verma
