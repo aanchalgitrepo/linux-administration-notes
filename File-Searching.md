@@ -2411,3 +2411,492 @@ These commands help administrators verify SSH configuration quickly.
 - Understanding `find` and `grep` is essential for Linux Administration, DevOps, AWS, Cloud Computing, Technical Support, and System Administration interviews.
 
 ---
+
+# 📂 Part 10.4B – Interview Questions & Answers (16–30)
+
+This section contains **advanced interview questions** on **`find`** and **`grep`**. These questions are commonly asked in interviews for **Linux Administrator, DevOps Engineer, AWS Engineer, Cloud Engineer, Site Reliability Engineer (SRE), and System Administrator** roles.
+
+---
+
+# Question 16 – How do you search for files larger than a specific size?
+
+## ✅ Professional Answer
+
+The **`-size`** option with the `find` command is used to search for files based on their size.
+
+### ✅ Example
+
+Find files larger than **100 MB**:
+
+```bash
+find . -type f -size +100M
+```
+
+This command displays all files larger than **100 MB** in the current directory and its subdirectories.
+
+---
+
+# Question 17 – How do you search for recently modified files?
+
+## ✅ Professional Answer
+
+The **`-mtime`** option searches files based on their modification time.
+
+### ✅ Example
+
+Find files modified within the last **7 days**:
+
+```bash
+find . -type f -mtime -7
+```
+
+This is commonly used to identify recently updated log files, configuration files, or project files.
+
+---
+
+# Question 18 – What is the purpose of the `-exec` option in the `find` command?
+
+## ✅ Professional Answer
+
+The **`-exec`** option allows you to execute another command on every file matched by `find`.
+
+It is useful for automating operations such as:
+
+- Listing file details
+- Changing permissions
+- Moving files
+- Copying files
+- Compressing files
+- Deleting files
+
+### ✅ Example
+
+```bash
+find . -name "*.log" -exec ls -l {} \;
+```
+
+This command displays detailed information for every `.log` file found.
+
+---
+
+# Question 19 – How do you delete files using the `find` command?
+
+## ✅ Professional Answer
+
+The **`-delete`** option removes files that match the search criteria.
+
+### ✅ Example
+
+```bash
+find . -name "*.tmp" -delete
+```
+
+This command deletes all `.tmp` files in the current directory and its subdirectories.
+
+> **Interview Tip:** Always verify the search results before using `-delete` because deleted files cannot be recovered easily.
+
+---
+
+# Question 20 – What is recursive searching in `grep`?
+
+## ✅ Professional Answer
+
+Recursive searching allows `grep` to search inside **all files within a directory and its subdirectories**.
+
+Use the **`-r`** option.
+
+### ✅ Example
+
+```bash
+grep -r "ERROR" .
+```
+
+This command searches every file in the current directory for the word **ERROR**.
+
+---
+
+# Question 21 – What is the purpose of the `-i` option in `grep`?
+
+## ✅ Professional Answer
+
+The **`-i`** option performs a **case-insensitive search**.
+
+It matches words regardless of uppercase or lowercase letters.
+
+### ✅ Example
+
+```bash
+grep -i "linux" notes.txt
+```
+
+This command matches:
+
+```text
+Linux
+LINUX
+linux
+LiNuX
+```
+
+---
+
+# Question 22 – How do you display line numbers in `grep` output?
+
+## ✅ Professional Answer
+
+Use the **`-n`** option.
+
+It displays the line number before each matching line.
+
+### ✅ Example
+
+```bash
+grep -n "main" script.sh
+```
+
+### Sample Output
+
+```text
+15:main()
+42:echo "main completed"
+```
+
+This is helpful while debugging source code.
+
+---
+
+# Question 23 – How do you count matching lines in a file?
+
+## ✅ Professional Answer
+
+Use the **`-c`** option with `grep`.
+
+Instead of displaying matching lines, it returns the total count.
+
+### ✅ Example
+
+```bash
+grep -c "ERROR" app.log
+```
+
+### Output
+
+```text
+5
+```
+
+This indicates that **5 lines** contain the word **ERROR**.
+
+---
+
+# Question 24 – What is the purpose of the `-v` option in `grep`?
+
+## ✅ Professional Answer
+
+The **`-v`** option displays **non-matching lines**.
+
+It is useful for excluding unwanted entries from the output.
+
+### ✅ Example
+
+```bash
+grep -v "^#" config.conf
+```
+
+This command displays only active configuration lines by ignoring comments.
+
+---
+
+# Question 25 – How do you search multiple patterns with `grep`?
+
+## ✅ Professional Answer
+
+Use **`grep -E`** with the pipe (`|`) operator.
+
+### ✅ Example
+
+```bash
+grep -E "ERROR|WARNING" app.log
+```
+
+This command displays lines containing either **ERROR** or **WARNING**.
+
+---
+
+# Question 26 – What are Regular Expressions (Regex)?
+
+## ✅ Professional Answer
+
+Regular Expressions (Regex) are search patterns used to match text efficiently.
+
+They allow flexible searching for:
+
+- Numbers
+- Dates
+- Email addresses
+- Words
+- Character patterns
+
+### ✅ Example
+
+Search lines beginning with "Error":
+
+```bash
+grep "^Error" app.log
+```
+
+Search lines ending with ".conf":
+
+```bash
+grep ".conf$" files.txt
+```
+
+---
+
+# Question 27 – What is the difference between `find` and `locate`?
+
+## ✅ Professional Answer
+
+Both commands search for files, but they work differently.
+
+- **`find`** searches the live filesystem.
+- **`locate`** searches a prebuilt database.
+
+Because of this, `locate` is faster, while `find` always returns the most up-to-date results.
+
+### ✅ Example
+
+```bash
+find . -name "notes.txt"
+```
+
+```bash
+locate notes.txt
+```
+
+---
+
+# Question 28 – What is the difference between `grep`, `egrep`, and `fgrep`?
+
+## ✅ Professional Answer
+
+These commands are used for text searching.
+
+- **`grep`** → Standard search.
+- **`grep -E`** → Extended regular expressions (replaces `egrep`).
+- **`grep -F`** → Fixed string search (replaces `fgrep`).
+
+Modern Linux systems recommend using **`grep -E`** and **`grep -F`** instead of the older `egrep` and `fgrep` commands.
+
+### ✅ Example
+
+```bash
+grep -E "error|warning" app.log
+```
+
+```bash
+grep -F "Linux" notes.txt
+```
+
+---
+
+# Question 29 – What are some real-world uses of `find` and `grep`?
+
+## ✅ Professional Answer
+
+These commands are used daily by Linux administrators and DevOps engineers.
+
+Common use cases include:
+
+- Searching configuration files.
+- Finding log files.
+- Troubleshooting applications.
+- Monitoring servers.
+- Auditing user files.
+- Finding large files.
+- Locating recently modified files.
+- Searching source code.
+- Security investigations.
+- Automation scripts.
+
+### ✅ Example
+
+Find SSH configuration:
+
+```bash
+find /etc -name "sshd_config"
+```
+
+Search the SSH port configuration:
+
+```bash
+grep "^Port" /etc/ssh/sshd_config
+```
+
+---
+
+# Question 30 – Why are `find` and `grep` important in DevOps and Linux Administration?
+
+## ✅ Professional Answer
+
+`find` and `grep` are among the most frequently used Linux commands because they allow administrators and engineers to quickly locate files and search file contents.
+
+These commands are essential for:
+
+- Log analysis
+- Configuration management
+- Automation
+- Troubleshooting
+- Security auditing
+- CI/CD pipelines
+- Server maintenance
+- Cloud infrastructure management
+
+Strong knowledge of these commands is expected in Linux, DevOps, AWS, and System Administration interviews.
+
+---
+
+# 📊 `find` vs `grep` Comparison Table
+
+| Feature | `find` | `grep` |
+|----------|---------|---------|
+| Purpose | Search files and directories | Search text inside files |
+| Searches | Filesystem | File contents |
+| Output | File paths | Matching lines |
+| Recursive Search | Yes (default) | Yes (`-r`) |
+| Search Criteria | Name, owner, size, permissions, time | Text patterns and regular expressions |
+| Common Use | Locate files | Analyze logs and configuration files |
+
+---
+
+# 📊 `find` vs `locate` Comparison Table
+
+| Feature | `find` | `locate` |
+|----------|---------|----------|
+| Search Method | Live filesystem | Database |
+| Speed | Slower | Faster |
+| Accuracy | Always current | Depends on updated database |
+| Requires Database | No | Yes |
+| Search Criteria | Multiple attributes | Filename only |
+| Best For | Advanced searches | Quick filename lookup |
+
+---
+
+# 📊 `grep` vs `egrep` vs `fgrep` Comparison Table
+
+| Command | Purpose | Modern Equivalent |
+|----------|----------|------------------|
+| `grep` | Standard text search | `grep` |
+| `egrep` | Extended regular expressions | `grep -E` |
+| `fgrep` | Fixed string search | `grep -F` |
+
+> **Note:** On modern Linux distributions, `egrep` and `fgrep` are considered deprecated. Use `grep -E` and `grep -F` instead.
+
+---
+
+# 📋 File Searching Cheat Sheet
+
+| Command | Description |
+|----------|-------------|
+| `find . -name "file.txt"` | Find a file by name |
+| `find . -type d` | Find directories |
+| `find . -type f` | Find files only |
+| `find . -name "*.txt"` | Find files by extension |
+| `find . -size +100M` | Find files larger than 100 MB |
+| `find . -mtime -7` | Find recently modified files |
+| `find . -user username` | Find files by owner |
+| `find . -perm 644` | Find files by permission |
+| `find . -exec command {} \;` | Execute a command on matched files |
+| `find . -delete` | Delete matched files |
+| `grep "text" file` | Search text in a file |
+| `grep -i "text" file` | Case-insensitive search |
+| `grep -r "text" dir` | Recursive search |
+| `grep -n "text" file` | Show line numbers |
+| `grep -c "text" file` | Count matching lines |
+| `grep -v "text" file` | Show non-matching lines |
+| `grep -E "A\|B" file` | Search multiple patterns |
+| `grep -F "text" file` | Fixed string search |
+
+---
+
+# 📝 Summary
+
+- **`find`** searches for files and directories using attributes such as name, type, owner, permissions, size, and timestamps.
+- **`grep`** searches for text or patterns inside files and supports regular expressions.
+- `find` is best for locating filesystem objects, while `grep` is best for searching file contents.
+- `find` searches the live filesystem, whereas `locate` searches a prebuilt database.
+- Use `grep -E` instead of `egrep` and `grep -F` instead of `fgrep` on modern Linux systems.
+- These commands are fundamental tools for Linux Administration, DevOps, Cloud Computing, AWS, and System Administration.
+
+---
+
+# ⚡ Quick Revision Notes
+
+Remember these frequently used commands:
+
+```bash
+find . -name "file.txt"
+```
+
+```bash
+find . -name "*.txt"
+```
+
+```bash
+find . -type d
+```
+
+```bash
+find . -size +100M
+```
+
+```bash
+find . -mtime -7
+```
+
+```bash
+find . -user username
+```
+
+```bash
+find . -perm 644
+```
+
+```bash
+grep "text" file
+```
+
+```bash
+grep -i "text" file
+```
+
+```bash
+grep -r "text" .
+```
+
+```bash
+grep -n "text" file
+```
+
+```bash
+grep -c "text" file
+```
+
+```bash
+grep -v "^#" config.conf
+```
+
+```bash
+grep -E "ERROR|WARNING" app.log
+```
+
+---
+
+# 💼 Interview Tips
+
+- Clearly explain the difference between **searching files** (`find`) and **searching text** (`grep`).
+- Mention that **`find` searches the live filesystem**, while **`locate` uses a database**.
+- Know commonly used `find` options such as `-name`, `-type`, `-size`, `-user`, `-perm`, `-mtime`, and `-exec`.
+- Be comfortable with `grep` options like `-i`, `-r`, `-n`, `-c`, `-v`, `-E`, and `-F`.
+- Demonstrate how `find` and `grep` can be combined in real-world scenarios, such as locating log files with `find` and searching for errors inside them with `grep`.
+- Practice these commands regularly on Ubuntu, CentOS, and WSL to build confidence for technical interviews.
