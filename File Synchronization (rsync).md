@@ -912,3 +912,482 @@ Works exactly like Ubuntu.
 - `rsync` transfers **only changed files**, making it significantly faster than repeatedly using `cp`.
 
 ---
+
+# 🚀 Part 12.2B – Advanced Practical Examples (Examples 11–20)
+
+This section covers **advanced `rsync` examples** commonly used in **Linux Administration, DevOps, AWS, Cloud Computing, System Administration, and Production Linux Servers**.
+
+> **Prerequisites**
+>
+> ```bash
+> mkdir -p ~/rsync-demo/source
+> mkdir -p ~/rsync-demo/destination
+>
+> echo "Linux Notes" > ~/rsync-demo/source/notes.txt
+> echo "DevOps Guide" > ~/rsync-demo/source/devops.txt
+> echo "Shell Script" > ~/rsync-demo/source/script.sh
+> ```
+>
+> Verify:
+>
+> ```bash
+> tree ~/rsync-demo
+> ```
+>
+> or
+>
+> ```bash
+> ls -R ~/rsync-demo
+> ```
+
+---
+
+# Example 11 – Synchronize Over SSH
+
+## ✅ Practical Example
+
+Synchronize files securely to a remote Linux server using SSH.
+
+### ✅ Command
+
+```bash
+rsync -avz ~/rsync-demo/source/ user@192.168.1.100:/home/user/backup/
+```
+
+### ✅ Command Explanation
+
+| Option | Description |
+|---------|-------------|
+| `-a` | Archive mode |
+| `-v` | Verbose output |
+| `-z` | Compress data during transfer |
+
+### ✅ Expected Output
+
+```text
+sending incremental file list
+
+notes.txt
+script.sh
+```
+
+### ✅ Real-World Use Case
+
+- AWS EC2 backup
+- Production server deployment
+- Remote configuration backup
+
+### ✅ Screenshot Command
+
+```bash
+rsync -avz ~/rsync-demo/source/ user@192.168.1.100:/home/user/backup/
+```
+
+---
+
+# Example 12 – Synchronize Using a Custom SSH Port
+
+## ✅ Practical Example
+
+Use a non-default SSH port.
+
+### ✅ Command
+
+```bash
+rsync -avz -e "ssh -p 2222" ~/rsync-demo/source/ user@192.168.1.100:/backup/
+```
+
+### ✅ Command Explanation
+
+`-e` specifies the remote shell.
+
+Here SSH connects using port **2222**.
+
+### ✅ Expected Output
+
+```text
+sending incremental file list
+```
+
+### ✅ Real-World Use Case
+
+Many production servers disable port **22** for security.
+
+### ✅ Screenshot Command
+
+```bash
+rsync -avz -e "ssh -p 2222" ~/rsync-demo/source/ user@192.168.1.100:/backup/
+```
+
+---
+
+# Example 13 – Exclude Files from Synchronization
+
+## ✅ Practical Example
+
+Exclude log files while synchronizing.
+
+### ✅ Command
+
+```bash
+rsync -av --exclude="*.log" ~/rsync-demo/source/ ~/rsync-demo/destination/
+```
+
+### ✅ Command Explanation
+
+`--exclude` ignores matching files.
+
+### ✅ Expected Output
+
+```text
+notes.txt
+script.sh
+```
+
+`error.log` is skipped.
+
+### ✅ Real-World Use Case
+
+Ignore:
+
+- Log files
+- Cache files
+- Temporary files
+
+### ✅ Screenshot Command
+
+```bash
+touch ~/rsync-demo/source/error.log
+
+rsync -av --exclude="*.log" ~/rsync-demo/source/ ~/rsync-demo/destination/
+```
+
+---
+
+# Example 14 – Include Specific Files Only
+
+## ✅ Practical Example
+
+Synchronize only `.txt` files.
+
+### ✅ Command
+
+```bash
+rsync -av \
+--include="*.txt" \
+--exclude="*" \
+~/rsync-demo/source/ \
+~/rsync-demo/destination/
+```
+
+### ✅ Command Explanation
+
+Only text files are copied.
+
+Everything else is ignored.
+
+### ✅ Expected Output
+
+```text
+notes.txt
+devops.txt
+```
+
+### ✅ Real-World Use Case
+
+Synchronize only configuration or documentation files.
+
+### ✅ Screenshot Command
+
+```bash
+rsync -av \
+--include="*.txt" \
+--exclude="*" \
+~/rsync-demo/source/ \
+~/rsync-demo/destination/
+```
+
+---
+
+# Example 15 – Synchronize Multiple Directories
+
+## ✅ Practical Example
+
+Synchronize multiple folders into one destination.
+
+### ✅ Command
+
+```bash
+mkdir ~/rsync-demo/config
+mkdir ~/rsync-demo/logs
+
+rsync -av ~/rsync-demo/source ~/rsync-demo/config ~/rsync-demo/logs ~/rsync-demo/destination/
+```
+
+### ✅ Command Explanation
+
+Multiple directories can be synchronized in a single command.
+
+### ✅ Expected Output
+
+```text
+source/
+config/
+logs/
+```
+
+### ✅ Real-World Use Case
+
+Backup multiple application directories.
+
+### ✅ Screenshot Command
+
+```bash
+rsync -av ~/rsync-demo/source ~/rsync-demo/config ~/rsync-demo/logs ~/rsync-demo/destination/
+```
+
+---
+
+# Example 16 – Limit Transfer Bandwidth
+
+## ✅ Practical Example
+
+Restrict network usage during synchronization.
+
+### ✅ Command
+
+```bash
+rsync -av --bwlimit=500 ~/rsync-demo/source/ ~/rsync-demo/destination/
+```
+
+### ✅ Command Explanation
+
+`--bwlimit=500`
+
+Limits bandwidth to approximately **500 KB/s**.
+
+### ✅ Expected Output
+
+Synchronization occurs at a limited speed.
+
+### ✅ Real-World Use Case
+
+Prevent backup jobs from consuming all available bandwidth.
+
+### ✅ Screenshot Command
+
+```bash
+rsync -av --bwlimit=500 ~/rsync-demo/source/ ~/rsync-demo/destination/
+```
+
+---
+
+# Example 17 – Backup Changed Files
+
+## ✅ Practical Example
+
+Store modified files in a backup directory before replacing them.
+
+### ✅ Command
+
+```bash
+mkdir ~/rsync-demo/backup
+
+rsync -av --backup --backup-dir=~/rsync-demo/backup \
+~/rsync-demo/source/ \
+~/rsync-demo/destination/
+```
+
+### ✅ Command Explanation
+
+Modified destination files are saved in the backup directory.
+
+### ✅ Expected Output
+
+```text
+backup/
+```
+
+contains previous versions.
+
+### ✅ Real-World Use Case
+
+Configuration backups before deployment.
+
+### ✅ Screenshot Command
+
+```bash
+rsync -av --backup --backup-dir=~/rsync-demo/backup \
+~/rsync-demo/source/ \
+~/rsync-demo/destination/
+```
+
+---
+
+# Example 18 – Synchronize Hidden Files
+
+## ✅ Practical Example
+
+Synchronize hidden files such as `.env` and `.gitignore`.
+
+### ✅ Command
+
+```bash
+echo "SECRET" > ~/rsync-demo/source/.env
+
+rsync -av ~/rsync-demo/source/ ~/rsync-demo/destination/
+```
+
+### ✅ Command Explanation
+
+`rsync` copies hidden files automatically.
+
+### ✅ Expected Output
+
+```text
+.env
+```
+
+### ✅ Real-World Use Case
+
+Synchronize application configuration files.
+
+### ✅ Screenshot Command
+
+```bash
+ls -la ~/rsync-demo/source
+
+rsync -av ~/rsync-demo/source/ ~/rsync-demo/destination/
+```
+
+---
+
+# Example 19 – Mirror Source to Destination
+
+## ✅ Practical Example
+
+Make the destination an exact copy of the source.
+
+### ✅ Command
+
+```bash
+rsync -av --delete ~/rsync-demo/source/ ~/rsync-demo/destination/
+```
+
+### ✅ Command Explanation
+
+`--delete`
+
+Removes extra files from the destination.
+
+### ✅ Expected Output
+
+Source and destination become identical.
+
+### ✅ Real-World Use Case
+
+Website deployment.
+
+Production backup.
+
+Disaster recovery.
+
+### ✅ Screenshot Command
+
+```bash
+rsync -av --delete ~/rsync-demo/source/ ~/rsync-demo/destination/
+
+diff -r ~/rsync-demo/source ~/rsync-demo/destination
+```
+
+---
+
+# Example 20 – Automate Synchronization Using Cron
+
+## ✅ Practical Example
+
+Run synchronization automatically every day at **2:00 AM**.
+
+### ✅ Command
+
+Edit the user's crontab:
+
+```bash
+crontab -e
+```
+
+Add the following entry:
+
+```cron
+0 2 * * * rsync -av --delete /home/$USER/rsync-demo/source/ /home/$USER/rsync-demo/destination/
+```
+
+### ✅ Command Explanation
+
+| Field | Meaning |
+|--------|---------|
+| `0` | Minute |
+| `2` | Hour (2 AM) |
+| `*` | Every day of the month |
+| `*` | Every month |
+| `*` | Every day of the week |
+
+### ✅ Expected Output
+
+The synchronization runs automatically every day at **2:00 AM**.
+
+### ✅ Real-World Use Case
+
+- Nightly backups
+- Website synchronization
+- Configuration backups
+- DevOps automation
+- Disaster recovery
+
+### ✅ Screenshot Command
+
+```bash
+crontab -l
+```
+
+---
+
+# 📌 Key Takeaways
+
+- `rsync -avz` → Synchronize securely over SSH.
+- `-e "ssh -p PORT"` → Use a custom SSH port.
+- `--exclude` → Skip unwanted files.
+- `--include` → Synchronize only selected files.
+- `--bwlimit` → Control bandwidth usage.
+- `--backup` → Preserve previous file versions.
+- Hidden files (e.g., `.env`) are synchronized automatically.
+- `--delete` → Mirror the source to the destination.
+- Cron can automate `rsync` for scheduled backups.
+
+---
+
+# 💡 Interview Tip
+
+The most commonly used `rsync` commands in production environments are:
+
+```bash
+rsync -av source/ destination/
+rsync -avz source/ user@server:/backup/
+rsync -av --delete source/ destination/
+rsync -av --progress source/ destination/
+rsync -av --dry-run source/ destination/
+rsync -av --exclude="*.log" source/ destination/
+```
+
+These commands are frequently used for:
+
+- Linux server backups
+- AWS EC2 synchronization
+- Website deployments
+- Docker volume backups
+- Configuration management
+- CI/CD pipelines
+- Disaster recovery
+- Automated backups with Cron
+
+---
