@@ -2324,3 +2324,257 @@ rsync -avz project/ user@server:/home/user/project/
 - Mention practical use cases such as **AWS EC2 backups, website deployments, disaster recovery, Docker volume synchronization, and CI/CD automation** to demonstrate real-world experience.
 
 ---
+
+# 🎯 Part 12.4B – Advanced Interview Questions (16–23)
+
+This section covers **advanced `rsync` interview questions** frequently asked in **Linux Administration**, **DevOps**, **AWS**, **Cloud Computing**, **Technical Support**, and **System Administration** interviews.
+
+Each question includes:
+
+- ✅ Interview Question
+- ✅ Professional Answer
+- ✅ Example (where applicable)
+
+---
+
+# Question 16 – What is the Difference Between Local and Remote Synchronization?
+
+## ✅ Professional Answer
+
+`rsync` can synchronize files in two ways:
+
+- **Local Synchronization:** Copies files between directories on the same machine.
+- **Remote Synchronization:** Copies files securely between different machines over SSH.
+
+Remote synchronization encrypts data during transfer and is commonly used for server backups and deployments.
+
+### ✅ Example
+
+Local synchronization:
+
+```bash
+rsync -av ~/project/ ~/backup/
+```
+
+Remote synchronization:
+
+```bash
+rsync -avz ~/project/ user@192.168.1.100:/backup/
+```
+
+---
+
+# Question 17 – What is the Purpose of the `--progress` Option?
+
+## ✅ Professional Answer
+
+The `--progress` option displays real-time information about the file transfer.
+
+It shows:
+
+- Current file being transferred
+- Percentage completed
+- Transfer speed
+- Remaining data
+- Estimated completion time
+
+This option is especially useful when transferring large files.
+
+### ✅ Example
+
+```bash
+rsync -av --progress source/ destination/
+```
+
+Sample Output:
+
+```text
+backup.tar.gz
+ 45%   450 MB   8.2 MB/s
+```
+
+---
+
+# Question 18 – What is the Purpose of the `--exclude` Option?
+
+## ✅ Professional Answer
+
+The `--exclude` option prevents specified files or directories from being synchronized.
+
+This helps reduce backup size and avoids copying unnecessary files such as:
+
+- Log files
+- Cache directories
+- Temporary files
+- Build artifacts
+
+### ✅ Example
+
+```bash
+rsync -av --exclude="*.log" source/ destination/
+```
+
+Only non-log files are synchronized.
+
+---
+
+# Question 19 – What Happens If the Destination Already Contains the Files?
+
+## ✅ Professional Answer
+
+`rsync` compares the source and destination before copying.
+
+If a file has not changed, it is skipped.
+
+If a file has changed, only the modified data is transferred.
+
+This behavior makes `rsync` much faster than repeatedly copying all files.
+
+### ✅ Example
+
+```bash
+rsync -av source/ destination/
+```
+
+Output:
+
+```text
+sending incremental file list
+
+notes.txt
+```
+
+Only the modified file is transferred.
+
+---
+
+# Question 20 – Can `rsync` Synchronize Deleted Files?
+
+## ✅ Professional Answer
+
+Yes.
+
+Using the `--delete` option, `rsync` removes files from the destination that no longer exist in the source.
+
+This ensures that both directories remain identical.
+
+### ✅ Example
+
+```bash
+rsync -av --delete source/ destination/
+```
+
+If `old.txt` has been removed from the source, it will also be removed from the destination.
+
+> **Interview Tip:** Always use `--dry-run` before `--delete` on production systems to verify the changes.
+
+---
+
+# Question 21 – What Are the Advantages of Using `rsync` Over Traditional Copy Methods?
+
+## ✅ Professional Answer
+
+`rsync` provides several advantages over traditional copy commands:
+
+- Transfers only changed files
+- Saves bandwidth
+- Faster synchronization
+- Preserves permissions and timestamps
+- Supports compression
+- Supports secure SSH transfers
+- Can resume interrupted transfers
+- Suitable for backups and disaster recovery
+
+These features make `rsync` the preferred choice for system administrators and DevOps engineers.
+
+### ✅ Example
+
+```bash
+rsync -avz project/ user@server:/backup/
+```
+
+---
+
+# Question 22 – How Can You Secure `rsync` Transfers?
+
+## ✅ Professional Answer
+
+The recommended way to secure `rsync` is to use **SSH**.
+
+Best security practices include:
+
+- Use SSH instead of unsecured protocols.
+- Prefer SSH key authentication over passwords.
+- Disable root login when possible.
+- Use strong SSH keys.
+- Restrict SSH access using firewall rules.
+- Use a custom SSH port if required.
+
+### ✅ Example
+
+```bash
+rsync -avz project/ user@192.168.1.100:/backup/
+```
+
+Using a custom SSH port:
+
+```bash
+rsync -avz -e "ssh -p 2222" project/ user@192.168.1.100:/backup/
+```
+
+---
+
+# Question 23 – Explain a Real-World Scenario Where You Used or Would Use `rsync`.
+
+## ✅ Professional Answer
+
+A common production scenario is **daily website backup**.
+
+A company hosts its website on a Linux server. Every night, a Cron Job runs an `rsync` command to synchronize the website files to a backup server.
+
+Benefits include:
+
+- Only changed files are transferred.
+- Bandwidth usage remains low.
+- Backups complete quickly.
+- Previous backups can be retained.
+- Data can be restored quickly during failures.
+
+This approach is widely used in production environments.
+
+### ✅ Example
+
+Website backup:
+
+```bash
+rsync -av --delete /var/www/html/ /backup/website/
+```
+
+Automated using Cron:
+
+```cron
+0 2 * * * rsync -av --delete /var/www/html/ /backup/website/
+```
+
+Another example is synchronizing project files from a developer's workstation to an AWS EC2 instance before deployment:
+
+```bash
+rsync -avz ~/my-app/ ubuntu@ec2-public-ip:/home/ubuntu/my-app/
+```
+
+This transfers only modified files, reducing deployment time and network usage.
+
+---
+
+# 📌 Key Takeaways
+
+- Local synchronization copies files within the same system.
+- Remote synchronization securely transfers files over SSH.
+- `--progress` displays live transfer status.
+- `--exclude` skips unwanted files or directories.
+- `--delete` mirrors the destination with the source.
+- `rsync` transfers only changed data, making it highly efficient.
+- SSH provides secure and encrypted synchronization.
+- `rsync` is widely used for backups, deployments, disaster recovery, and cloud server management.
+
+---
