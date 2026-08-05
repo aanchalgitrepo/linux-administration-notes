@@ -2021,3 +2021,393 @@ After completing these exercises, you should be able to:
 These practical exercises build the foundational skills required for **Linux Administration, DevOps, Cloud Computing, AWS, Technical Support, and System Administration**.
 
 ---
+
+# 📂 Part 10.4A – Interview Questions & Answers (1–15)
+
+This section contains **beginner to intermediate interview questions** on the **`find`** and **`grep`** commands. These questions are commonly asked in interviews for **Linux Administrator, DevOps Engineer, AWS Engineer, Cloud Engineer, Technical Support Engineer, and System Administrator** roles.
+
+---
+
+# Question 1 – What is the `find` command in Linux?
+
+## ✅ Professional Answer
+
+The **`find`** command is a Linux utility used to search for **files and directories** based on various criteria such as:
+
+- File name
+- File type
+- Size
+- Owner
+- Group
+- Permissions
+- Modification time
+- Access time
+
+Unlike `locate`, the `find` command searches the **live filesystem**, ensuring that the results are always up to date.
+
+### ✅ Example
+
+```bash
+find . -name "notes.txt"
+```
+
+This command searches for a file named **notes.txt** in the current directory and all of its subdirectories.
+
+---
+
+# Question 2 – What is the `grep` command?
+
+## ✅ Professional Answer
+
+The **`grep`** command is used to search for **specific text or patterns inside files**.
+
+It supports:
+
+- Plain text searching
+- Case-insensitive searching
+- Recursive searching
+- Regular expressions
+- Pattern matching
+
+It is widely used for analyzing log files, configuration files, source code, and application output.
+
+### ✅ Example
+
+```bash
+grep "ERROR" app.log
+```
+
+This command displays all lines containing the word **ERROR**.
+
+---
+
+# Question 3 – What is the difference between `find` and `grep`?
+
+## ✅ Professional Answer
+
+Both commands are used for searching, but they search different things.
+
+| `find` | `grep` |
+|---------|---------|
+| Searches files and directories | Searches text inside files |
+| Searches the filesystem | Searches file contents |
+| Returns file paths | Returns matching lines |
+| Uses file attributes | Uses text patterns |
+
+### ✅ Example
+
+Find shell scripts:
+
+```bash
+find . -name "*.sh"
+```
+
+Search the word **backup** inside a shell script:
+
+```bash
+grep "backup" backup.sh
+```
+
+---
+
+# Question 4 – How do you search for a file by its name?
+
+## ✅ Professional Answer
+
+Use the **`-name`** option with the `find` command.
+
+### ✅ Example
+
+```bash
+find . -name "config.yml"
+```
+
+This command searches for a file named **config.yml** in the current directory and all subdirectories.
+
+---
+
+# Question 5 – How do you search for files by extension?
+
+## ✅ Professional Answer
+
+Use the **`-name`** option with wildcard characters.
+
+### ✅ Example
+
+Search all text files:
+
+```bash
+find . -name "*.txt"
+```
+
+Search all shell scripts:
+
+```bash
+find . -name "*.sh"
+```
+
+This command returns every file with the specified extension.
+
+---
+
+# Question 6 – How do you search for files owned by a specific user?
+
+## ✅ Professional Answer
+
+Use the **`-user`** option with the `find` command.
+
+### ✅ Example
+
+```bash
+find . -user rahul
+```
+
+This command displays all files owned by the user **rahul**.
+
+It is commonly used during user account audits and ownership verification.
+
+---
+
+# Question 7 – How do you search for files with specific permissions?
+
+## ✅ Professional Answer
+
+Use the **`-perm`** option.
+
+### ✅ Example
+
+```bash
+find . -perm 644
+```
+
+This command finds files with **644** permissions.
+
+It is useful for security audits and permission verification.
+
+---
+
+# Question 8 – What is recursive searching?
+
+## ✅ Professional Answer
+
+Recursive searching means searching through a directory and **all of its subdirectories** automatically.
+
+The `find` command searches recursively by default.
+
+For `grep`, recursive searching is enabled using the **`-r`** option.
+
+### ✅ Example
+
+```bash
+grep -r "ERROR" .
+```
+
+This command searches every file in the current directory and its subdirectories for the word **ERROR**.
+
+---
+
+# Question 9 – What are Regular Expressions (Regex)?
+
+## ✅ Professional Answer
+
+Regular Expressions (Regex) are search patterns used to match text efficiently.
+
+Regex allows users to search for:
+
+- Words
+- Numbers
+- Email addresses
+- Dates
+- Specific patterns
+
+The `grep` command supports regular expressions.
+
+### ✅ Example
+
+Search lines starting with "Error":
+
+```bash
+grep "^Error" app.log
+```
+
+Search lines ending with ".conf":
+
+```bash
+grep ".conf$" files.txt
+```
+
+---
+
+# Question 10 – What are some common options used with the `find` command?
+
+## ✅ Professional Answer
+
+Some commonly used options include:
+
+| Option | Purpose |
+|---------|----------|
+| `-name` | Search by filename |
+| `-type` | Search by file type |
+| `-size` | Search by file size |
+| `-user` | Search by owner |
+| `-group` | Search by group |
+| `-perm` | Search by permissions |
+| `-mtime` | Search by modification time |
+| `-empty` | Search empty files/directories |
+| `-exec` | Execute commands on matched files |
+
+### ✅ Example
+
+```bash
+find . -type f -size +100M
+```
+
+---
+
+# Question 11 – What are some commonly used `grep` options?
+
+## ✅ Professional Answer
+
+Some of the most commonly used options are:
+
+| Option | Purpose |
+|---------|----------|
+| `-i` | Ignore case |
+| `-r` | Recursive search |
+| `-n` | Show line numbers |
+| `-v` | Show non-matching lines |
+| `-c` | Count matching lines |
+| `-l` | Display matching filenames |
+| `-E` | Extended regular expressions |
+| `-F` | Fixed string search |
+
+### ✅ Example
+
+```bash
+grep -in "linux" notes.txt
+```
+
+This command performs a case-insensitive search and displays line numbers.
+
+---
+
+# Question 12 – How do you search for a word regardless of letter case?
+
+## ✅ Professional Answer
+
+Use the **`-i`** option with `grep`.
+
+This option ignores uppercase and lowercase differences during the search.
+
+### ✅ Example
+
+```bash
+grep -i "linux" notes.txt
+```
+
+It matches:
+
+```text
+Linux
+LINUX
+linux
+LiNuX
+```
+
+---
+
+# Question 13 – How do you display line numbers in `grep` output?
+
+## ✅ Professional Answer
+
+Use the **`-n`** option.
+
+This option displays the line number before each matching line.
+
+### ✅ Example
+
+```bash
+grep -n "main" script.sh
+```
+
+### Sample Output
+
+```text
+15:main()
+38:echo "Main completed"
+```
+
+This is especially useful while debugging source code or configuration files.
+
+---
+
+# Question 14 – How do you count the number of matching lines in a file?
+
+## ✅ Professional Answer
+
+Use the **`-c`** option.
+
+Instead of displaying matching lines, `grep` shows the total number of matching lines.
+
+### ✅ Example
+
+```bash
+grep -c "ERROR" app.log
+```
+
+### Sample Output
+
+```text
+8
+```
+
+This indicates that **8 lines** contain the word **ERROR**.
+
+---
+
+# Question 15 – Why are `find` and `grep` important for Linux administrators?
+
+## ✅ Professional Answer
+
+`find` and `grep` are essential because they help administrators quickly locate files and search for information within those files.
+
+These commands are used daily for:
+
+- Troubleshooting
+- Log analysis
+- Configuration management
+- Security auditing
+- Automation scripts
+- Monitoring
+- System administration
+- DevOps workflows
+
+Using these commands improves productivity and reduces the time required to locate files or diagnose system issues.
+
+### ✅ Example
+
+Find SSH configuration files:
+
+```bash
+find /etc -name "sshd_config"
+```
+
+Search the SSH configuration for the listening port:
+
+```bash
+grep "^Port" /etc/ssh/sshd_config
+```
+
+These commands help administrators verify SSH configuration quickly.
+
+---
+
+# 📌 Key Takeaways
+
+- `find` searches for **files and directories** based on attributes.
+- `grep` searches for **text patterns inside files**.
+- `find` supports searching by name, owner, permissions, size, and modification time.
+- `grep` supports recursive searching, regular expressions, case-insensitive searches, and line numbering.
+- Understanding `find` and `grep` is essential for Linux Administration, DevOps, AWS, Cloud Computing, Technical Support, and System Administration interviews.
+
+---
