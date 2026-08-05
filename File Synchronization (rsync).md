@@ -367,3 +367,548 @@ Remote synchronization over SSH also works if an SSH server is available.
 - It works securely over SSH.
 - It is widely used in **Linux Administration**, **DevOps**, **AWS**, **Cloud Computing**, **System Administration**, and **Technical Support**.
 - Learning `rsync` is essential for backups, deployments, disaster recovery, and automation.
+
+---
+
+# 💻 Part 12.2A – Practical Examples (Examples 1–10)
+
+This section contains **beginner-friendly `rsync` practical examples**. These examples are suitable for **GitHub portfolios**, **Linux Administration**, **DevOps**, **AWS**, **Cloud Computing**, and **System Administration** interviews.
+
+> ## 📌 Prerequisites
+>
+> Create sample directories for practice.
+>
+> ```bash
+> mkdir -p ~/rsync-demo/source
+> mkdir -p ~/rsync-demo/destination
+>
+> echo "Linux Notes" > ~/rsync-demo/source/notes.txt
+> echo "DevOps Guide" > ~/rsync-demo/source/devops.txt
+> echo "Shell Script" > ~/rsync-demo/source/script.sh
+> ```
+>
+> Verify:
+>
+> ```bash
+> tree ~/rsync-demo
+> ```
+>
+> If `tree` is not installed:
+>
+> ```bash
+> ls -R ~/rsync-demo
+> ```
+
+---
+
+# Example 1 – Synchronize One Directory to Another
+
+## ✅ Practical Example
+
+Synchronize all files from the **source** directory to the **destination** directory.
+
+### ✅ Command
+
+```bash
+rsync -av ~/rsync-demo/source/ ~/rsync-demo/destination/
+```
+
+### ✅ Command Explanation
+
+| Option | Description |
+|---------|-------------|
+| `-a` | Archive mode (preserves permissions, ownership, timestamps, symbolic links, etc.) |
+| `-v` | Verbose output |
+
+### ✅ Expected Output
+
+```text
+sending incremental file list
+
+notes.txt
+devops.txt
+script.sh
+
+sent ...
+received ...
+```
+
+### ✅ Real-World Use Case
+
+Synchronize project folders before deployment.
+
+### ✅ Screenshot Command
+
+```bash
+rsync -av ~/rsync-demo/source/ ~/rsync-demo/destination/
+
+tree ~/rsync-demo
+```
+
+### ✅ Ubuntu
+
+Works without additional configuration.
+
+### ✅ CentOS
+
+Fully supported.
+
+### ✅ WSL Note
+
+Works exactly like Ubuntu.
+
+---
+
+# Example 2 – Copy Files Using `rsync`
+
+## ✅ Practical Example
+
+Copy a single file using `rsync`.
+
+### ✅ Command
+
+```bash
+rsync -av ~/rsync-demo/source/notes.txt ~/rsync-demo/destination/
+```
+
+### ✅ Command Explanation
+
+Copies only the specified file while preserving its metadata.
+
+### ✅ Expected Output
+
+```text
+notes.txt
+```
+
+### ✅ Real-World Use Case
+
+Copy configuration files between directories.
+
+### ✅ Screenshot Command
+
+```bash
+rsync -av ~/rsync-demo/source/notes.txt ~/rsync-demo/destination/
+
+ls ~/rsync-demo/destination
+```
+
+### ✅ Ubuntu
+
+Supported.
+
+### ✅ CentOS
+
+Supported.
+
+### ✅ WSL Note
+
+Works normally.
+
+---
+
+# Example 3 – Synchronize Recursively
+
+## ✅ Practical Example
+
+Synchronize directories and all their subdirectories.
+
+### ✅ Command
+
+```bash
+mkdir ~/rsync-demo/source/docs
+
+echo "README" > ~/rsync-demo/source/docs/readme.md
+
+rsync -avr ~/rsync-demo/source/ ~/rsync-demo/destination/
+```
+
+### ✅ Command Explanation
+
+| Option | Description |
+|---------|-------------|
+| `-r` | Recursive synchronization |
+| `-a` | Archive mode |
+| `-v` | Verbose output |
+
+### ✅ Expected Output
+
+```text
+docs/
+docs/readme.md
+```
+
+### ✅ Real-World Use Case
+
+Synchronize complete project directories.
+
+### ✅ Screenshot Command
+
+```bash
+rsync -avr ~/rsync-demo/source/ ~/rsync-demo/destination/
+
+tree ~/rsync-demo/destination
+```
+
+### ✅ Ubuntu
+
+Supported.
+
+### ✅ CentOS
+
+Supported.
+
+### ✅ WSL Note
+
+Fully supported.
+
+---
+
+# Example 4 – Preserve Permissions and Timestamps
+
+## ✅ Practical Example
+
+Synchronize while preserving file metadata.
+
+### ✅ Command
+
+```bash
+rsync -a ~/rsync-demo/source/ ~/rsync-demo/destination/
+```
+
+### ✅ Command Explanation
+
+Archive mode preserves:
+
+- Permissions
+- Ownership
+- Timestamps
+- Symbolic links
+
+### ✅ Expected Output
+
+Files appear identical in both directories.
+
+### ✅ Real-World Use Case
+
+Server backup and migration.
+
+### ✅ Screenshot Command
+
+```bash
+rsync -a ~/rsync-demo/source/ ~/rsync-demo/destination/
+
+ls -l ~/rsync-demo/destination
+```
+
+### ✅ Ubuntu
+
+Supported.
+
+### ✅ CentOS
+
+Supported.
+
+### ✅ WSL Note
+
+Works normally.
+
+---
+
+# Example 5 – Show Verbose Output
+
+## ✅ Practical Example
+
+Display detailed synchronization information.
+
+### ✅ Command
+
+```bash
+rsync -av ~/rsync-demo/source/ ~/rsync-demo/destination/
+```
+
+### ✅ Command Explanation
+
+Verbose mode shows every processed file.
+
+### ✅ Expected Output
+
+```text
+notes.txt
+devops.txt
+script.sh
+```
+
+### ✅ Real-World Use Case
+
+Monitor synchronization during troubleshooting.
+
+### ✅ Screenshot Command
+
+```bash
+rsync -av ~/rsync-demo/source/ ~/rsync-demo/destination/
+```
+
+### ✅ Ubuntu
+
+Supported.
+
+### ✅ CentOS
+
+Supported.
+
+### ✅ WSL Note
+
+No differences.
+
+---
+
+# Example 6 – Dry Run Before Synchronization
+
+## ✅ Practical Example
+
+Preview changes without copying files.
+
+### ✅ Command
+
+```bash
+echo "New File" > ~/rsync-demo/source/new.txt
+
+rsync -av --dry-run ~/rsync-demo/source/ ~/rsync-demo/destination/
+```
+
+### ✅ Command Explanation
+
+`--dry-run` shows what would happen without making changes.
+
+### ✅ Expected Output
+
+```text
+new.txt
+```
+
+### ✅ Real-World Use Case
+
+Verify synchronization before production deployment.
+
+### ✅ Screenshot Command
+
+```bash
+rsync -av --dry-run ~/rsync-demo/source/ ~/rsync-demo/destination/
+```
+
+### ✅ Ubuntu
+
+Supported.
+
+### ✅ CentOS
+
+Supported.
+
+### ✅ WSL Note
+
+Recommended before large synchronization jobs.
+
+---
+
+# Example 7 – Delete Extra Files in Destination
+
+## ✅ Practical Example
+
+Remove files from the destination that no longer exist in the source.
+
+### ✅ Command
+
+```bash
+rsync -av --delete ~/rsync-demo/source/ ~/rsync-demo/destination/
+```
+
+### ✅ Command Explanation
+
+`--delete` keeps the destination identical to the source.
+
+### ✅ Expected Output
+
+Extra files are removed from the destination.
+
+### ✅ Real-World Use Case
+
+Mirror production and backup directories.
+
+### ✅ Screenshot Command
+
+```bash
+rsync -av --delete ~/rsync-demo/source/ ~/rsync-demo/destination/
+
+tree ~/rsync-demo/destination
+```
+
+### ✅ Ubuntu
+
+Supported.
+
+### ✅ CentOS
+
+Supported.
+
+### ✅ WSL Note
+
+⚠️ Use carefully, as deleted files cannot be recovered.
+
+---
+
+# Example 8 – Synchronize Only Updated Files
+
+## ✅ Practical Example
+
+Transfer only files that have changed.
+
+### ✅ Command
+
+```bash
+echo "Updated Content" >> ~/rsync-demo/source/notes.txt
+
+rsync -av ~/rsync-demo/source/ ~/rsync-demo/destination/
+```
+
+### ✅ Command Explanation
+
+`rsync` compares source and destination and copies only modified files.
+
+### ✅ Expected Output
+
+```text
+notes.txt
+```
+
+Only the updated file is transferred.
+
+### ✅ Real-World Use Case
+
+Daily incremental backups.
+
+### ✅ Screenshot Command
+
+```bash
+rsync -av ~/rsync-demo/source/ ~/rsync-demo/destination/
+```
+
+### ✅ Ubuntu
+
+Supported.
+
+### ✅ CentOS
+
+Supported.
+
+### ✅ WSL Note
+
+Fully supported.
+
+---
+
+# Example 9 – Display Progress During Transfer
+
+## ✅ Practical Example
+
+Monitor synchronization progress.
+
+### ✅ Command
+
+```bash
+rsync -av --progress ~/rsync-demo/source/ ~/rsync-demo/destination/
+```
+
+### ✅ Command Explanation
+
+`--progress` displays transfer speed, percentage completed, and remaining data.
+
+### ✅ Expected Output
+
+```text
+notes.txt
+      100% ...
+```
+
+### ✅ Real-World Use Case
+
+Monitor large backup or migration operations.
+
+### ✅ Screenshot Command
+
+```bash
+rsync -av --progress ~/rsync-demo/source/ ~/rsync-demo/destination/
+```
+
+### ✅ Ubuntu
+
+Supported.
+
+### ✅ CentOS
+
+Supported.
+
+### ✅ WSL Note
+
+Works normally.
+
+---
+
+# Example 10 – Verify Synchronized Files
+
+## ✅ Practical Example
+
+Verify that both directories contain identical files.
+
+### ✅ Command
+
+```bash
+diff -r ~/rsync-demo/source ~/rsync-demo/destination
+```
+
+### ✅ Command Explanation
+
+`diff -r` recursively compares two directories.
+
+### ✅ Expected Output
+
+If both directories are identical:
+
+```text
+(no output)
+```
+
+### ✅ Real-World Use Case
+
+Verify backups after synchronization.
+
+### ✅ Screenshot Command
+
+```bash
+diff -r ~/rsync-demo/source ~/rsync-demo/destination
+```
+
+### ✅ Ubuntu
+
+Supported.
+
+### ✅ CentOS
+
+Supported.
+
+### ✅ WSL Note
+
+Works exactly like Ubuntu.
+
+---
+
+# 📌 Key Takeaways
+
+- `rsync -av` → Synchronize files while preserving metadata.
+- `rsync --dry-run` → Preview changes safely.
+- `rsync --delete` → Keep destination identical to source.
+- `rsync --progress` → Display transfer progress.
+- `diff -r` → Verify synchronized directories.
+- `rsync` transfers **only changed files**, making it significantly faster than repeatedly using `cp`.
+
+---
