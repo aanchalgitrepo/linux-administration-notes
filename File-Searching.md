@@ -1016,3 +1016,426 @@ In this section, you learned how to:
 These commands are used daily by Linux Administrators, DevOps Engineers, Cloud Engineers, and System Administrators for troubleshooting, automation, and server management.
 
 ---
+
+# 📂 Part 10.2B – Advanced Practical Examples (Examples 11–20)
+
+This section covers advanced examples of the **`find`** and **`grep`** commands that are frequently used by **Linux Administrators, DevOps Engineers, Cloud Engineers, AWS Engineers, and System Administrators**.
+
+> **Note:** These examples work on **Ubuntu, CentOS, RHEL, Amazon Linux, and WSL** (unless otherwise noted).
+
+---
+
+# Example 11 – Find Files by Owner
+
+## ✅ Practical Example
+
+Find all files owned by the user **rahul**.
+
+### ✅ Command
+
+```bash
+find . -user rahul
+```
+
+### ✅ Command Explanation
+
+- `find` → Searches files and directories.
+- `.` → Current directory.
+- `-user rahul` → Search files owned by the user **rahul**.
+
+### ✅ Expected Output
+
+```text
+./documents/report.txt
+./projects/script.sh
+```
+
+### ✅ Real-World Use Case
+
+System administrators use this command to audit files owned by a specific user before account deletion or migration.
+
+### ✅ Screenshot Command
+
+```bash
+find . -user rahul
+```
+
+---
+
+# Example 12 – Find Files by Permissions
+
+## ✅ Practical Example
+
+Find all files with permission **644**.
+
+### ✅ Command
+
+```bash
+find . -perm 644
+```
+
+### ✅ Command Explanation
+
+- `-perm` → Searches based on file permissions.
+- `644` → Exact permission value.
+
+### ✅ Expected Output
+
+```text
+./notes.txt
+./README.md
+```
+
+### ✅ Real-World Use Case
+
+Useful for verifying file permissions during security audits.
+
+### ✅ Screenshot Command
+
+```bash
+find . -perm 644
+```
+
+---
+
+# Example 13 – Find Files by Size
+
+## ✅ Practical Example
+
+Find all files larger than **100 MB**.
+
+### ✅ Command
+
+```bash
+find . -type f -size +100M
+```
+
+### ✅ Command Explanation
+
+- `-type f` → Search files only.
+- `-size +100M` → Files larger than 100 MB.
+
+### ✅ Expected Output
+
+```text
+./backup/database.sql
+./videos/demo.mp4
+```
+
+### ✅ Real-World Use Case
+
+Identify large files consuming disk space before performing cleanup.
+
+### ✅ Screenshot Command
+
+```bash
+find . -type f -size +100M
+```
+
+---
+
+# Example 14 – Find and Delete Files
+
+## ✅ Practical Example
+
+Delete all temporary (`.tmp`) files.
+
+### ✅ Command
+
+```bash
+find . -name "*.tmp" -delete
+```
+
+### ✅ Command Explanation
+
+- `-name "*.tmp"` → Search all `.tmp` files.
+- `-delete` → Delete matched files.
+
+### ✅ Expected Output
+
+```text
+(No output if deletion succeeds)
+```
+
+### ✅ Real-World Use Case
+
+Automatically remove temporary files during scheduled maintenance.
+
+> ⚠️ **Warning:** Verify the search results before using `-delete`, as deleted files cannot be recovered easily.
+
+### ✅ Screenshot Command
+
+```bash
+find . -name "*.tmp"
+```
+
+Then:
+
+```bash
+find . -name "*.tmp" -delete
+```
+
+---
+
+# Example 15 – Execute Commands Using `find -exec`
+
+## ✅ Practical Example
+
+Display detailed information for every shell script found.
+
+### ✅ Command
+
+```bash
+find . -name "*.sh" -exec ls -l {} \;
+```
+
+### ✅ Command Explanation
+
+- `-exec` → Execute a command on each matched file.
+- `{}` → Placeholder for the matched filename.
+- `\;` → Ends the `-exec` command.
+
+### ✅ Expected Output
+
+```text
+-rwxr-xr-x user user 450 Jul 22 backup.sh
+-rwxr-xr-x user user 320 Jul 23 deploy.sh
+```
+
+### ✅ Real-World Use Case
+
+Execute operations such as listing, copying, compressing, or changing permissions on multiple files.
+
+### ✅ Screenshot Command
+
+```bash
+find . -name "*.sh" -exec ls -l {} \;
+```
+
+---
+
+# Example 16 – Search Multiple Patterns
+
+## ✅ Practical Example
+
+Search for **ERROR** or **WARNING** inside a log file.
+
+### ✅ Command
+
+```bash
+grep -E "ERROR|WARNING" app.log
+```
+
+### ✅ Command Explanation
+
+- `-E` → Enables extended regular expressions.
+- `ERROR|WARNING` → Matches either pattern.
+
+### ✅ Expected Output
+
+```text
+ERROR: Database connection failed
+WARNING: Low disk space
+```
+
+### ✅ Real-World Use Case
+
+Monitor application logs for multiple error conditions.
+
+### ✅ Screenshot Command
+
+```bash
+grep -E "ERROR|WARNING" app.log
+```
+
+---
+
+# Example 17 – Show Line Numbers with `grep -n`
+
+## ✅ Practical Example
+
+Display matching lines along with their line numbers.
+
+### ✅ Command
+
+```bash
+grep -n "main" script.sh
+```
+
+### ✅ Command Explanation
+
+- `-n` → Shows line numbers with each matching line.
+
+### ✅ Expected Output
+
+```text
+12:main() {
+45:echo "main completed"
+```
+
+### ✅ Real-World Use Case
+
+Locate code quickly while debugging or reviewing configuration files.
+
+### ✅ Screenshot Command
+
+```bash
+grep -n "main" script.sh
+```
+
+---
+
+# Example 18 – Count Matches with `grep -c`
+
+## ✅ Practical Example
+
+Count how many lines contain the word **ERROR**.
+
+### ✅ Command
+
+```bash
+grep -c "ERROR" app.log
+```
+
+### ✅ Command Explanation
+
+- `-c` → Counts matching lines instead of displaying them.
+
+### ✅ Expected Output
+
+```text
+8
+```
+
+### ✅ Real-World Use Case
+
+Generate quick statistics from log files or reports.
+
+### ✅ Screenshot Command
+
+```bash
+grep -c "ERROR" app.log
+```
+
+---
+
+# Example 19 – Invert Matches Using `grep -v`
+
+## ✅ Practical Example
+
+Display all lines **except** comments.
+
+### ✅ Command
+
+```bash
+grep -v "^#" config.conf
+```
+
+### ✅ Command Explanation
+
+- `-v` → Displays non-matching lines.
+- `^#` → Matches lines beginning with `#`.
+
+### ✅ Expected Output
+
+```text
+Port 22
+PermitRootLogin no
+PasswordAuthentication yes
+```
+
+### ✅ Real-World Use Case
+
+View active configuration settings while ignoring comments.
+
+### ✅ Screenshot Command
+
+```bash
+grep -v "^#" config.conf
+```
+
+---
+
+# Example 20 – Search Logs Using `grep`
+
+## ✅ Practical Example
+
+Search SSH authentication logs for failed login attempts.
+
+### ✅ Ubuntu / Debian
+
+```bash
+grep "Failed" /var/log/auth.log
+```
+
+### ✅ CentOS / RHEL
+
+```bash
+grep "Failed" /var/log/secure
+```
+
+### ✅ WSL Note
+
+WSL usually does **not** generate `/var/log/auth.log` or `/var/log/secure` unless an SSH server and logging services are configured. You can create a sample log file to practice:
+
+```bash
+echo "Failed password for user" > sample.log
+grep "Failed" sample.log
+```
+
+### ✅ Command Explanation
+
+- Searches authentication logs for failed login attempts.
+- Helps identify unauthorized access attempts.
+
+### ✅ Expected Output
+
+```text
+Failed password for invalid user admin
+Failed password for root
+```
+
+### ✅ Real-World Use Case
+
+Security teams and system administrators use this command to investigate suspicious login activity and monitor server security.
+
+### ✅ Screenshot Command
+
+**Ubuntu**
+
+```bash
+grep "Failed" /var/log/auth.log
+```
+
+**CentOS**
+
+```bash
+grep "Failed" /var/log/secure
+```
+
+**WSL Practice**
+
+```bash
+grep "Failed" sample.log
+```
+
+---
+
+# 🎯 Summary
+
+In this section, you learned how to:
+
+- Find files by owner.
+- Find files based on permissions.
+- Locate files by size.
+- Delete files using `find`.
+- Execute commands using `find -exec`.
+- Search multiple patterns with `grep -E`.
+- Display line numbers using `grep -n`.
+- Count matching lines using `grep -c`.
+- Exclude matching lines using `grep -v`.
+- Search authentication and application logs using `grep`.
+
+These advanced commands are used daily by **Linux Administrators, DevOps Engineers, Cloud Engineers, Security Engineers, and System Administrators** for troubleshooting, automation, auditing, and server maintenance.
+
+---
