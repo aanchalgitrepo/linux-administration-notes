@@ -2578,3 +2578,256 @@ This transfers only modified files, reducing deployment time and network usage.
 - `rsync` is widely used for backups, deployments, disaster recovery, and cloud server management.
 
 ---
+
+# 🎯 Part 12.4B – Advanced Interview Questions (24–30)
+
+This section covers **advanced `rsync` interview questions (24–30)** commonly asked in **Linux Administration**, **DevOps**, **AWS**, **Cloud Computing**, **Technical Support**, and **System Administration** interviews.
+
+Each question includes:
+
+- ✅ Interview Question
+- ✅ Professional Answer
+- ✅ Example (where applicable)
+
+---
+
+# Question 24 – Can `rsync` Resume an Interrupted Transfer?
+
+## ✅ Professional Answer
+
+Yes. `rsync` can resume an interrupted file transfer instead of copying the entire file again.
+
+The `--partial` option keeps the partially transferred file, allowing the next synchronization to continue from where it stopped.
+
+This feature is extremely useful when transferring large files over unstable network connections.
+
+### ✅ Example
+
+```bash
+rsync -av --partial largefile.iso user@server:/backup/
+```
+
+---
+
+# Question 25 – What is the Difference Between `--delete` and `--backup`?
+
+## ✅ Professional Answer
+
+`--delete` removes files from the destination that no longer exist in the source, making the destination an exact mirror of the source.
+
+`--backup` preserves overwritten or deleted destination files by storing them in a backup location before replacing them.
+
+### ✅ Example
+
+Mirror source:
+
+```bash
+rsync -av --delete source/ destination/
+```
+
+Backup changed files:
+
+```bash
+rsync -av --backup --backup-dir=/backup source/ destination/
+```
+
+### ✅ Interview Tip
+
+Use `--backup` when data recovery may be required, and use `--delete` only after verifying the changes with `--dry-run`.
+
+---
+
+# Question 26 – Why is `rsync` Widely Used in DevOps?
+
+## ✅ Professional Answer
+
+`rsync` is one of the most popular tools in DevOps because it performs efficient and secure file synchronization.
+
+It is commonly used for:
+
+- CI/CD deployments
+- Website deployment
+- Server migration
+- Configuration synchronization
+- Backup automation
+- Docker volume backup
+- Log synchronization
+- Disaster recovery
+- AWS EC2 file transfers
+
+Its incremental synchronization saves time and reduces network bandwidth.
+
+### ✅ Example
+
+Deploy application files to a production server:
+
+```bash
+rsync -avz ./app/ ubuntu@server:/var/www/html/
+```
+
+---
+
+# Question 27 – What Precautions Should Be Taken Before Running `rsync --delete`?
+
+## ✅ Professional Answer
+
+Since `--delete` permanently removes extra files from the destination, administrators should take several precautions:
+
+- Perform a dry run first.
+- Verify source and destination paths.
+- Keep a backup of important files.
+- Confirm that the source directory is complete.
+- Test the command in a non-production environment before running it on production servers.
+
+### ✅ Example
+
+Safe approach:
+
+```bash
+rsync -av --dry-run --delete source/ destination/
+```
+
+After verification:
+
+```bash
+rsync -av --delete source/ destination/
+```
+
+---
+
+# Question 28 – Explain the Role of SSH in `rsync`.
+
+## ✅ Professional Answer
+
+SSH provides a secure communication channel for `rsync`.
+
+It offers:
+
+- Encrypted data transfer
+- User authentication
+- Secure remote administration
+- Protection against packet interception
+- Support for SSH key authentication
+
+Most production environments use `rsync` together with SSH.
+
+### ✅ Example
+
+```bash
+rsync -avz project/ ubuntu@192.168.1.100:/home/ubuntu/project/
+```
+
+Using a custom SSH port:
+
+```bash
+rsync -avz -e "ssh -p 2222" project/ ubuntu@192.168.1.100:/backup/
+```
+
+---
+
+# Question 29 – What Are the Most Commonly Used `rsync` Options?
+
+## ✅ Professional Answer
+
+Some of the most frequently used options are:
+
+| Option | Purpose |
+|---------|---------|
+| `-a` | Archive mode |
+| `-v` | Verbose output |
+| `-z` | Compress transferred data |
+| `-r` | Recursive copy |
+| `--progress` | Display transfer progress |
+| `--delete` | Remove extra destination files |
+| `--dry-run` | Preview synchronization |
+| `--exclude` | Exclude files or directories |
+| `--backup` | Save previous versions of files |
+| `--bwlimit` | Limit bandwidth usage |
+
+### ✅ Example
+
+```bash
+rsync -avz --progress source/ destination/
+```
+
+---
+
+# Question 30 – Explain an End-to-End `rsync` Backup Process Used in Production.
+
+## ✅ Professional Answer
+
+A typical production backup process using `rsync` follows these steps:
+
+1. Store application data in the source directory.
+2. Perform a dry run to verify the synchronization.
+3. Synchronize files using `rsync`.
+4. Transfer files securely over SSH.
+5. Log synchronization details.
+6. Schedule the backup with Cron.
+7. Verify the backup after completion.
+
+This process ensures efficient, secure, and automated backups.
+
+### ✅ Example
+
+Daily backup command:
+
+```bash
+rsync -avz --delete /var/www/html/ backup@192.168.1.200:/backup/website/
+```
+
+Cron Job:
+
+```cron
+0 2 * * * rsync -avz --delete /var/www/html/ backup@192.168.1.200:/backup/website/
+```
+
+Verification:
+
+```bash
+diff -r /var/www/html /backup/website
+```
+
+### ✅ Real-World Scenario
+
+A company hosts its website on an AWS EC2 instance.
+
+Every night at **2:00 AM**, a Cron Job automatically runs `rsync` to synchronize website files to a backup server.
+
+Benefits include:
+
+- Automatic backups
+- Faster synchronization
+- Reduced bandwidth usage
+- Secure file transfer over SSH
+- Easy disaster recovery
+- Minimal downtime during restoration
+
+---
+
+# 📌 Key Interview Takeaways
+
+- Understand how `rsync` performs **incremental synchronization**.
+- Know when to use `--delete`, `--backup`, and `--dry-run`.
+- Be able to explain why SSH is commonly used with `rsync`.
+- Understand the importance of archive mode (`-a`) and compression (`-z`).
+- Know how to automate `rsync` using Cron.
+- Mention practical production use cases such as:
+  - Website deployment
+  - Server migration
+  - AWS EC2 backups
+  - Docker volume synchronization
+  - CI/CD pipelines
+  - Disaster recovery
+  - Configuration management
+  - Log backups
+
+---
+
+# 💡 Interview Tip
+
+If an interviewer asks, **"Which Linux command would you choose for backups?"**, a strong professional answer is:
+
+> **"I would use `rsync` because it performs incremental synchronization, preserves permissions and timestamps, supports secure SSH-based transfers, reduces bandwidth by transferring only changed data, and can be automated using Cron. These features make it the preferred choice for production backups, deployments, and disaster recovery."**
+
+---
