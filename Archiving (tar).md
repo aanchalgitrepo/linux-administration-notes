@@ -945,3 +945,444 @@ Works exactly the same as Ubuntu.
 - These commands are widely used for backups, software packaging, deployments, and disaster recovery in Linux and DevOps environments.
 
 ---
+
+# 📂 Part 11.2B – Advanced Practical Examples (Examples 11–20)
+
+This section covers **advanced `tar` command examples** commonly used by **Linux Administrators**, **DevOps Engineers**, **Cloud Engineers**, and **System Administrators**.
+
+> **Practice Directory**
+>
+> ```bash
+> mkdir -p ~/tar-demo/project
+> cd ~/tar-demo/project
+>
+> echo "Linux" > notes.txt
+> echo "DevOps" > project.txt
+> echo "Backup" > backup.log
+> mkdir docs
+> echo "README" > docs/readme.md
+>
+> cd ..
+> ```
+
+---
+
+# Example 11 – Archive Multiple Files
+
+## ✅ Practical Example
+
+Create a single archive containing multiple files.
+
+### ✅ Command
+
+```bash
+tar -cvf files.tar project/notes.txt project/project.txt
+```
+
+### ✅ Command Explanation
+
+| Option | Meaning |
+|---------|---------|
+| `-c` | Create archive |
+| `-v` | Verbose output |
+| `-f` | Archive filename |
+
+### ✅ Expected Output
+
+```text
+project/notes.txt
+project/project.txt
+```
+
+### ✅ Real-World Use Case
+
+Archive selected configuration files before making system changes.
+
+### ✅ Screenshot Command
+
+```bash
+tar -cvf files.tar project/notes.txt project/project.txt
+tar -tvf files.tar
+```
+
+---
+
+# Example 12 – Archive Multiple Directories
+
+## ✅ Practical Example
+
+Archive more than one directory.
+
+### ✅ Command
+
+```bash
+mkdir backup logs
+
+tar -cvf directories.tar project backup logs
+```
+
+### ✅ Command Explanation
+
+Archives multiple directories into one TAR file.
+
+### ✅ Expected Output
+
+```text
+project/
+backup/
+logs/
+```
+
+### ✅ Real-World Use Case
+
+Create one backup containing application, logs, and configuration directories.
+
+### ✅ Screenshot Command
+
+```bash
+tar -cvf directories.tar project backup logs
+```
+
+---
+
+# Example 13 – Exclude Files While Creating Archive
+
+## ✅ Practical Example
+
+Exclude log files from the archive.
+
+### ✅ Command
+
+```bash
+tar --exclude="*.log" -cvf backup.tar project/
+```
+
+### ✅ Command Explanation
+
+`--exclude` prevents matching files from being archived.
+
+### ✅ Expected Output
+
+```text
+project/
+project/notes.txt
+project/project.txt
+project/docs/
+```
+
+> `backup.log` is excluded.
+
+### ✅ Real-World Use Case
+
+Exclude temporary or log files from production backups.
+
+### ✅ Screenshot Command
+
+```bash
+tar --exclude="*.log" -cvf backup.tar project/
+tar -tvf backup.tar
+```
+
+---
+
+# Example 14 – Append Files to an Existing Archive
+
+## ✅ Practical Example
+
+Add a new file to an existing TAR archive.
+
+### ✅ Command
+
+```bash
+echo "New File" > new.txt
+
+tar -rvf backup.tar new.txt
+```
+
+### ✅ Command Explanation
+
+| Option | Meaning |
+|---------|---------|
+| `-r` | Append files |
+| `-v` | Verbose |
+| `-f` | Archive file |
+
+### ✅ Expected Output
+
+```text
+new.txt
+```
+
+### ✅ Real-World Use Case
+
+Add configuration files to an existing backup.
+
+### ✅ Screenshot Command
+
+```bash
+tar -rvf backup.tar new.txt
+tar -tvf backup.tar
+```
+
+---
+
+# Example 15 – Update Files Inside an Archive
+
+## ✅ Practical Example
+
+Update only modified files.
+
+### ✅ Command
+
+```bash
+echo "Updated" >> project/notes.txt
+
+tar -uvf backup.tar project/notes.txt
+```
+
+### ✅ Command Explanation
+
+`-u` updates only files that have changed.
+
+### ✅ Expected Output
+
+```text
+project/notes.txt
+```
+
+### ✅ Real-World Use Case
+
+Incremental project backups.
+
+### ✅ Screenshot Command
+
+```bash
+tar -uvf backup.tar project/notes.txt
+```
+
+---
+
+# Example 16 – Verify Archive Contents
+
+## ✅ Practical Example
+
+Verify that the archive can be read.
+
+### ✅ Command
+
+```bash
+tar -Wvf backup.tar
+```
+
+### ✅ Command Explanation
+
+| Option | Meaning |
+|---------|---------|
+| `-W` | Verify archive |
+| `-v` | Verbose |
+| `-f` | Archive filename |
+
+### ✅ Expected Output
+
+Verification messages indicating archive integrity.
+
+### ✅ Real-World Use Case
+
+Ensure backups are valid before storing them.
+
+### ✅ Screenshot Command
+
+```bash
+tar -Wvf backup.tar
+```
+
+---
+
+# Example 17 – Extract a Single File
+
+## ✅ Practical Example
+
+Extract only one file from an archive.
+
+### ✅ Command
+
+```bash
+tar -xvf backup.tar project/notes.txt
+```
+
+### ✅ Command Explanation
+
+Extracts only the specified file.
+
+### ✅ Expected Output
+
+```text
+project/notes.txt
+```
+
+### ✅ Real-World Use Case
+
+Restore a deleted configuration file without extracting the entire archive.
+
+### ✅ Screenshot Command
+
+```bash
+tar -xvf backup.tar project/notes.txt
+```
+
+---
+
+# Example 18 – View Archive Without Extracting
+
+## ✅ Practical Example
+
+Display archive contents.
+
+### ✅ Command
+
+```bash
+tar -tvf backup.tar
+```
+
+### ✅ Command Explanation
+
+Lists archived files without extracting them.
+
+### ✅ Expected Output
+
+```text
+project/
+project/notes.txt
+project/project.txt
+project/docs/
+```
+
+### ✅ Real-World Use Case
+
+Verify backup contents before restoration.
+
+### ✅ Screenshot Command
+
+```bash
+tar -tvf backup.tar
+```
+
+---
+
+# Example 19 – Create Archive with Absolute Paths
+
+## ✅ Practical Example
+
+Archive files using absolute paths.
+
+### ✅ Command
+
+```bash
+tar -cvPf absolute.tar /home/$USER/tar-demo/project
+```
+
+### ✅ Command Explanation
+
+| Option | Meaning |
+|---------|---------|
+| `-P` | Preserve absolute paths |
+
+### ✅ Expected Output
+
+```text
+/home/user/tar-demo/project/
+```
+
+### ✅ Real-World Use Case
+
+Full system backups where original paths must be preserved.
+
+> **⚠️ Warning:** Use `-P` carefully because extracting such archives can overwrite files in their original absolute locations.
+
+### ✅ Screenshot Command
+
+```bash
+tar -cvPf absolute.tar /home/$USER/tar-demo/project
+```
+
+---
+
+# Example 20 – Create a Compressed Backup for Deployment
+
+## ✅ Practical Example
+
+Create a compressed archive suitable for deployment or backup.
+
+### ✅ Command
+
+```bash
+tar -czvf project-backup.tar.gz project/
+```
+
+### ✅ Command Explanation
+
+Creates a compressed archive using **gzip**.
+
+### ✅ Expected Output
+
+```text
+project/
+project/notes.txt
+project/project.txt
+project/docs/
+```
+
+### ✅ Real-World Use Case
+
+- Website deployment
+- AWS EC2 backups
+- Docker project backups
+- GitHub release packages
+- CI/CD build artifacts
+
+### ✅ Screenshot Command
+
+```bash
+tar -czvf project-backup.tar.gz project/
+
+ls -lh project-backup.tar.gz
+```
+
+---
+
+# 🎯 Key Takeaways
+
+- `tar -rvf` → Append files to an archive.
+- `tar -uvf` → Update modified files.
+- `tar --exclude` → Exclude files or directories.
+- `tar -xvf archive file` → Extract a specific file.
+- `tar -tvf` → View archive contents.
+- `tar -Wvf` → Verify archive integrity.
+- `tar -cvPf` → Preserve absolute paths.
+- `tar -czvf` → Create a compressed backup for deployment.
+
+---
+
+# 💼 Interview Tip
+
+In real production environments, the most commonly used `tar` commands are:
+
+```bash
+tar -czvf backup.tar.gz project/
+tar -xzvf backup.tar.gz
+tar -tvf backup.tar.gz
+tar --exclude="*.log" -czvf backup.tar.gz project/
+tar -xvf backup.tar project/file.txt
+```
+
+These commands are frequently used for:
+
+- Linux Server Backups
+- AWS EC2 Backups
+- DevOps CI/CD Pipelines
+- Docker Volume Backups
+- Website Migration
+- Configuration Backups
+- Disaster Recovery
+
+---
