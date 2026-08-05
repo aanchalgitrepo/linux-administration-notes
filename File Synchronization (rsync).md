@@ -1391,3 +1391,561 @@ These commands are frequently used for:
 - Automated backups with Cron
 
 ---
+
+# 📝 Part 12.3 – Practice Exercises
+
+This section contains **hands-on `rsync` practice exercises** to strengthen your understanding of **File Synchronization**. These exercises are suitable for **WSL Ubuntu**, **Ubuntu Server**, **CentOS/RHEL**, **AWS EC2**, and **Linux Administration** interview preparation.
+
+---
+
+# ✅ 10+ Practice Exercises
+
+## Exercise 1 – Synchronize One Directory
+
+### Objective
+
+Synchronize one directory to another using `rsync`.
+
+### Tasks
+
+- Create `source` and `destination` directories.
+- Create a few sample files.
+- Synchronize the directories.
+
+### Expected Result
+
+Both directories should contain identical files.
+
+---
+
+## Exercise 2 – Copy a Single File
+
+### Objective
+
+Copy only one file using `rsync`.
+
+### Tasks
+
+- Create `notes.txt`.
+- Copy it to another directory.
+- Verify the copied file.
+
+### Expected Result
+
+Only the selected file should be copied.
+
+---
+
+## Exercise 3 – Preserve File Permissions
+
+### Objective
+
+Synchronize while preserving permissions and timestamps.
+
+### Tasks
+
+- Change file permissions using `chmod`.
+- Synchronize using archive mode.
+- Verify permissions after synchronization.
+
+### Expected Result
+
+Permissions and timestamps should remain unchanged.
+
+---
+
+## Exercise 4 – Dry Run
+
+### Objective
+
+Preview synchronization without copying files.
+
+### Tasks
+
+- Modify one file.
+- Run `rsync --dry-run`.
+- Observe the output.
+
+### Expected Result
+
+The command should display the files that **would** be synchronized without making any changes.
+
+---
+
+## Exercise 5 – Exclude Files
+
+### Objective
+
+Exclude log files during synchronization.
+
+### Tasks
+
+- Create `.log` files.
+- Synchronize using `--exclude="*.log"`.
+
+### Expected Result
+
+Log files should not be copied.
+
+---
+
+## Exercise 6 – Synchronize Hidden Files
+
+### Objective
+
+Synchronize hidden files.
+
+### Tasks
+
+- Create `.env` and `.gitignore`.
+- Synchronize the directory.
+
+### Expected Result
+
+Hidden files should also be copied.
+
+---
+
+## Exercise 7 – Delete Extra Files
+
+### Objective
+
+Mirror the source directory.
+
+### Tasks
+
+- Create an extra file in the destination.
+- Synchronize using `--delete`.
+
+### Expected Result
+
+The extra file should be removed.
+
+---
+
+## Exercise 8 – Display Progress
+
+### Objective
+
+Display synchronization progress.
+
+### Tasks
+
+- Create a large file.
+- Synchronize using `--progress`.
+
+### Expected Result
+
+Progress percentage should be displayed.
+
+---
+
+## Exercise 9 – Synchronize Over SSH
+
+### Objective
+
+Synchronize files to another Linux system.
+
+### Tasks
+
+- Configure SSH.
+- Synchronize files using `rsync`.
+
+### Expected Result
+
+Files should be copied securely over SSH.
+
+---
+
+## Exercise 10 – Verify Synchronization
+
+### Objective
+
+Verify that both directories are identical.
+
+### Tasks
+
+- Synchronize directories.
+- Compare them using `diff`.
+
+### Expected Result
+
+No differences should be reported.
+
+---
+
+## Exercise 11 – Automate Using Cron
+
+### Objective
+
+Automate synchronization.
+
+### Tasks
+
+- Create a Cron Job.
+- Schedule synchronization every day.
+- Verify the Cron entry.
+
+### Expected Result
+
+Synchronization should run automatically according to the schedule.
+
+---
+
+# 🐧 WSL-Friendly Exercises
+
+These exercises work perfectly in **WSL Ubuntu**.
+
+- Practice local directory synchronization.
+- Synchronize hidden files.
+- Test `--dry-run`.
+- Practice `--progress`.
+- Exclude `.log` files.
+- Synchronize only updated files.
+- Mirror directories using `--delete`.
+- Verify synchronization using `diff`.
+- Practice archive mode (`-a`).
+- Create an automated backup with Cron.
+
+> **Note:** Remote synchronization over SSH requires an accessible SSH server.
+
+---
+
+# 🖥 Ubuntu Server Exercises
+
+Practice these on an Ubuntu Server or an AWS EC2 Ubuntu instance.
+
+- Synchronize website files.
+- Backup `/var/www/html`.
+- Synchronize configuration files.
+- Synchronize `/etc/nginx`.
+- Synchronize `/home` directories.
+- Transfer files using SSH.
+- Test custom SSH ports.
+- Limit bandwidth using `--bwlimit`.
+- Backup modified files using `--backup`.
+- Schedule automatic synchronization using Cron.
+
+---
+
+# 🏢 CentOS / RHEL Equivalents
+
+The same commands work on CentOS/RHEL.
+
+If `rsync` is not installed:
+
+### CentOS 7
+
+```bash
+sudo yum install rsync
+```
+
+### CentOS Stream / RHEL 8+
+
+```bash
+sudo dnf install rsync
+```
+
+Examples:
+
+```bash
+rsync -av source/ destination/
+
+rsync -avz source/ user@server:/backup/
+
+rsync -av --delete source/ destination/
+
+rsync -av --progress source/ destination/
+```
+
+No syntax changes are required.
+
+---
+
+# 📸 Screenshot Guide
+
+Capture screenshots for the following commands to include in your GitHub repository.
+
+## Setup
+
+```bash
+mkdir -p ~/rsync-demo/source
+mkdir -p ~/rsync-demo/destination
+```
+
+---
+
+## Synchronize Directory
+
+```bash
+rsync -av ~/rsync-demo/source/ ~/rsync-demo/destination/
+```
+
+---
+
+## Copy Single File
+
+```bash
+rsync -av ~/rsync-demo/source/notes.txt ~/rsync-demo/destination/
+```
+
+---
+
+## Dry Run
+
+```bash
+rsync -av --dry-run ~/rsync-demo/source/ ~/rsync-demo/destination/
+```
+
+---
+
+## Exclude Files
+
+```bash
+rsync -av --exclude="*.log" ~/rsync-demo/source/ ~/rsync-demo/destination/
+```
+
+---
+
+## Show Progress
+
+```bash
+rsync -av --progress ~/rsync-demo/source/ ~/rsync-demo/destination/
+```
+
+---
+
+## Mirror Source
+
+```bash
+rsync -av --delete ~/rsync-demo/source/ ~/rsync-demo/destination/
+```
+
+---
+
+## Synchronize Over SSH
+
+```bash
+rsync -avz ~/rsync-demo/source/ user@server:/backup/
+```
+
+---
+
+## Verify Synchronization
+
+```bash
+diff -r ~/rsync-demo/source ~/rsync-demo/destination
+```
+
+---
+
+## View Cron Job
+
+```bash
+crontab -l
+```
+
+---
+
+# ⚠ Common Errors & Troubleshooting
+
+## Error 1
+
+### Error
+
+```text
+rsync: command not found
+```
+
+### Cause
+
+`rsync` is not installed.
+
+### Solution
+
+Ubuntu
+
+```bash
+sudo apt update
+
+sudo apt install rsync
+```
+
+CentOS
+
+```bash
+sudo yum install rsync
+```
+
+---
+
+## Error 2
+
+### Error
+
+```text
+Permission denied
+```
+
+### Cause
+
+Insufficient permissions.
+
+### Solution
+
+```bash
+sudo rsync -av source/ destination/
+```
+
+---
+
+## Error 3
+
+### Error
+
+```text
+No such file or directory
+```
+
+### Cause
+
+Incorrect file or directory path.
+
+### Solution
+
+Verify the path:
+
+```bash
+ls
+```
+
+or
+
+```bash
+pwd
+```
+
+---
+
+## Error 4
+
+### Error
+
+```text
+Connection refused
+```
+
+### Cause
+
+SSH service is not running.
+
+### Solution
+
+Ubuntu
+
+```bash
+sudo service ssh start
+```
+
+CentOS
+
+```bash
+sudo systemctl start sshd
+```
+
+---
+
+## Error 5
+
+### Error
+
+```text
+Host key verification failed
+```
+
+### Cause
+
+SSH host key mismatch.
+
+### Solution
+
+Remove the old key:
+
+```bash
+ssh-keygen -R server-ip
+```
+
+Reconnect to accept the new host key.
+
+---
+
+## Error 6
+
+### Error
+
+```text
+Permission denied (publickey)
+```
+
+### Cause
+
+SSH key authentication failed.
+
+### Solution
+
+- Generate an SSH key using `ssh-keygen`.
+- Copy the public key to the remote server using `ssh-copy-id`.
+
+---
+
+# ✅ Best Practices
+
+- Use **archive mode (`-a`)** for most synchronization tasks.
+- Perform a **dry run (`--dry-run`)** before synchronizing important data.
+- Use **SSH** for secure remote transfers.
+- Exclude unnecessary files such as logs and cache files.
+- Verify synchronization using `diff`.
+- Use `--progress` for large file transfers.
+- Schedule recurring backups with **Cron**.
+- Keep backups before using `--delete`.
+- Test synchronization in a non-production environment first.
+- Monitor disk space before large backup operations.
+
+---
+
+# 🧹 Cleanup Commands
+
+Remove the practice environment when finished.
+
+```bash
+rm -rf ~/rsync-demo
+```
+
+Remove the Cron Job (if created).
+
+```bash
+crontab -e
+```
+
+Delete the `rsync` entry, save the file, and exit.
+
+---
+
+# 📌 Practice Checklist
+
+- [ ] Synchronize one directory
+- [ ] Copy a single file
+- [ ] Preserve permissions
+- [ ] Perform a dry run
+- [ ] Exclude files
+- [ ] Synchronize hidden files
+- [ ] Mirror directories
+- [ ] Display transfer progress
+- [ ] Synchronize over SSH
+- [ ] Verify synchronization
+- [ ] Automate using Cron
+- [ ] Clean up the practice environment
+
+> **Interview Tip:** `rsync` is one of the most frequently used tools in Linux Administration, DevOps, and Cloud environments. Be comfortable with options such as **`-a`**, **`-v`**, **`-z`**, **`--progress`**, **`--delete`**, **`--exclude`**, and **`--dry-run`**, as these are commonly discussed in technical interviews.
+
+---
