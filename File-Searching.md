@@ -1439,3 +1439,585 @@ In this section, you learned how to:
 These advanced commands are used daily by **Linux Administrators, DevOps Engineers, Cloud Engineers, Security Engineers, and System Administrators** for troubleshooting, automation, auditing, and server maintenance.
 
 ---
+
+# 📂 Part 10.3 – Practice Exercises
+
+This section contains hands-on exercises to help you practice the **`find`** and **`grep`** commands. These exercises are designed for beginners as well as aspiring **Linux Administrators, DevOps Engineers, AWS Engineers, Cloud Engineers, Technical Support Engineers, and System Administrators**.
+
+> **Note for WSL Users:** Most exercises work without any changes. Some log file examples differ because WSL does not always generate the same system logs as a full Linux installation.
+
+---
+
+# 🎯 Practice Exercise 1 – Find a File by Name
+
+## ✅ Objective
+
+Create a file and search for it.
+
+### Steps
+
+```bash
+mkdir -p ~/search-practice
+cd ~/search-practice
+
+touch notes.txt
+
+find . -name "notes.txt"
+```
+
+### Expected Output
+
+```text
+./notes.txt
+```
+
+---
+
+# 🎯 Practice Exercise 2 – Find a Directory
+
+## ✅ Objective
+
+Create and locate a directory.
+
+### Steps
+
+```bash
+mkdir project
+
+find . -type d -name "project"
+```
+
+### Expected Output
+
+```text
+./project
+```
+
+---
+
+# 🎯 Practice Exercise 3 – Find Files by Extension
+
+## ✅ Objective
+
+Find all shell script files.
+
+### Steps
+
+```bash
+touch backup.sh
+
+touch deploy.sh
+
+find . -name "*.sh"
+```
+
+### Expected Output
+
+```text
+./backup.sh
+./deploy.sh
+```
+
+---
+
+# 🎯 Practice Exercise 4 – Find Empty Files
+
+## ✅ Objective
+
+Locate empty files.
+
+### Steps
+
+```bash
+touch empty.txt
+
+find . -type f -empty
+```
+
+### Expected Output
+
+```text
+./empty.txt
+```
+
+---
+
+# 🎯 Practice Exercise 5 – Find Empty Directories
+
+## ✅ Objective
+
+Locate empty directories.
+
+### Steps
+
+```bash
+mkdir empty-folder
+
+find . -type d -empty
+```
+
+### Expected Output
+
+```text
+./empty-folder
+```
+
+---
+
+# 🎯 Practice Exercise 6 – Search Text Using `grep`
+
+## ✅ Objective
+
+Search for a word inside a file.
+
+### Steps
+
+```bash
+echo "Linux Administration" > notes.txt
+echo "AWS DevOps" >> notes.txt
+
+grep "Linux" notes.txt
+```
+
+### Expected Output
+
+```text
+Linux Administration
+```
+
+---
+
+# 🎯 Practice Exercise 7 – Recursive Search
+
+## ✅ Objective
+
+Search inside all files recursively.
+
+### Steps
+
+```bash
+mkdir logs
+
+echo "ERROR: Database failed" > logs/app.log
+
+grep -r "ERROR" .
+```
+
+### Expected Output
+
+```text
+./logs/app.log:ERROR: Database failed
+```
+
+---
+
+# 🎯 Practice Exercise 8 – Case-Insensitive Search
+
+## ✅ Objective
+
+Search regardless of uppercase or lowercase letters.
+
+### Steps
+
+```bash
+echo "Linux" > os.txt
+echo "linux" >> os.txt
+echo "LINUX" >> os.txt
+
+grep -i "linux" os.txt
+```
+
+### Expected Output
+
+```text
+Linux
+linux
+LINUX
+```
+
+---
+
+# 🎯 Practice Exercise 9 – Count Matching Lines
+
+## ✅ Objective
+
+Count occurrences of a word.
+
+### Steps
+
+```bash
+echo "ERROR" > app.log
+echo "ERROR" >> app.log
+echo "INFO" >> app.log
+
+grep -c "ERROR" app.log
+```
+
+### Expected Output
+
+```text
+2
+```
+
+---
+
+# 🎯 Practice Exercise 10 – Show Line Numbers
+
+## ✅ Objective
+
+Display matching lines with their line numbers.
+
+### Steps
+
+```bash
+grep -n "Linux" notes.txt
+```
+
+### Expected Output
+
+```text
+1:Linux Administration
+```
+
+---
+
+# 🎯 Practice Exercise 11 – Find Large Files
+
+## ✅ Objective
+
+Locate files larger than a specific size.
+
+### Steps
+
+```bash
+find . -type f -size +1M
+```
+
+### Expected Output
+
+Displays files larger than **1 MB**.
+
+---
+
+# 🎯 Practice Exercise 12 – Find Recently Modified Files
+
+## ✅ Objective
+
+Find files modified within the last day.
+
+### Steps
+
+```bash
+find . -type f -mtime -1
+```
+
+### Expected Output
+
+Displays files modified during the last **24 hours**.
+
+---
+
+# 🐧 WSL-Friendly Exercises
+
+The following exercises work perfectly in WSL:
+
+- Find a file by name.
+- Find directories.
+- Search by extension.
+- Search file contents using `grep`.
+- Recursive search using `grep -r`.
+- Count matching lines using `grep -c`.
+- Case-insensitive search using `grep -i`.
+- Show line numbers using `grep -n`.
+- Find recently modified files.
+- Find large files.
+
+> **Tip:** Practice inside your home directory (`~/search-practice`) instead of Windows-mounted directories (`/mnt/c`) for better performance.
+
+---
+
+# 🐧 Ubuntu Server Exercises
+
+Practice the following commands on an Ubuntu Server:
+
+```bash
+find /etc -name "*.conf"
+
+find /var/log -name "*.log"
+
+grep "Port" /etc/ssh/sshd_config
+
+grep -r "ERROR" /var/log
+```
+
+### Learning Objectives
+
+- Locate configuration files.
+- Search system logs.
+- Explore SSH configuration.
+- Practice recursive log searching.
+
+---
+
+# 🐧 CentOS Equivalents
+
+The same commands work on CentOS.
+
+Examples:
+
+Find configuration files:
+
+```bash
+find /etc -name "*.conf"
+```
+
+Search SSH configuration:
+
+```bash
+grep "Port" /etc/ssh/sshd_config
+```
+
+Search authentication logs:
+
+```bash
+grep "Failed" /var/log/secure
+```
+
+Search all log files:
+
+```bash
+grep -r "ERROR" /var/log
+```
+
+> **Note:** CentOS stores authentication logs in **`/var/log/secure`**, whereas Ubuntu uses **`/var/log/auth.log`**.
+
+---
+
+# 📸 Screenshot Guide
+
+Capture screenshots of the following commands for your GitHub repository:
+
+```bash
+find . -name "notes.txt"
+```
+
+```bash
+find . -type d -name "project"
+```
+
+```bash
+find . -name "*.sh"
+```
+
+```bash
+find . -type f -empty
+```
+
+```bash
+find . -type d -empty
+```
+
+```bash
+find . -type f -size +1M
+```
+
+```bash
+find . -type f -mtime -1
+```
+
+```bash
+grep "Linux" notes.txt
+```
+
+```bash
+grep -r "ERROR" .
+```
+
+```bash
+grep -i "linux" os.txt
+```
+
+```bash
+grep -n "Linux" notes.txt
+```
+
+```bash
+grep -c "ERROR" app.log
+```
+
+---
+
+# ❗ Common Errors & Troubleshooting
+
+## 1. No such file or directory
+
+### Error
+
+```text
+find: ‘notes.txt’: No such file or directory
+```
+
+### Cause
+
+The specified file or directory does not exist.
+
+### Solution
+
+Verify the path using:
+
+```bash
+ls
+pwd
+```
+
+---
+
+## 2. Permission Denied
+
+### Error
+
+```text
+find: '/root': Permission denied
+```
+
+### Cause
+
+You do not have permission to access the directory.
+
+### Solution
+
+Use:
+
+```bash
+sudo find /root
+```
+
+---
+
+## 3. No Output from `find`
+
+### Cause
+
+No files match the search criteria.
+
+### Solution
+
+Check the filename, extension, or search path.
+
+Example:
+
+```bash
+find . -name "*.txt"
+```
+
+---
+
+## 4. No Matches Found with `grep`
+
+### Cause
+
+The specified text does not exist in the file.
+
+### Solution
+
+Verify file contents:
+
+```bash
+cat filename
+```
+
+---
+
+## 5. Binary File Matches
+
+### Cause
+
+`grep` detected binary content.
+
+### Solution
+
+Search only text files or use:
+
+```bash
+grep -a "text" filename
+```
+
+---
+
+## 6. Slow Search Performance
+
+### Cause
+
+Searching very large directories.
+
+### Solution
+
+Limit the search path.
+
+Example:
+
+```bash
+find ~/Documents -name "*.txt"
+```
+
+Instead of:
+
+```bash
+find /
+```
+
+---
+
+# ✅ Best Practices
+
+- Search specific directories instead of the entire filesystem whenever possible.
+- Use meaningful filenames for easier searching.
+- Verify search results before deleting files.
+- Use `find -exec` carefully.
+- Test commands before combining them with `-delete`.
+- Use `grep -i` when text case is uncertain.
+- Use `grep -n` for easier debugging.
+- Use `grep -r` for recursive searches in source code or logs.
+- Avoid running `find /` unnecessarily on production servers.
+- Practice inside a dedicated directory before working on system files.
+
+---
+
+# 🧹 Cleanup Commands
+
+Remove all practice files and directories after completing the exercises.
+
+```bash
+cd ~
+
+rm -f ~/search-practice/notes.txt
+rm -f ~/search-practice/backup.sh
+rm -f ~/search-practice/deploy.sh
+rm -f ~/search-practice/empty.txt
+rm -f ~/search-practice/os.txt
+rm -f ~/search-practice/app.log
+
+rm -rf ~/search-practice/logs
+rm -rf ~/search-practice/project
+rm -rf ~/search-practice/empty-folder
+
+rm -rf ~/search-practice
+```
+
+---
+
+# 🎯 Summary
+
+After completing these exercises, you should be able to:
+
+- Search for files and directories using `find`.
+- Search text within files using `grep`.
+- Perform recursive searches.
+- Find files based on size, type, and modification time.
+- Count and filter search results.
+- Troubleshoot common search-related errors.
+- Use `find` and `grep` confidently in Ubuntu, CentOS, and WSL.
+
+These practical exercises build the foundational skills required for **Linux Administration, DevOps, Cloud Computing, AWS, Technical Support, and System Administration**.
+
+---
