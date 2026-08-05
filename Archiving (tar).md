@@ -1386,3 +1386,590 @@ These commands are frequently used for:
 - Disaster Recovery
 
 ---
+
+# 📂 Part 11.3 – Practice Exercises
+
+This section contains hands-on exercises to help you practice the **`tar` command**. These exercises are suitable for **GitHub portfolios**, **Linux Administration**, **DevOps**, **AWS**, **Cloud Computing**, and **System Administration** interviews.
+
+---
+
+# 🎯 Practice Exercises
+
+## Exercise 1 – Create a Sample Project
+
+### Objective
+
+Create a directory structure for practicing archive commands.
+
+### Command
+
+```bash
+mkdir -p ~/tar-practice/project/docs
+cd ~/tar-practice/project
+
+echo "Linux Notes" > notes.txt
+echo "DevOps Guide" > devops.txt
+echo "Shell Script" > script.sh
+echo "README File" > docs/README.md
+```
+
+### Expected Result
+
+```
+project/
+├── notes.txt
+├── devops.txt
+├── script.sh
+└── docs/
+    └── README.md
+```
+
+---
+
+## Exercise 2 – Create a TAR Archive
+
+### Objective
+
+Create a standard TAR archive.
+
+### Command
+
+```bash
+cd ~/tar-practice
+
+tar -cvf project.tar project/
+```
+
+---
+
+## Exercise 3 – View Archive Contents
+
+### Objective
+
+Display the contents of the archive without extracting it.
+
+### Command
+
+```bash
+tar -tvf project.tar
+```
+
+---
+
+## Exercise 4 – Extract an Archive
+
+### Objective
+
+Extract all files from the archive.
+
+### Command
+
+```bash
+mkdir extracted
+
+tar -xvf project.tar -C extracted/
+```
+
+---
+
+## Exercise 5 – Create a Gzip Archive
+
+### Objective
+
+Compress the project using gzip.
+
+### Command
+
+```bash
+tar -czvf project.tar.gz project/
+```
+
+---
+
+## Exercise 6 – Create a Bzip2 Archive
+
+### Objective
+
+Compress the project using bzip2.
+
+### Command
+
+```bash
+tar -cjvf project.tar.bz2 project/
+```
+
+---
+
+## Exercise 7 – Create an XZ Archive
+
+### Objective
+
+Compress the project using xz.
+
+### Command
+
+```bash
+tar -cJvf project.tar.xz project/
+```
+
+---
+
+## Exercise 8 – Exclude Files
+
+### Objective
+
+Exclude log files while creating an archive.
+
+### Command
+
+```bash
+touch project/error.log
+
+tar --exclude="*.log" -cvf backup.tar project/
+```
+
+---
+
+## Exercise 9 – Extract a Single File
+
+### Objective
+
+Extract only one file from an archive.
+
+### Command
+
+```bash
+tar -xvf project.tar project/notes.txt
+```
+
+---
+
+## Exercise 10 – Append Files to an Archive
+
+### Objective
+
+Add a new file to an existing archive.
+
+### Command
+
+```bash
+echo "New File" > new.txt
+
+tar -rvf project.tar new.txt
+```
+
+---
+
+## Exercise 11 – Update an Archive
+
+### Objective
+
+Update only modified files.
+
+### Command
+
+```bash
+echo "Updated Content" >> project/notes.txt
+
+tar -uvf project.tar project/notes.txt
+```
+
+---
+
+## Exercise 12 – Verify Archive Contents
+
+### Objective
+
+Check whether the archive is readable.
+
+### Command
+
+```bash
+tar -Wvf project.tar
+```
+
+---
+
+# 🐧 WSL-Friendly Exercises
+
+The following exercises work perfectly in **WSL Ubuntu**.
+
+- Create TAR archives
+- Extract TAR archives
+- Create `.tar.gz` backups
+- Create `.tar.bz2` backups
+- Create `.tar.xz` backups
+- List archive contents
+- Extract a single file
+- Append files to archives
+- Update archives
+- Exclude log files
+
+> **Note:** WSL fully supports the `tar` command.
+
+---
+
+# 🖥 Ubuntu Server Exercises
+
+Practice the following on an Ubuntu Server.
+
+### Backup Home Directory
+
+```bash
+tar -czvf home-backup.tar.gz /home/$USER
+```
+
+---
+
+### Backup Configuration Files
+
+```bash
+sudo tar -czvf etc-backup.tar.gz /etc
+```
+
+---
+
+### Backup Website Files
+
+```bash
+sudo tar -czvf website.tar.gz /var/www/html
+```
+
+---
+
+### Backup Logs
+
+```bash
+sudo tar -czvf logs.tar.gz /var/log
+```
+
+---
+
+### Verify Backup
+
+```bash
+tar -tvf logs.tar.gz
+```
+
+---
+
+# 🖥 CentOS / RHEL Equivalents
+
+The same commands work on CentOS, RHEL, and Amazon Linux.
+
+Examples:
+
+```bash
+tar -cvf backup.tar folder/
+```
+
+```bash
+tar -czvf backup.tar.gz folder/
+```
+
+```bash
+tar -xvf backup.tar
+```
+
+```bash
+tar -tvf backup.tar
+```
+
+No syntax changes are required.
+
+---
+
+# 📸 Screenshot Guide
+
+Capture screenshots for the following commands to include in your GitHub repository.
+
+### Create Archive
+
+```bash
+tar -cvf project.tar project/
+```
+
+---
+
+### List Archive
+
+```bash
+tar -tvf project.tar
+```
+
+---
+
+### Extract Archive
+
+```bash
+tar -xvf project.tar
+```
+
+---
+
+### Create Gzip Archive
+
+```bash
+tar -czvf project.tar.gz project/
+```
+
+---
+
+### Create Bzip2 Archive
+
+```bash
+tar -cjvf project.tar.bz2 project/
+```
+
+---
+
+### Create XZ Archive
+
+```bash
+tar -cJvf project.tar.xz project/
+```
+
+---
+
+### Exclude Files
+
+```bash
+tar --exclude="*.log" -cvf backup.tar project/
+```
+
+---
+
+### Append Files
+
+```bash
+tar -rvf project.tar new.txt
+```
+
+---
+
+### Update Archive
+
+```bash
+tar -uvf project.tar project/notes.txt
+```
+
+---
+
+### Verify Archive
+
+```bash
+tar -Wvf project.tar
+```
+
+---
+
+# ❌ Common Errors & Troubleshooting
+
+## Error 1
+
+```text
+tar: backup.tar: Cannot open: No such file or directory
+```
+
+### Reason
+
+Archive file does not exist.
+
+### Solution
+
+Verify the filename.
+
+```bash
+ls
+```
+
+---
+
+## Error 2
+
+```text
+tar: project: Cannot stat
+```
+
+### Reason
+
+Directory does not exist.
+
+### Solution
+
+Verify the directory name.
+
+```bash
+ls
+```
+
+---
+
+## Error 3
+
+```text
+Permission denied
+```
+
+### Reason
+
+Insufficient permissions.
+
+### Solution
+
+Use:
+
+```bash
+sudo tar -cvf backup.tar /etc
+```
+
+---
+
+## Error 4
+
+```text
+Unexpected EOF
+```
+
+### Reason
+
+Archive is corrupted.
+
+### Solution
+
+Recreate the archive.
+
+---
+
+## Error 5
+
+```text
+Cannot write
+```
+
+### Reason
+
+Disk is full.
+
+### Solution
+
+Check available storage.
+
+```bash
+df -h
+```
+
+---
+
+## Error 6
+
+```text
+File changed as we read it
+```
+
+### Reason
+
+The file was modified while the archive was being created.
+
+### Solution
+
+Stop applications modifying the file or create the backup during maintenance windows.
+
+---
+
+# ✅ Best Practices
+
+- Use compressed archives (`.tar.gz`) to save storage.
+- Verify archives using `tar -tvf` before restoring.
+- Store backups on a separate disk or remote server.
+- Exclude temporary and log files when appropriate.
+- Use meaningful archive names with dates.
+
+Example:
+
+```bash
+project-backup-2026-08-05.tar.gz
+```
+
+- Test archive restoration regularly.
+- Automate backups using Cron Jobs.
+- Keep multiple backup versions.
+- Protect important backups with proper permissions.
+- Monitor available disk space before creating large archives.
+
+---
+
+# 🧹 Cleanup Commands
+
+Remove practice archives:
+
+```bash
+rm -f *.tar
+rm -f *.tar.gz
+rm -f *.tar.bz2
+rm -f *.tar.xz
+```
+
+---
+
+Remove extracted directory:
+
+```bash
+rm -rf extracted
+```
+
+---
+
+Remove practice directory:
+
+```bash
+rm -rf ~/tar-practice
+```
+
+---
+
+# 📌 Practice Checklist
+
+- ✅ Create a TAR archive
+- ✅ Create a Gzip archive
+- ✅ Create a Bzip2 archive
+- ✅ Create an XZ archive
+- ✅ View archive contents
+- ✅ Extract an archive
+- ✅ Extract a single file
+- ✅ Append files to an archive
+- ✅ Update an archive
+- ✅ Exclude files from an archive
+- ✅ Verify archive integrity
+- ✅ Clean up practice files
+
+---
+
+# 💡 Pro Tip
+
+For Linux Administration and DevOps interviews, you should be comfortable with these commands:
+
+```bash
+tar -cvf backup.tar folder/
+tar -czvf backup.tar.gz folder/
+tar -xvf backup.tar
+tar -xzvf backup.tar.gz
+tar -tvf backup.tar
+tar --exclude="*.log" -czvf backup.tar.gz folder/
+tar -rvf backup.tar file.txt
+tar -uvf backup.tar file.txt
+tar -Wvf backup.tar
+```
+
+These commands are commonly used for:
+
+- Linux Server Backups
+- AWS EC2 Backups
+- Docker Volume Backups
+- Website Migration
+- Configuration Backups
+- CI/CD Pipelines
+- Disaster Recovery
+- Log Archiving
+
+---
