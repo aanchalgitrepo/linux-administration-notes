@@ -1973,3 +1973,346 @@ These commands are commonly used for:
 - Log Archiving
 
 ---
+
+# 📂 Part 11.4A – Interview Questions (1–15)
+
+This section covers **basic interview questions** on the **`tar` command**. These questions are commonly asked in **Linux Administration**, **DevOps**, **AWS**, **Cloud Computing**, **Technical Support**, and **System Administration** interviews.
+
+Each question includes:
+
+- ✅ Interview Question
+- ✅ Professional Answer
+- ✅ Example (where applicable)
+
+---
+
+# Question 1 – What is Archiving?
+
+## ✅ Professional Answer
+
+**Archiving** is the process of combining multiple files and directories into a **single archive file** for easier storage, backup, and transfer.
+
+Archiving preserves the original directory structure and metadata but **does not reduce the file size** unless compression is also used.
+
+### ✅ Example
+
+```bash
+tar -cvf project.tar project/
+```
+
+---
+
+# Question 2 – What is Compression?
+
+## ✅ Professional Answer
+
+**Compression** is the process of reducing the size of a file or archive to save storage space and improve transfer speed.
+
+Compression is commonly performed using tools such as:
+
+- gzip
+- bzip2
+- xz
+
+### ✅ Example
+
+```bash
+tar -czvf backup.tar.gz project/
+```
+
+---
+
+# Question 3 – What is the `tar` Command?
+
+## ✅ Professional Answer
+
+The **`tar` (Tape Archive)** command is a Linux utility used to:
+
+- Create archives
+- Extract archives
+- List archive contents
+- Append files
+- Update archives
+- Work with compressed archives
+
+It is one of the most commonly used commands for Linux backups.
+
+### ✅ Example
+
+```bash
+tar -cvf backup.tar project/
+```
+
+---
+
+# Question 4 – What is the Full Form of TAR?
+
+## ✅ Professional Answer
+
+**TAR** stands for **Tape Archive**.
+
+It was originally developed to store files on magnetic tape devices used for system backups.
+
+Today, it is widely used for creating archive files on Linux systems.
+
+---
+
+# Question 5 – What is the Difference Between Archiving and Compression?
+
+## ✅ Professional Answer
+
+| Archiving | Compression |
+|------------|-------------|
+| Combines multiple files into one archive | Reduces file size |
+| Uses `tar` | Uses `gzip`, `bzip2`, or `xz` |
+| Preserves directory structure | Saves storage space |
+| Does not reduce size by itself | Produces smaller files |
+
+### ✅ Example
+
+```text
+project.tar
+```
+
+Archive only.
+
+```text
+project.tar.gz
+```
+
+Archive + Compression.
+
+---
+
+# Question 6 – What Does the `-c` Option Do in `tar`?
+
+## ✅ Professional Answer
+
+The `-c` option tells `tar` to **create a new archive**.
+
+### ✅ Example
+
+```bash
+tar -cvf backup.tar project/
+```
+
+---
+
+# Question 7 – What Does the `-x` Option Do?
+
+## ✅ Professional Answer
+
+The `-x` option extracts files from an existing archive.
+
+### ✅ Example
+
+```bash
+tar -xvf backup.tar
+```
+
+---
+
+# Question 8 – What Does the `-t` Option Do?
+
+## ✅ Professional Answer
+
+The `-t` option displays the contents of an archive without extracting it.
+
+It is useful for verifying backups.
+
+### ✅ Example
+
+```bash
+tar -tvf backup.tar
+```
+
+---
+
+# Question 9 – What Does the `-v` Option Mean?
+
+## ✅ Professional Answer
+
+`-v` stands for **Verbose**.
+
+It displays every file processed while creating, extracting, or listing an archive.
+
+### ✅ Example
+
+```bash
+tar -cvf backup.tar project/
+```
+
+Sample output:
+
+```text
+project/
+project/file1.txt
+project/file2.txt
+```
+
+---
+
+# Question 10 – What Does the `-f` Option Mean?
+
+## ✅ Professional Answer
+
+The `-f` option specifies the archive filename.
+
+Without `-f`, `tar` does not know which archive file to create or extract.
+
+### ✅ Example
+
+```bash
+tar -cvf backup.tar project/
+```
+
+Here:
+
+`backup.tar` is the archive filename.
+
+---
+
+# Question 11 – What is the Difference Between `.tar` and `.tar.gz`?
+
+## ✅ Professional Answer
+
+| `.tar` | `.tar.gz` |
+|----------|------------|
+| Archive only | Archive + gzip compression |
+| Larger file size | Smaller file size |
+| Faster creation | Takes slightly longer due to compression |
+
+### ✅ Example
+
+```bash
+tar -cvf backup.tar project/
+```
+
+```bash
+tar -czvf backup.tar.gz project/
+```
+
+---
+
+# Question 12 – How Do You View the Contents of a TAR Archive?
+
+## ✅ Professional Answer
+
+Use the following command:
+
+```bash
+tar -tvf archive.tar
+```
+
+This lists all files inside the archive without extracting them.
+
+### ✅ Example
+
+```bash
+tar -tvf backup.tar
+```
+
+---
+
+# Question 13 – How Do You Extract a TAR Archive?
+
+## ✅ Professional Answer
+
+Use the `-x` option.
+
+### ✅ Example
+
+```bash
+tar -xvf backup.tar
+```
+
+This extracts all files into the current directory.
+
+---
+
+# Question 14 – What Are Compressed TAR Archives?
+
+## ✅ Professional Answer
+
+Compressed TAR archives combine **archiving** with **compression**.
+
+Common formats include:
+
+| Format | Compression Tool |
+|----------|------------------|
+| `.tar.gz` | gzip |
+| `.tar.bz2` | bzip2 |
+| `.tar.xz` | xz |
+
+These formats reduce storage space and are widely used for backups.
+
+### ✅ Example
+
+```bash
+tar -czvf backup.tar.gz project/
+```
+
+---
+
+# Question 15 – What Are the Real-World Uses of the `tar` Command?
+
+## ✅ Professional Answer
+
+The `tar` command is widely used in production Linux environments.
+
+Common use cases include:
+
+- Server backups
+- Website backups
+- Database backups
+- Configuration backups
+- Log archiving
+- Software packaging
+- Docker volume backups
+- AWS EC2 backups
+- CI/CD build artifacts
+- File migration between Linux servers
+
+### ✅ Example
+
+```bash
+tar -czvf website-backup.tar.gz /var/www/html
+```
+
+This creates a compressed backup of a website before deployment or maintenance.
+
+---
+
+# 🎯 Interview Tips
+
+- Understand the difference between **archiving** and **compression**.
+- Memorize the most commonly used `tar` options:
+  - `-c` → Create
+  - `-x` → Extract
+  - `-t` → List
+  - `-v` → Verbose
+  - `-f` → Archive file
+  - `-z` → gzip
+  - `-j` → bzip2
+  - `-J` → xz
+- Know how to create, list, and extract archives.
+- Be familiar with compressed archive formats such as `.tar.gz`, `.tar.bz2`, and `.tar.xz`.
+- Practice creating and restoring backups using `tar`.
+
+---
+
+# 📌 Quick Revision
+
+| Command | Purpose |
+|----------|---------|
+| `tar -cvf backup.tar folder/` | Create archive |
+| `tar -xvf backup.tar` | Extract archive |
+| `tar -tvf backup.tar` | List archive contents |
+| `tar -czvf backup.tar.gz folder/` | Create gzip archive |
+| `tar -xzvf backup.tar.gz` | Extract gzip archive |
+| `tar -cjvf backup.tar.bz2 folder/` | Create bzip2 archive |
+| `tar -xjvf backup.tar.bz2` | Extract bzip2 archive |
+| `tar -cJvf backup.tar.xz folder/` | Create xz archive |
+| `tar -xJvf backup.tar.xz` | Extract xz archive |
+
+---
