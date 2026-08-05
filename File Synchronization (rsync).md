@@ -1949,3 +1949,378 @@ Delete the `rsync` entry, save the file, and exit.
 > **Interview Tip:** `rsync` is one of the most frequently used tools in Linux Administration, DevOps, and Cloud environments. Be comfortable with options such as **`-a`**, **`-v`**, **`-z`**, **`--progress`**, **`--delete`**, **`--exclude`**, and **`--dry-run`**, as these are commonly discussed in technical interviews.
 
 ---
+
+# 🎤 Part 12.4A – Interview Questions (1–15)
+
+This section covers **basic interview questions** on **File Synchronization (`rsync`)**. These questions are commonly asked in **Linux Administration**, **DevOps**, **AWS**, **Cloud Computing**, **Technical Support**, and **System Administration** interviews.
+
+Each question includes:
+
+- ✅ Interview Question
+- ✅ Professional Answer
+- ✅ Example (where applicable)
+
+---
+
+# Question 1 – What is File Synchronization?
+
+## ✅ Professional Answer
+
+**File Synchronization** is the process of keeping two or more files or directories **identical** by copying only new or modified data from the source to the destination.
+
+Unlike a normal copy operation, synchronization transfers only the differences between the source and destination, making it faster and more efficient.
+
+### ✅ Example
+
+```text
+Source
+│
+├── notes.txt
+├── report.pdf
+└── script.sh
+
+        │
+        ▼
+
+Destination
+│
+├── notes.txt
+├── report.pdf
+└── script.sh
+```
+
+---
+
+# Question 2 – What is `rsync`?
+
+## ✅ Professional Answer
+
+`rsync` (**Remote Sync**) is a Linux command-line utility used to efficiently synchronize files and directories between:
+
+- Local directories
+- Local and remote systems
+- Two remote servers
+
+It transfers only changed data, making it much faster than copying all files again.
+
+### ✅ Example
+
+```bash
+rsync -av source/ destination/
+```
+
+---
+
+# Question 3 – Why Use `rsync` Instead of `cp`?
+
+## ✅ Professional Answer
+
+`cp` copies all files every time, whereas `rsync` transfers only new or modified files.
+
+Advantages of `rsync`:
+
+- Faster synchronization
+- Lower bandwidth usage
+- Preserves permissions and timestamps
+- Supports remote synchronization over SSH
+- Suitable for backups and deployments
+
+### ✅ Example
+
+```bash
+cp -r project/ backup/
+```
+
+Copies every file.
+
+```bash
+rsync -av project/ backup/
+```
+
+Copies only changed files.
+
+---
+
+# Question 4 – What Does the `-a` Option Mean?
+
+## ✅ Professional Answer
+
+The `-a` option stands for **Archive Mode**.
+
+It preserves:
+
+- File permissions
+- Ownership
+- Group ownership
+- Timestamps
+- Symbolic links
+- Recursive directory structure
+
+It is the most commonly used option with `rsync`.
+
+### ✅ Example
+
+```bash
+rsync -a source/ destination/
+```
+
+---
+
+# Question 5 – What Does the `-v` Option Mean?
+
+## ✅ Professional Answer
+
+`-v` stands for **Verbose Mode**.
+
+It displays detailed information about the synchronization process, including the names of transferred files.
+
+### ✅ Example
+
+```bash
+rsync -av source/ destination/
+```
+
+Sample output:
+
+```text
+notes.txt
+script.sh
+```
+
+---
+
+# Question 6 – What Does the `-z` Option Mean?
+
+## ✅ Professional Answer
+
+The `-z` option compresses data during transfer.
+
+It is especially useful when synchronizing files over a network because it reduces bandwidth usage.
+
+### ✅ Example
+
+```bash
+rsync -avz source/ user@server:/backup/
+```
+
+---
+
+# Question 7 – What is Dry Run?
+
+## ✅ Professional Answer
+
+A **Dry Run** simulates the synchronization process without actually copying or deleting any files.
+
+It allows you to verify what changes will occur before running the actual command.
+
+### ✅ Example
+
+```bash
+rsync -av --dry-run source/ destination/
+```
+
+---
+
+# Question 8 – What is `--delete`?
+
+## ✅ Professional Answer
+
+The `--delete` option removes files from the destination that no longer exist in the source.
+
+This keeps the destination directory exactly the same as the source.
+
+### ✅ Example
+
+```bash
+rsync -av --delete source/ destination/
+```
+
+---
+
+# Question 9 – How Does `rsync` Preserve Permissions?
+
+## ✅ Professional Answer
+
+`rsync` preserves permissions by using **Archive Mode (`-a`)**.
+
+This mode copies:
+
+- File permissions
+- Ownership
+- Group ownership
+- Timestamps
+- Symbolic links
+
+### ✅ Example
+
+```bash
+rsync -a source/ destination/
+```
+
+---
+
+# Question 10 – How Does `rsync` Work?
+
+## ✅ Professional Answer
+
+`rsync` follows these steps:
+
+1. Compares source and destination.
+2. Detects new or modified files.
+3. Transfers only the changed data.
+4. Updates the destination directory.
+
+This incremental approach reduces transfer time and network usage.
+
+### ✅ Example
+
+```text
+Source
+     │
+Compare
+     │
+Changed Files
+     │
+Transfer
+     │
+Destination Updated
+```
+
+---
+
+# Question 11 – What is Incremental Synchronization?
+
+## ✅ Professional Answer
+
+Incremental synchronization means transferring **only files or file blocks that have changed** since the previous synchronization.
+
+This makes `rsync` much faster than traditional copy commands.
+
+### ✅ Example
+
+If only `notes.txt` changes:
+
+```text
+Transferred:
+notes.txt
+```
+
+Other files remain unchanged.
+
+---
+
+# Question 12 – How Does `rsync` Compare Files?
+
+## ✅ Professional Answer
+
+`rsync` compares files using information such as:
+
+- File size
+- Modification time
+- Checksums (when required)
+
+If a file has not changed, it is skipped.
+
+### ✅ Example
+
+```bash
+rsync -av source/ destination/
+```
+
+Only modified files are transferred.
+
+---
+
+# Question 13 – What is SSH Synchronization?
+
+## ✅ Professional Answer
+
+SSH synchronization means using `rsync` over an encrypted **SSH (Secure Shell)** connection.
+
+Benefits:
+
+- Secure communication
+- Encrypted data transfer
+- Remote server management
+- Authentication using passwords or SSH keys
+
+### ✅ Example
+
+```bash
+rsync -avz project/ user@192.168.1.100:/backup/
+```
+
+---
+
+# Question 14 – What is Verbose Mode?
+
+## ✅ Professional Answer
+
+Verbose mode displays detailed information during synchronization.
+
+It helps administrators monitor file transfers and troubleshoot issues.
+
+### ✅ Example
+
+```bash
+rsync -av source/ destination/
+```
+
+Sample output:
+
+```text
+notes.txt
+report.pdf
+script.sh
+```
+
+---
+
+# Question 15 – What Are the Real-World Use Cases of `rsync`?
+
+## ✅ Professional Answer
+
+`rsync` is widely used in production Linux environments for:
+
+- Daily server backups
+- Website deployment
+- Configuration backups
+- Synchronizing project files
+- Docker volume backups
+- Disaster recovery
+- AWS EC2 backups
+- Log synchronization
+- Cloud server migration
+- CI/CD deployment pipelines
+
+### ✅ Example
+
+Create a backup of a website:
+
+```bash
+rsync -av --delete /var/www/html/ /backup/website/
+```
+
+Synchronize a project to a remote server:
+
+```bash
+rsync -avz project/ user@server:/home/user/project/
+```
+
+---
+
+# 💡 Interview Tips
+
+- Know the full form of **`rsync` (Remote Sync)**.
+- Understand why `rsync` is preferred over `cp` for backups and synchronization.
+- Remember the most commonly used options:
+  - `-a` → Archive mode
+  - `-v` → Verbose output
+  - `-z` → Compress data
+  - `--progress` → Show transfer progress
+  - `--delete` → Mirror source and destination
+  - `--dry-run` → Preview changes
+- Be able to explain **incremental synchronization** and how it improves performance.
+- Mention practical use cases such as **AWS EC2 backups, website deployments, disaster recovery, Docker volume synchronization, and CI/CD automation** to demonstrate real-world experience.
+
+---
