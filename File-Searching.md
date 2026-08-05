@@ -511,3 +511,508 @@ sudo updatedb
 - Mastering `find` and `grep` is essential for Linux Administration, DevOps, Cloud Computing, AWS, Technical Support, and System Administration.
 
 ---
+
+# 📂 Part 10.2A – Practical Examples (Examples 1–10)
+
+This section contains beginner-friendly practical examples of the **`find`** and **`grep`** commands. These examples are commonly used in **Linux Administration, DevOps, AWS, Cloud Computing, Technical Support, and System Administration**.
+
+> **Note for WSL Users:** All examples work in **Ubuntu, CentOS, and WSL** unless otherwise specified.
+
+---
+
+# Example 1 – Find File by Name
+
+## ✅ Practical Example
+
+Find a file named **notes.txt** in the current directory and all subdirectories.
+
+### ✅ Command
+
+```bash
+find . -name "notes.txt"
+```
+
+### ✅ Command Explanation
+
+- `find` → Searches for files and directories.
+- `.` → Search starts from the current directory.
+- `-name` → Search using an exact filename.
+- `"notes.txt"` → File to search.
+
+### ✅ Expected Output
+
+```text
+./documents/notes.txt
+```
+
+### ✅ Real-World Use Case
+
+Locate a configuration file, script, or document when you don't remember its exact location.
+
+### ✅ Screenshot Command
+
+```bash
+find . -name "notes.txt"
+```
+
+### ✅ Ubuntu
+
+Works by default.
+
+### ✅ CentOS
+
+Works by default.
+
+### ✅ WSL Note
+
+Works exactly like Ubuntu.
+
+---
+
+# Example 2 – Find Directory
+
+## ✅ Practical Example
+
+Find a directory named **project**.
+
+### ✅ Command
+
+```bash
+find . -type d -name "project"
+```
+
+### ✅ Command Explanation
+
+- `-type d` → Search directories only.
+- `-name` → Match directory name.
+
+### ✅ Expected Output
+
+```text
+./projects/project
+```
+
+### ✅ Real-World Use Case
+
+Locate project folders or application directories on large systems.
+
+### ✅ Screenshot Command
+
+```bash
+find . -type d -name "project"
+```
+
+### ✅ Ubuntu
+
+Supported.
+
+### ✅ CentOS
+
+Supported.
+
+### ✅ WSL Note
+
+Works without modification.
+
+---
+
+# Example 3 – Find Files by Extension
+
+## ✅ Practical Example
+
+Find all shell scripts.
+
+### ✅ Command
+
+```bash
+find . -name "*.sh"
+```
+
+### ✅ Command Explanation
+
+- `*.sh` matches every shell script.
+
+### ✅ Expected Output
+
+```text
+./backup.sh
+./scripts/install.sh
+```
+
+### ✅ Real-World Use Case
+
+Locate automation scripts before editing or executing them.
+
+### ✅ Screenshot Command
+
+```bash
+find . -name "*.sh"
+```
+
+### ✅ Ubuntu
+
+Supported.
+
+### ✅ CentOS
+
+Supported.
+
+### ✅ WSL Note
+
+Fully supported.
+
+---
+
+# Example 4 – Find Empty Files
+
+## ✅ Practical Example
+
+Find all empty files.
+
+### ✅ Command
+
+```bash
+find . -type f -empty
+```
+
+### ✅ Command Explanation
+
+- `-type f` → Files only.
+- `-empty` → Empty files.
+
+### ✅ Expected Output
+
+```text
+./empty.txt
+./logs/debug.log
+```
+
+### ✅ Real-World Use Case
+
+Remove unused files and clean storage.
+
+### ✅ Screenshot Command
+
+```bash
+find . -type f -empty
+```
+
+### ✅ Ubuntu
+
+Supported.
+
+### ✅ CentOS
+
+Supported.
+
+### ✅ WSL Note
+
+Works normally.
+
+---
+
+# Example 5 – Find Empty Directories
+
+## ✅ Practical Example
+
+Find empty directories.
+
+### ✅ Command
+
+```bash
+find . -type d -empty
+```
+
+### ✅ Command Explanation
+
+- `-type d` → Directories only.
+- `-empty` → Empty directories.
+
+### ✅ Expected Output
+
+```text
+./old_project
+./temp
+```
+
+### ✅ Real-World Use Case
+
+Identify unused folders before cleanup.
+
+### ✅ Screenshot Command
+
+```bash
+find . -type d -empty
+```
+
+### ✅ Ubuntu
+
+Supported.
+
+### ✅ CentOS
+
+Supported.
+
+### ✅ WSL Note
+
+Works the same as Ubuntu.
+
+---
+
+# Example 6 – Find Large Files
+
+## ✅ Practical Example
+
+Find files larger than **10 MB**.
+
+### ✅ Command
+
+```bash
+find . -type f -size +10M
+```
+
+### ✅ Command Explanation
+
+- `-size +10M` → Files larger than 10 MB.
+
+### ✅ Expected Output
+
+```text
+./videos/demo.mp4
+./backup/database.sql
+```
+
+### ✅ Real-World Use Case
+
+Locate large files consuming disk space.
+
+### ✅ Screenshot Command
+
+```bash
+find . -type f -size +10M
+```
+
+### ✅ Ubuntu
+
+Supported.
+
+### ✅ CentOS
+
+Supported.
+
+### ✅ WSL Note
+
+Works normally.
+
+---
+
+# Example 7 – Find Recently Modified Files
+
+## ✅ Practical Example
+
+Find files modified within the last 7 days.
+
+### ✅ Command
+
+```bash
+find . -type f -mtime -7
+```
+
+### ✅ Command Explanation
+
+- `-mtime -7` → Modified during the last 7 days.
+
+### ✅ Expected Output
+
+```text
+./report.txt
+./config.yml
+```
+
+### ✅ Real-World Use Case
+
+Locate recently edited configuration files or project files.
+
+### ✅ Screenshot Command
+
+```bash
+find . -type f -mtime -7
+```
+
+### ✅ Ubuntu
+
+Supported.
+
+### ✅ CentOS
+
+Supported.
+
+### ✅ WSL Note
+
+Works without changes.
+
+---
+
+# Example 8 – Search Text Using `grep`
+
+## ✅ Practical Example
+
+Search for the word **ERROR** inside a log file.
+
+### ✅ Command
+
+```bash
+grep "ERROR" app.log
+```
+
+### ✅ Command Explanation
+
+- `grep` → Searches text.
+- `"ERROR"` → Pattern to search.
+- `app.log` → File to search.
+
+### ✅ Expected Output
+
+```text
+ERROR: Database connection failed
+ERROR: Permission denied
+```
+
+### ✅ Real-World Use Case
+
+Quickly locate application errors inside log files.
+
+### ✅ Screenshot Command
+
+```bash
+grep "ERROR" app.log
+```
+
+### ✅ Ubuntu
+
+Installed by default.
+
+### ✅ CentOS
+
+Installed by default.
+
+### ✅ WSL Note
+
+Works exactly like Ubuntu.
+
+---
+
+# Example 9 – Recursive Search Using `grep -r`
+
+## ✅ Practical Example
+
+Search for the word **password** in all files under the current directory.
+
+### ✅ Command
+
+```bash
+grep -r "password" .
+```
+
+### ✅ Command Explanation
+
+- `-r` → Recursive search.
+- `.` → Current directory.
+
+### ✅ Expected Output
+
+```text
+./config.yml:password=admin123
+./settings.conf:password=root
+```
+
+### ✅ Real-World Use Case
+
+Search configuration files or source code for specific values.
+
+### ✅ Screenshot Command
+
+```bash
+grep -r "password" .
+```
+
+### ✅ Ubuntu
+
+Supported.
+
+### ✅ CentOS
+
+Supported.
+
+### ✅ WSL Note
+
+Works normally.
+
+---
+
+# Example 10 – Case-Insensitive Search
+
+## ✅ Practical Example
+
+Search for the word **linux** regardless of uppercase or lowercase letters.
+
+### ✅ Command
+
+```bash
+grep -i "linux" notes.txt
+```
+
+### ✅ Command Explanation
+
+- `-i` → Ignore letter case.
+- Searches **Linux**, **LINUX**, **linux**, or **LiNuX**.
+
+### ✅ Expected Output
+
+```text
+Linux Administration
+linux kernel
+LINUX Commands
+```
+
+### ✅ Real-World Use Case
+
+Useful when searching logs or documents where text casing is inconsistent.
+
+### ✅ Screenshot Command
+
+```bash
+grep -i "linux" notes.txt
+```
+
+### ✅ Ubuntu
+
+Supported.
+
+### ✅ CentOS
+
+Supported.
+
+### ✅ WSL Note
+
+Works exactly like Ubuntu.
+
+---
+
+# 📌 Summary
+
+In this section, you learned how to:
+
+- Search files by name.
+- Find directories.
+- Search by file extension.
+- Locate empty files and directories.
+- Find large files.
+- Find recently modified files.
+- Search text using `grep`.
+- Search recursively with `grep -r`.
+- Perform case-insensitive searches using `grep -i`.
+
+These commands are used daily by Linux Administrators, DevOps Engineers, Cloud Engineers, and System Administrators for troubleshooting, automation, and server management.
+
+---
