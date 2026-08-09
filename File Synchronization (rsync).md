@@ -1237,9 +1237,11 @@ Configuration backups before deployment.
 ### ✅ Screenshot Command
 
 ```bash
-rsync -av --backup --backup-dir=~/rsync-demo/backup \
-~/rsync-demo/source/ \
-~/rsync-demo/destination/
+rsync -av \
+  --backup \
+  --backup-dir="$HOME/rsync-demo/backup" \
+  "$HOME/rsync-demo/source/" \
+  "$HOME/rsync-demo/destination/"
 ```
 
 ---
@@ -1676,93 +1678,6 @@ rsync -avz source/ user@server:/backup/
 rsync -av --delete source/ destination/
 
 rsync -av --progress source/ destination/
-```
-
-No syntax changes are required.
-
----
-
-# 📸 Screenshot Guide
-
-Capture screenshots for the following commands to include in your GitHub repository.
-
-## Setup
-
-```bash
-mkdir -p ~/rsync-demo/source
-mkdir -p ~/rsync-demo/destination
-```
-
----
-
-## Synchronize Directory
-
-```bash
-rsync -av ~/rsync-demo/source/ ~/rsync-demo/destination/
-```
-
----
-
-## Copy Single File
-
-```bash
-rsync -av ~/rsync-demo/source/notes.txt ~/rsync-demo/destination/
-```
-
----
-
-## Dry Run
-
-```bash
-rsync -av --dry-run ~/rsync-demo/source/ ~/rsync-demo/destination/
-```
-
----
-
-## Exclude Files
-
-```bash
-rsync -av --exclude="*.log" ~/rsync-demo/source/ ~/rsync-demo/destination/
-```
-
----
-
-## Show Progress
-
-```bash
-rsync -av --progress ~/rsync-demo/source/ ~/rsync-demo/destination/
-```
-
----
-
-## Mirror Source
-
-```bash
-rsync -av --delete ~/rsync-demo/source/ ~/rsync-demo/destination/
-```
-
----
-
-## Synchronize Over SSH
-
-```bash
-rsync -avz ~/rsync-demo/source/ user@server:/backup/
-```
-
----
-
-## Verify Synchronization
-
-```bash
-diff -r ~/rsync-demo/source ~/rsync-demo/destination
-```
-
----
-
-## View Cron Job
-
-```bash
-crontab -l
 ```
 
 ---
