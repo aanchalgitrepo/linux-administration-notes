@@ -1191,11 +1191,31 @@ Store modified files in a backup directory before replacing them.
 ### ✅ Command
 
 ```bash
-mkdir ~/rsync-demo/backup
+rsync -av \
+  --backup \
+  --backup-dir="$HOME/rsync-demo/backup" \
+  "$HOME/rsync-demo/source/" \
+  "$HOME/rsync-demo/destination/"
+```
 
-rsync -av --backup --backup-dir=~/rsync-demo/backup \
-~/rsync-demo/source/ \
-~/rsync-demo/destination/
+### Result verify
+
+Source:
+
+```bash
+cat "$HOME/rsync-demo/source/app.txt"
+```
+
+Destination:
+
+```bash
+cat "$HOME/rsync-demo/destination/app.txt"
+```
+
+Backup:
+
+```bash
+cat "$HOME/rsync-demo/backup/app.txt"
 ```
 
 ### ✅ Command Explanation
